@@ -1,0 +1,354 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EF3514AC1DC8E7C100388149 /* EMSLibrary.h in Headers */ = {isa = PBXBuildFile; fileRef = EF3514AA1DC8E7C100388149 /* EMSLibrary.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		EF3514BE1DC8E82900388149 /* ConfigService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3514B21DC8E82800388149 /* ConfigService.swift */; };
+		EF3514BF1DC8E82900388149 /* ConfigData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3514B31DC8E82800388149 /* ConfigData.swift */; };
+		EF3514C01DC8E82900388149 /* CheckNetwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3514B41DC8E82800388149 /* CheckNetwork.swift */; };
+		EF3514C11DC8E82900388149 /* EnvironmentData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3514B51DC8E82800388149 /* EnvironmentData.swift */; };
+		EF3514C21DC8E82900388149 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3514B61DC8E82800388149 /* Constants.swift */; };
+		EF3514C31DC8E82900388149 /* EnvironmentDataPrefs.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3514B71DC8E82800388149 /* EnvironmentDataPrefs.swift */; };
+		EF3514C41DC8E82900388149 /* EMSPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3514B81DC8E82800388149 /* EMSPush.swift */; };
+		EF3514C51DC8E82900388149 /* PostGetData.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3514B91DC8E82900388149 /* PostGetData.swift */; };
+		EF3514C61DC8E82900388149 /* GetEMSEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3514BA1DC8E82900388149 /* GetEMSEnvironment.swift */; };
+		EF3514C71DC8E82900388149 /* PostDeviceRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3514BB1DC8E82900388149 /* PostDeviceRegistration.swift */; };
+		EF3514C81DC8E82900388149 /* PostOpenEMS.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3514BC1DC8E82900388149 /* PostOpenEMS.swift */; };
+		EF3514C91DC8E82900388149 /* MessageBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3514BD1DC8E82900388149 /* MessageBody.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		EF3514A71DC8E7C100388149 /* EMSLibrary.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EMSLibrary.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		EF3514AA1DC8E7C100388149 /* EMSLibrary.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = EMSLibrary.h; path = EMSLibrary/EMSLibrary.h; sourceTree = "<group>"; };
+		EF3514AB1DC8E7C100388149 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = EMSLibrary/Info.plist; sourceTree = "<group>"; };
+		EF3514B21DC8E82800388149 /* ConfigService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigService.swift; path = EMSLibrary/ConfigService.swift; sourceTree = "<group>"; };
+		EF3514B31DC8E82800388149 /* ConfigData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ConfigData.swift; path = EMSLibrary/ConfigData.swift; sourceTree = "<group>"; };
+		EF3514B41DC8E82800388149 /* CheckNetwork.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CheckNetwork.swift; path = EMSLibrary/CheckNetwork.swift; sourceTree = "<group>"; };
+		EF3514B51DC8E82800388149 /* EnvironmentData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnvironmentData.swift; path = EMSLibrary/EnvironmentData.swift; sourceTree = "<group>"; };
+		EF3514B61DC8E82800388149 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Constants.swift; path = EMSLibrary/Constants.swift; sourceTree = "<group>"; };
+		EF3514B71DC8E82800388149 /* EnvironmentDataPrefs.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EnvironmentDataPrefs.swift; path = EMSLibrary/EnvironmentDataPrefs.swift; sourceTree = "<group>"; };
+		EF3514B81DC8E82800388149 /* EMSPush.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = EMSPush.swift; path = EMSLibrary/EMSPush.swift; sourceTree = "<group>"; };
+		EF3514B91DC8E82900388149 /* PostGetData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostGetData.swift; path = EMSLibrary/PostGetData.swift; sourceTree = "<group>"; };
+		EF3514BA1DC8E82900388149 /* GetEMSEnvironment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GetEMSEnvironment.swift; path = EMSLibrary/GetEMSEnvironment.swift; sourceTree = "<group>"; };
+		EF3514BB1DC8E82900388149 /* PostDeviceRegistration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostDeviceRegistration.swift; path = EMSLibrary/PostDeviceRegistration.swift; sourceTree = "<group>"; };
+		EF3514BC1DC8E82900388149 /* PostOpenEMS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostOpenEMS.swift; path = EMSLibrary/PostOpenEMS.swift; sourceTree = "<group>"; };
+		EF3514BD1DC8E82900388149 /* MessageBody.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MessageBody.swift; path = EMSLibrary/MessageBody.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		EF3514A31DC8E7C100388149 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		EF35149D1DC8E7C100388149 = {
+			isa = PBXGroup;
+			children = (
+				EF3514B21DC8E82800388149 /* ConfigService.swift */,
+				EF3514B31DC8E82800388149 /* ConfigData.swift */,
+				EF3514B41DC8E82800388149 /* CheckNetwork.swift */,
+				EF3514B51DC8E82800388149 /* EnvironmentData.swift */,
+				EF3514B61DC8E82800388149 /* Constants.swift */,
+				EF3514B71DC8E82800388149 /* EnvironmentDataPrefs.swift */,
+				EF3514B81DC8E82800388149 /* EMSPush.swift */,
+				EF3514B91DC8E82900388149 /* PostGetData.swift */,
+				EF3514BA1DC8E82900388149 /* GetEMSEnvironment.swift */,
+				EF3514BB1DC8E82900388149 /* PostDeviceRegistration.swift */,
+				EF3514BC1DC8E82900388149 /* PostOpenEMS.swift */,
+				EF3514BD1DC8E82900388149 /* MessageBody.swift */,
+				EF3514AA1DC8E7C100388149 /* EMSLibrary.h */,
+				EF3514AB1DC8E7C100388149 /* Info.plist */,
+				EF3514A81DC8E7C100388149 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		EF3514A81DC8E7C100388149 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				EF3514A71DC8E7C100388149 /* EMSLibrary.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		EF3514A41DC8E7C100388149 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF3514AC1DC8E7C100388149 /* EMSLibrary.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		EF3514A61DC8E7C100388149 /* EMSLibrary */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = EF3514AF1DC8E7C100388149 /* Build configuration list for PBXNativeTarget "EMSLibrary" */;
+			buildPhases = (
+				EF3514A21DC8E7C100388149 /* Sources */,
+				EF3514A31DC8E7C100388149 /* Frameworks */,
+				EF3514A41DC8E7C100388149 /* Headers */,
+				EF3514A51DC8E7C100388149 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = EMSLibrary;
+			productName = EMSLibrary;
+			productReference = EF3514A71DC8E7C100388149 /* EMSLibrary.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		EF35149E1DC8E7C100388149 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0800;
+				ORGANIZATIONNAME = com.experian;
+				TargetAttributes = {
+					EF3514A61DC8E7C100388149 = {
+						CreatedOnToolsVersion = 8.0;
+						DevelopmentTeam = 92ZW54NZ5P;
+						LastSwiftMigration = 0800;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = EF3514A11DC8E7C100388149 /* Build configuration list for PBXProject "EMSLibrary" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = EF35149D1DC8E7C100388149;
+			productRefGroup = EF3514A81DC8E7C100388149 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				EF3514A61DC8E7C100388149 /* EMSLibrary */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		EF3514A51DC8E7C100388149 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		EF3514A21DC8E7C100388149 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EF3514C21DC8E82900388149 /* Constants.swift in Sources */,
+				EF3514C41DC8E82900388149 /* EMSPush.swift in Sources */,
+				EF3514C81DC8E82900388149 /* PostOpenEMS.swift in Sources */,
+				EF3514C91DC8E82900388149 /* MessageBody.swift in Sources */,
+				EF3514C61DC8E82900388149 /* GetEMSEnvironment.swift in Sources */,
+				EF3514C01DC8E82900388149 /* CheckNetwork.swift in Sources */,
+				EF3514BE1DC8E82900388149 /* ConfigService.swift in Sources */,
+				EF3514C51DC8E82900388149 /* PostGetData.swift in Sources */,
+				EF3514C71DC8E82900388149 /* PostDeviceRegistration.swift in Sources */,
+				EF3514BF1DC8E82900388149 /* ConfigData.swift in Sources */,
+				EF3514C31DC8E82900388149 /* EnvironmentDataPrefs.swift in Sources */,
+				EF3514C11DC8E82900388149 /* EnvironmentData.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		EF3514AD1DC8E7C100388149 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		EF3514AE1DC8E7C100388149 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVES = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		EF3514B01DC8E7C100388149 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 92ZW54NZ5P;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = EMSLibrary/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.experian.EMSLibrary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 2.3;
+			};
+			name = Debug;
+		};
+		EF3514B11DC8E7C100388149 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				APPLICATION_EXTENSION_API_ONLY = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = 92ZW54NZ5P;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = EMSLibrary/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.experian.EMSLibrary;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 2.3;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		EF3514A11DC8E7C100388149 /* Build configuration list for PBXProject "EMSLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF3514AD1DC8E7C100388149 /* Debug */,
+				EF3514AE1DC8E7C100388149 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EF3514AF1DC8E7C100388149 /* Build configuration list for PBXNativeTarget "EMSLibrary" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				EF3514B01DC8E7C100388149 /* Debug */,
+				EF3514B11DC8E7C100388149 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = EF35149E1DC8E7C100388149 /* Project object */;
+}
