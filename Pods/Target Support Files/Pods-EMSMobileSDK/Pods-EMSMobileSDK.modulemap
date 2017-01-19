@@ -1,0 +1,6 @@
+framework module Pods_EMSMobileSDK {
+  umbrella header "Pods-EMSMobileSDK-umbrella.h"
+
+  export *
+  module * { export * }
+}
