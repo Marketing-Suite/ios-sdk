@@ -26,10 +26,10 @@ public class EMSMobileSDK
     
     // fields
     var backgroundSession: Alamofire.SessionManager
-    var customerID: String = ""
-    var applicationID: String = ""
-    var region: EMSRegions = EMSRegions.NorthAmericaSB
-    var prid: String = ""
+    public var customerID: String = ""
+    public var applicationID: String = ""
+    public var region: EMSRegions = EMSRegions.NorthAmericaSB
+    public dynamic var prid: String = ""
     
     // Constructor/Destructor
     init() {
@@ -50,12 +50,11 @@ public class EMSMobileSDK
     // Public Functions
     public func RegisterDeviceToken(deviceToken: Data) throws -> Void {
         var tokenString: String = ""
-        var errorCode : EMSCommsError? = nil
 
         tokenString = hexEncodedString(data: deviceToken)
         print("Received Token: " + tokenString)
-        var endpoint : String = ""
-        var urlString : String = "http://\(self.region.rawValue)/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(tokenString)"
+
+        let urlString : String = "http://\(self.region.rawValue)/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(tokenString)"
         try
             SendEMSMessage(url: urlString, method: .post, completionHandler: { response in
                     if let status = response.response?.statusCode {

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Bucket
+   type = "0"
+   version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EMSMobileSDKTests/EMSMobileSDKTests.swift"
+            timestampString = "506567672.046026"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "42"
+            endingLineNumber = "42"
+            landmarkName = "testSendEMSMessageGET()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "EMSMobileSDKTests.EMSMobileSDKTests.(testSendEMSMessageGET () -&gt; ()).(closure #1)"
+                  moduleName = "EMSMobileSDKTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/paulballard/Documents/EMSMobileSDK/EMSMobileSDKTests/EMSMobileSDKTests.swift"
+                  timestampString = "506567878.168771"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "214">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "EMSMobileSDKTests.EMSMobileSDKTests.(testSendEMSMessageGET () -&gt; ()).(closure #1).(implicit closure #1)"
+                  moduleName = "EMSMobileSDKTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/paulballard/Documents/EMSMobileSDK/EMSMobileSDKTests/EMSMobileSDKTests.swift"
+                  timestampString = "506567878.17035"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "16">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "EMSMobileSDKTests.EMSMobileSDKTests.(testSendEMSMessageGET () -&gt; ()).(closure #1).(implicit closure #2)"
+                  moduleName = "EMSMobileSDKTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/paulballard/Documents/EMSMobileSDK/EMSMobileSDKTests/EMSMobileSDKTests.swift"
+                  timestampString = "506567878.1726"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "8">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "EMSMobileSDKTests.EMSMobileSDKTests.(testSendEMSMessageGET () -&gt; ()).(closure #1).(implicit closure #3)"
+                  moduleName = "EMSMobileSDKTests"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/paulballard/Documents/EMSMobileSDK/EMSMobileSDKTests/EMSMobileSDKTests.swift"
+                  timestampString = "506567878.174036"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "42"
+                  endingLineNumber = "42"
+                  offsetFromSymbolStart = "4">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
+</Bucket>

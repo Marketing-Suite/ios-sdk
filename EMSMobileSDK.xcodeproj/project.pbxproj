@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		164E0A2627BB0A2A77B23EB6 /* Pods_EMSMobileSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3CB45D93D0BCDF1166AF458C /* Pods_EMSMobileSDK.framework */; };
+		7E7860BF1E31882800D97F1E /* EMSCommsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7860BE1E31882800D97F1E /* EMSCommsError.swift */; };
+		7E7860C11E31883300D97F1E /* EMSRegions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7860C01E31883300D97F1E /* EMSRegions.swift */; };
 		7E8776D21E285CA50044AC73 /* EMSMobileSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8776D11E285CA50044AC73 /* EMSMobileSDK.swift */; };
 		7EB217481E28452400D7AFBC /* EMSMobileSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EB2173E1E28452400D7AFBC /* EMSMobileSDK.framework */; };
 		7EB2174D1E28452400D7AFBC /* EMSMobileSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB2174C1E28452400D7AFBC /* EMSMobileSDKTests.swift */; };
@@ -28,6 +30,8 @@
 /* Begin PBXFileReference section */
 		37CF944ADF0FCDB05FFC2991 /* Pods_EMSMobileSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EMSMobileSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3CB45D93D0BCDF1166AF458C /* Pods_EMSMobileSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EMSMobileSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E7860BE1E31882800D97F1E /* EMSCommsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSCommsError.swift; sourceTree = "<group>"; };
+		7E7860C01E31883300D97F1E /* EMSRegions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSRegions.swift; sourceTree = "<group>"; };
 		7E8776D11E285CA50044AC73 /* EMSMobileSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSMobileSDK.swift; sourceTree = "<group>"; };
 		7EB2173E1E28452400D7AFBC /* EMSMobileSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EMSMobileSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EB217411E28452400D7AFBC /* EMSMobileSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EMSMobileSDK.h; sourceTree = "<group>"; };
@@ -85,6 +89,8 @@
 		7EB217401E28452400D7AFBC /* EMSMobileSDK */ = {
 			isa = PBXGroup;
 			children = (
+				7E7860C01E31883300D97F1E /* EMSRegions.swift */,
+				7E7860BE1E31882800D97F1E /* EMSCommsError.swift */,
 				7EB217411E28452400D7AFBC /* EMSMobileSDK.h */,
 				7EB217421E28452400D7AFBC /* Info.plist */,
 				7E8776D11E285CA50044AC73 /* EMSMobileSDK.swift */,
@@ -317,6 +323,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7E7860BF1E31882800D97F1E /* EMSCommsError.swift in Sources */,
+				7E7860C11E31883300D97F1E /* EMSRegions.swift in Sources */,
 				7E8776D21E285CA50044AC73 /* EMSMobileSDK.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

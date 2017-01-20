@@ -13,7 +13,6 @@ class EMSMobileSDKTests: XCTestCase {
     
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
     }
     
     override func tearDown() {
@@ -21,16 +20,34 @@ class EMSMobileSDKTests: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testInit()
+    {
+        let sdk = EMSMobileSDK()
+        XCTAssertNotNil(sdk.backgroundSession)
     }
+    
+    
+    
+    func testHexEncoding() {
+        let result = EMSMobileSDK.default.hexEncodedString(data: "ABCDEFG".data(using: .ascii)!)
+        XCTAssertEqual(result, "41424344454647")
+    }
+    
+//    func testSendEMSMessageGET() {
+//        let expect = expectation(description: "SendEMSMessage")
+//        
+//        try? EMSMobileSDK.default.SendEMSMessage(url: "https://httpbin.org/get", method: .get, body: nil, completionHandler:
+//            { response in
+//                XCTAssertEqual(response.response?.statusCode, 201, "Status code not 201")
+//                expect.fulfill()
+//        })
+//        waitForExpectations(timeout: 5.0, handler: nil)
+//    }
     
     func testPerformanceExample() {
         // This is an example of a performance test case.
-        self.measure {
+        //self.measure {
             // Put the code you want to measure the time of here.
         }
     }
-    
-}
+
