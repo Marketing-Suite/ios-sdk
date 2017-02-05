@@ -150,7 +150,7 @@
 				7EB2173A1E28452400D7AFBC /* Frameworks */,
 				7EB2173B1E28452400D7AFBC /* Headers */,
 				7EB2173C1E28452400D7AFBC /* Resources */,
-				F50DFA9BA33995FFC080C126 /* [CP] Copy Pods Resources */,
+				BB2B4094E81E74354D4D993D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -286,6 +286,21 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EMSMobileSDKTests/Pods-EMSMobileSDKTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		BB2B4094E81E74354D4D993D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EMSMobileSDK/Pods-EMSMobileSDK-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		ECE8901706490AE75469961F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -299,21 +314,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EMSMobileSDKTests/Pods-EMSMobileSDKTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F50DFA9BA33995FFC080C126 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EMSMobileSDK/Pods-EMSMobileSDK-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */

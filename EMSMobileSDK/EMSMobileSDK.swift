@@ -10,14 +10,6 @@ import Foundation
 import Alamofire
 
 // Internal Extensions
-extension String: ParameterEncoding {
-    public func encode(_ urlRequest: URLRequestConvertible, with parameters: Parameters?) throws -> URLRequest {
-        var request = try urlRequest.asURLRequest()
-        request.httpBody = data(using: .utf8, allowLossyConversion: false)
-        return request
-    }
-}
-
 public protocol EMSMobileSDKWatcherDelegate: class {
     func sdkMessage(sender: EMSMobileSDK, message: String)
 }
@@ -80,9 +72,9 @@ public class EMSMobileSDK
         
         if (tokenString != self.deviceTokenHex)
         {
-            let urlString : String = "http://\(self.region.rawValue)/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(tokenString)"
+            let urlString : String = "http://\(self.region.rawValue)/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
             try
-                SendEMSMessage(url: urlString, method: .post, completionHandler: { response in
+                SendEMSMessage(url: urlString, method: .post, body: ["DeviceToken": tokenString], completionHandler: { response in
                     if let status = response.response?.statusCode {
                         switch(status){
                         case 201:
@@ -116,7 +108,7 @@ public class EMSMobileSDK
         {
             let urlString : String = "http://\(self.region.rawValue)/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(self.deviceTokenHex)"
             try
-                SendEMSMessage(url: urlString, method: .delete, completionHandler: { response in
+                SendEMSMessage(url: urlString, method: .delete, body: nil, completionHandler: { response in
                     if let status = response.response?.statusCode {
                         switch(status){
                         case 201:
@@ -149,59 +141,38 @@ public class EMSMobileSDK
         self.region = region
         if (options != nil)
         {
-            if let userInfo = options?[UIApplicationLaunchOptionsKey.remoteNotification] as! NSDictionary?
+            if let userInfo = options?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable: Any]
             {
                 //Woken up by Push Notification - Notify CCMP
                 Log("Awoken by Remote Notification")
-                RemoteNotificationReceived(userInfo: userInfo)
+                try? RemoteNotificationReceived(userInfo: userInfo)
             }
         }
         Log("Initialized with CustomerID: \(self.customerID), AppID: \(self.applicationID), Region: \(self.region.rawValue)")
     }
-
-    //Temporary - Remove this
-    public func DisplayMessage(message: String)
-    {
-        let alertController = UIAlertController(title: "Data", message: message, preferredStyle: UIAlertControllerStyle.alert)
-        
-        let okAction = UIAlertAction(title: "OK", style: UIAlertActionStyle.default)
-        {
-            (result : UIAlertAction) -> Void in
-            print("You pressed OK")
-        }
-        alertController.addAction(okAction)
-        UIApplication.shared.keyWindow?.rootViewController?.present(alertController, animated: true, completion: nil)
-    }
     
-    public func RemoteNotificationReceived(userInfo: NSDictionary)
+    public func RemoteNotificationReceived(userInfo: [AnyHashable: Any]) throws
     {
         if (userInfo != nil)
         {
-            DisplayMessage(message: String(describing: userInfo))
-            if let content = userInfo["content"] as? NSDictionary
+            self.Log("Raw Data Received: " + String(describing: userInfo))
+            if let open_url = userInfo["ems_open"] as? String
             {
-                if let open_url = content["open_url"] as? String
-                {
-                    try? SendEMSMessage(url: open_url, completionHandler: { response in
-                        self.Log("Content URL Sent")})
-                }
+                self.Log("Received EMS_OPEN: " + open_url)
+                try? SendEMSMessage(url: open_url, body: nil, completionHandler: { response in
+                    if (response.response?.statusCode == 200)
+                    {
+                        self.Log("Content URL Sent")
+                    }
+                })
             }
         }
     }
     
-    
-    func SendEMSMessage(url :String, method: HTTPMethod = .get, body: Any? = nil, completionHandler :@escaping (DataResponse<Any>) throws -> Void) throws {
+    func SendEMSMessage(url :String, method: HTTPMethod = .get, body: Parameters?, completionHandler :@escaping (DataResponse<Any>) throws -> Void) throws {
         Log("Calling URL: " + url)
-        var encoding : ParameterEncoding
-        if body != nil
-        {
-            encoding = body as! ParameterEncoding
-        }
-        else
-        {
-            encoding = JSONEncoding()
-        }
-        self.backgroundSession.request(url, method: method, encoding: encoding).validate().responseJSON {
+
+        self.backgroundSession.request(url, method: method, parameters: body, encoding: JSONEncoding.default, headers: nil).validate().responseJSON {
             response in
             print ("Received: " + String(describing: response.response?.statusCode))
             try? completionHandler(response)

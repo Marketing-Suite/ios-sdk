@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import Alamofire
 @testable import EMSMobileSDK
 
 class EMSMobileSDKTests: XCTestCase {
@@ -33,21 +34,24 @@ class EMSMobileSDKTests: XCTestCase {
         XCTAssertEqual(result, "41424344454647")
     }
     
-//    func testSendEMSMessageGET() {
-//        let expect = expectation(description: "SendEMSMessage")
-//        
-//        try? EMSMobileSDK.default.SendEMSMessage(url: "https://httpbin.org/get", method: .get, body: nil, completionHandler:
-//            { response in
-//                XCTAssertEqual(response.response?.statusCode, 201, "Status code not 201")
-//                expect.fulfill()
-//        })
-//        waitForExpectations(timeout: 5.0, handler: nil)
-//    }
-    
-    func testPerformanceExample() {
-        // This is an example of a performance test case.
-        //self.measure {
-            // Put the code you want to measure the time of here.
-        }
+    func testInitialization() {
+        let custID = 100
+        let appID = "33f84e87-36df-426f-9ee0-a5c0b0b5433c"
+        let region = EMSRegions.NorthAmerica
+        EMSMobileSDK.default.Initialize(customerID: custID, appID: appID, region: region, options: nil)
+        XCTAssertEqual(custID, EMSMobileSDK.default.customerID)
+        XCTAssertEqual(appID, EMSMobileSDK.default.applicationID)
+        XCTAssertNotNil(EMSMobileSDK.default.backgroundSession)
     }
+    
+    func testInitializationUserDefaults(){
+        let custID = 100
+        let appID = "33f84e87-36df-426f-9ee0-a5c0b0b5433c"
+        let region = EMSRegions.NorthAmerica
+        let storedToken = "fe5da804bb6167fa8a1fe44164828d5bfd853521ebc93f683de7bc4edf9a360d"
+        UserDefaults.standard.set(storedToken, forKey:"DeviceTokenHex")
+        EMSMobileSDK.default.Initialize(customerID: custID, appID: appID, region: region, options: nil)
+        XCTAssertTrue(storedToken == EMSMobileSDK.default.deviceTokenHex!)
+    } 
+}
 
