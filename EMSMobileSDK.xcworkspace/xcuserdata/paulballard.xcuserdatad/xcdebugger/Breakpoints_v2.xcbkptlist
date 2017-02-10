@@ -9,76 +9,62 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "EMSMobileSDKTests/EMSMobileSDKTests.swift"
-            timestampString = "506567672.046026"
+            filePath = "EMSMobileSDK/EMSMobileSDK.swift"
+            timestampString = "507945782.893626"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "42"
-            endingLineNumber = "42"
-            landmarkName = "testSendEMSMessageGET()"
+            startingLineNumber = "175"
+            endingLineNumber = "175"
+            landmarkName = "SendEMSMessage(url:method:body:completionHandler:)"
             landmarkType = "7">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "EMSMobileSDKTests.EMSMobileSDKTests.(testSendEMSMessageGET () -&gt; ()).(closure #1)"
-                  moduleName = "EMSMobileSDKTests"
+                  symbolName = "EMSMobileSDK.EMSMobileSDK.SendEMSMessage (url : Swift.String, method : Alamofire.HTTPMethod, body : Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;, completionHandler : (Alamofire.DataResponse&lt;Any&gt;) throws -&gt; ()) throws -&gt; ()"
+                  moduleName = "EMSMobileSDK"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/paulballard/Documents/EMSMobileSDK/EMSMobileSDKTests/EMSMobileSDKTests.swift"
-                  timestampString = "506567878.168771"
+                  urlString = "file:///Users/paulballard/Library/Mobile%20Documents/com~apple~CloudDocs/ios-sdk/EMSMobileSDK/EMSMobileSDK.swift"
+                  timestampString = "507947461.126426"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "42"
-                  endingLineNumber = "42"
-                  offsetFromSymbolStart = "214">
+                  startingLineNumber = "175"
+                  endingLineNumber = "175"
+                  offsetFromSymbolStart = "292">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "EMSMobileSDKTests.EMSMobileSDKTests.(testSendEMSMessageGET () -&gt; ()).(closure #1).(implicit closure #1)"
-                  moduleName = "EMSMobileSDKTests"
+                  symbolName = "EMSMobileSDK.EMSMobileSDK.(SendEMSMessage (url : Swift.String, method : Alamofire.HTTPMethod, body : Swift.Optional&lt;Swift.Dictionary&lt;Swift.String, Any&gt;&gt;, completionHandler : (Alamofire.DataResponse&lt;Any&gt;) throws -&gt; ()) throws -&gt; ()).(closure #1)"
+                  moduleName = "EMSMobileSDK"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/paulballard/Documents/EMSMobileSDK/EMSMobileSDKTests/EMSMobileSDKTests.swift"
-                  timestampString = "506567878.17035"
+                  urlString = "file:///Users/paulballard/Library/Mobile%20Documents/com~apple~CloudDocs/ios-sdk/EMSMobileSDK/EMSMobileSDK.swift"
+                  timestampString = "507947461.12794"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "42"
-                  endingLineNumber = "42"
-                  offsetFromSymbolStart = "16">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "EMSMobileSDKTests.EMSMobileSDKTests.(testSendEMSMessageGET () -&gt; ()).(closure #1).(implicit closure #2)"
-                  moduleName = "EMSMobileSDKTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/paulballard/Documents/EMSMobileSDK/EMSMobileSDKTests/EMSMobileSDKTests.swift"
-                  timestampString = "506567878.1726"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "42"
-                  endingLineNumber = "42"
-                  offsetFromSymbolStart = "8">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "EMSMobileSDKTests.EMSMobileSDKTests.(testSendEMSMessageGET () -&gt; ()).(closure #1).(implicit closure #3)"
-                  moduleName = "EMSMobileSDKTests"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/paulballard/Documents/EMSMobileSDK/EMSMobileSDKTests/EMSMobileSDKTests.swift"
-                  timestampString = "506567878.174036"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "42"
-                  endingLineNumber = "42"
-                  offsetFromSymbolStart = "4">
+                  startingLineNumber = "177"
+                  endingLineNumber = "177"
+                  offsetFromSymbolStart = "41">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "EMSMobileSDK/EMSMobileSDK.swift"
+            timestampString = "507945785.829258"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
+            landmarkName = "SendEMSMessage(url:method:body:completionHandler:)"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
