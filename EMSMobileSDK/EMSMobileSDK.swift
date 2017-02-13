@@ -10,11 +10,11 @@ import Foundation
 import Alamofire
 
 // Internal Extensions
-public protocol EMSMobileSDKWatcherDelegate: class {
+@objc public protocol EMSMobileSDKWatcherDelegate: class {
     func sdkMessage(sender: EMSMobileSDK, message: String)
 }
 
-public class EMSMobileSDK
+@objc public class EMSMobileSDK : NSObject
 {
     // Create Singleton Reference
     public static let `default` = EMSMobileSDK()
@@ -40,11 +40,12 @@ public class EMSMobileSDK
     }
     
     // Constructor/Destructor
-    init() {
+    override init() {
         //Configure SessgionManager
         let configuration = URLSessionConfiguration.background(withIdentifier: "com.experian.emsmobilesdk")
         self.backgroundSession = Alamofire.SessionManager(configuration: configuration)
-        Log("Background Configuration Set")
+        super.init()
+        self.Log("Background Configuration Set")
         
         //Retrieve Defaults
         self.prid = UserDefaults.standard.string(forKey: "PRID")
@@ -72,7 +73,7 @@ public class EMSMobileSDK
         
         if (tokenString != self.deviceTokenHex)
         {
-            let urlString : String = "http://\(self.region.rawValue)/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
+            let urlString : String = "http://\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
             try
                 SendEMSMessage(url: urlString, method: .post, body: ["DeviceToken": tokenString], completionHandler: { response in
                     if let status = response.response?.statusCode {
@@ -106,7 +107,7 @@ public class EMSMobileSDK
     public func UnSubscribe() throws -> Void {
         if (self.deviceTokenHex != nil)
         {
-            let urlString : String = "http://\(self.region.rawValue)/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(self.deviceTokenHex)"
+            let urlString : String = "http://\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(self.deviceTokenHex)"
             try
                 SendEMSMessage(url: urlString, method: .delete, body: nil, completionHandler: { response in
                     if let status = response.response?.statusCode {
