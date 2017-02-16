@@ -19,15 +19,13 @@ import Foundation
     public static func value(region: EMSRegions) -> String {
         switch (region) {
         case EMSRegions.NorthAmerica:
-            return "xts.eccmp.com"
+            return "https://xts.eccmp.com"
         case EMSRegions.NorthAmericaSB:
-            return "cs.sbox.eccmp.com"
+            return "http://cs.sbox.eccmp.com"
         case EMSRegions.EMEA:
-            return "xts.ccmp.com"
+            return "https://xts.ccmp.com"
         case EMSRegions.USStandard:
-            return "sandaws1.emssand.com"
-        default:
-            return "xts.eccmp.com"
+            return "http://sandaws1.emssand.com"
         }
     }
     

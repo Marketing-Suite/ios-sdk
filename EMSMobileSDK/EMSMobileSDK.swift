@@ -8,6 +8,7 @@
 
 import Foundation
 import Alamofire
+import UIKit
 
 // Internal Extensions
 @objc public protocol EMSMobileSDKWatcherDelegate: class {
@@ -34,7 +35,7 @@ import Alamofire
     private func Log(_ message: String)
     {
         //For Debugging
-        print (message)
+        print ("EMS: " + message)
         //For any UI Listeners
         self.watcherDelegate?.sdkMessage(sender: self, message: message)
     }
@@ -45,7 +46,6 @@ import Alamofire
         let configuration = URLSessionConfiguration.background(withIdentifier: "com.experian.emsmobilesdk")
         self.backgroundSession = Alamofire.SessionManager(configuration: configuration)
         super.init()
-        self.Log("Background Configuration Set")
         
         //Retrieve Defaults
         self.prid = UserDefaults.standard.string(forKey: "PRID")
@@ -56,7 +56,6 @@ import Alamofire
     
     deinit {
         Log("SDK DeInit")
-        //NotificationCenter.default.removeObserver(self)
     }
     
     func hexEncodedString(data: Data) -> String {
@@ -69,11 +68,11 @@ import Alamofire
         
         self.deviceToken = deviceToken
         tokenString = hexEncodedString(data: deviceToken)
-        Log("RegisterDeviceToken Received Token: " + tokenString)
+        Log("Subscribing Token: " + tokenString)
         
         if (tokenString != self.deviceTokenHex)
         {
-            let urlString : String = "http://\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
+            let urlString : String = "\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
             try
                 SendEMSMessage(url: urlString, method: .post, body: ["DeviceToken": tokenString], completionHandler: { response in
                     if let status = response.response?.statusCode {
@@ -113,7 +112,7 @@ import Alamofire
                     if let status = response.response?.statusCode {
                         switch(status){
                         case 201:
-                            if let result = response.result.value {
+                            if response.result.value != nil {
                                 self.Log("JSON Received: " + String(describing: response.result.value))
                                 self.prid = nil
                                 self.deviceTokenHex = nil
@@ -152,18 +151,18 @@ import Alamofire
         Log("Initialized with CustomerID: \(self.customerID), AppID: \(self.applicationID), Region: \(self.region.rawValue)")
     }
     
-    public func RemoteNotificationReceived(userInfo: [AnyHashable: Any]) throws
+    public func RemoteNotificationReceived(userInfo: [AnyHashable: Any]?) throws
     {
         if (userInfo != nil)
         {
-            self.Log("Raw Data Received: " + String(describing: userInfo))
-            if let open_url = userInfo["ems_open"] as? String
+            self.Log("Raw Push Data Received: " + String(describing: userInfo))
+            if let open_url = userInfo?["ems_open"] as? String
             {
                 self.Log("Received EMS_OPEN: " + open_url)
                 try? SendEMSMessage(url: open_url, body: nil, completionHandler: { response in
                     if (response.response?.statusCode == 200)
                     {
-                        self.Log("Content URL Sent")
+                        self.Log("Content URL Sent Successfully")
                     }
                 })
             }
