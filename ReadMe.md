@@ -16,6 +16,46 @@ CCMP enables marketers to target mobile devices running native applications for 
 
    ​
 
+## Installation
+
+### CocoaPods
+
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+To use the private podspec repo you must add it to your environment
+
+```bash
+pod repo add PrivateRepo http://bitbucket.eccmp.com/scm/~c17045a/podspecs.git
+```
+
+To integrate EMSMobileSDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+platform :ios, '9.0'
+
+source 'http://bitbucket.eccmp.com/scm/~c17045a/podspecs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
+target <YourApp> do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  pod 'EMSMobileSDK'
+end
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
+
+### 
+
 # Integrate the SDK with an App In XCode
 
 With the project open, you can add the SDK to the App by dragging the EMSMobileSDK.framework package into your application project.  This will add the framework to the Linked Framework and Libraries Build Settings and will add the library as an embedded binary.For an Objective-C based application, this will also create a bridging header file (EMSMobileSDK-swift.h) that will expose the Swift based libraries to your code.
