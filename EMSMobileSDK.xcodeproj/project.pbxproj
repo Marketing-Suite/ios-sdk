@@ -7,143 +7,93 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1C96D899155BB299EBAC0600 /* Pods_EMSMobileSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 461BC7926B90690C1E40EC54 /* Pods_EMSMobileSDK.framework */; };
-		2B6AA8F1F837EF2113C40DB0 /* Pods_EMSMobileSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 742C11BA48D9D01CD6BA000E /* Pods_EMSMobileSDKTests.framework */; };
-		7E5845251E56430400288182 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5845241E56430400288182 /* Alamofire.framework */; };
-		7E7860BF1E31882800D97F1E /* EMSCommsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7860BE1E31882800D97F1E /* EMSCommsError.swift */; };
-		7E7860C11E31883300D97F1E /* EMSRegions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7860C01E31883300D97F1E /* EMSRegions.swift */; };
-		7E8776D21E285CA50044AC73 /* EMSMobileSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8776D11E285CA50044AC73 /* EMSMobileSDK.swift */; };
-		7E880C911E5FFDA8007F4891 /* EMSCommsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7860BE1E31882800D97F1E /* EMSCommsError.swift */; };
-		7E880C921E5FFDA8007F4891 /* EMSRegions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E7860C01E31883300D97F1E /* EMSRegions.swift */; };
-		7E880C931E5FFDA8007F4891 /* EMSMobileSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E8776D11E285CA50044AC73 /* EMSMobileSDK.swift */; };
-		7E880C951E5FFDA8007F4891 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E5845241E56430400288182 /* Alamofire.framework */; };
-		7E880C961E5FFDA8007F4891 /* Pods_EMSMobileSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 461BC7926B90690C1E40EC54 /* Pods_EMSMobileSDK.framework */; };
-		7EB217481E28452400D7AFBC /* EMSMobileSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7EB2173E1E28452400D7AFBC /* EMSMobileSDK.framework */; };
-		7EB2174D1E28452400D7AFBC /* EMSMobileSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7EB2174C1E28452400D7AFBC /* EMSMobileSDKTests.swift */; };
+		7E22C20B1E64BA4900CA905E /* EMSMobileSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22C2071E64BA4900CA905E /* EMSMobileSDK.swift */; };
+		7E22C20C1E64BA4900CA905E /* EMSRegions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22C2081E64BA4900CA905E /* EMSRegions.swift */; };
+		7E22C20D1E64BA4900CA905E /* EMSCommsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22C2091E64BA4900CA905E /* EMSCommsError.swift */; };
+		7E22C20E1E64BA4900CA905E /* EMSRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22C20A1E64BA4900CA905E /* EMSRequestHandler.swift */; };
+		7E22C2101E64BA6100CA905E /* EMSMobileSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22C20F1E64BA6100CA905E /* EMSMobileSDKTests.swift */; };
+		7E4A78AD1E64B3E200CE6302 /* EMSMobileSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4A78A31E64B3E200CE6302 /* EMSMobileSDK.framework */; };
+		7E4A78B41E64B3E200CE6302 /* EMSMobileSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E4A78A61E64B3E200CE6302 /* EMSMobileSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		7EB217491E28452400D7AFBC /* PBXContainerItemProxy */ = {
+		7E4A78AE1E64B3E200CE6302 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 7EB217351E28452400D7AFBC /* Project object */;
+			containerPortal = 7E4A789A1E64B3E200CE6302 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 7EB2173D1E28452400D7AFBC;
+			remoteGlobalIDString = 7E4A78A21E64B3E200CE6302;
 			remoteInfo = EMSMobileSDK;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0009AA35A04E91112A522D3F /* Pods-EMSMobileSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSMobileSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-EMSMobileSDK/Pods-EMSMobileSDK.release.xcconfig"; sourceTree = "<group>"; };
-		0B828257C1F20A171A5C3A6D /* Pods-EMSMobileSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSMobileSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EMSMobileSDK/Pods-EMSMobileSDK.debug.xcconfig"; sourceTree = "<group>"; };
-		1DC3EDB363ECE2C7B4FA7B12 /* Pods-EMSMobileSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSMobileSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EMSMobileSDKTests/Pods-EMSMobileSDKTests.release.xcconfig"; sourceTree = "<group>"; };
-		461BC7926B90690C1E40EC54 /* Pods_EMSMobileSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EMSMobileSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		742C11BA48D9D01CD6BA000E /* Pods_EMSMobileSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EMSMobileSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E195A071E5130DE00288301 /* EMSMobileSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EMSMobileSDK.h; sourceTree = "<group>"; };
-		7E5845241E56430400288182 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = Carthage/Build/iOS/Alamofire.framework; sourceTree = "<group>"; };
-		7E7860BE1E31882800D97F1E /* EMSCommsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSCommsError.swift; sourceTree = "<group>"; };
-		7E7860C01E31883300D97F1E /* EMSRegions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSRegions.swift; sourceTree = "<group>"; };
-		7E8776D11E285CA50044AC73 /* EMSMobileSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSMobileSDK.swift; sourceTree = "<group>"; };
-		7E880C9D1E5FFDA8007F4891 /* EMSMobileSDKFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EMSMobileSDKFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7E880C9E1E5FFDA8007F4891 /* EMSMobileSDK copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "EMSMobileSDK copy-Info.plist"; path = "/Users/paulballard/Library/Mobile Documents/com~apple~CloudDocs/ios-sdk/EMSMobileSDK copy-Info.plist"; sourceTree = "<absolute>"; };
-		7EB2173E1E28452400D7AFBC /* EMSMobileSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EMSMobileSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		7EB217421E28452400D7AFBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		7EB217471E28452400D7AFBC /* EMSMobileSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EMSMobileSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7EB2174C1E28452400D7AFBC /* EMSMobileSDKTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EMSMobileSDKTests.swift; sourceTree = "<group>"; };
-		7EB2174E1E28452400D7AFBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		BAF24BE417D29121416562D2 /* Pods-EMSMobileSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSMobileSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EMSMobileSDKTests/Pods-EMSMobileSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
+		7E22C2071E64BA4900CA905E /* EMSMobileSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSMobileSDK.swift; sourceTree = "<group>"; };
+		7E22C2081E64BA4900CA905E /* EMSRegions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSRegions.swift; sourceTree = "<group>"; };
+		7E22C2091E64BA4900CA905E /* EMSCommsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSCommsError.swift; sourceTree = "<group>"; };
+		7E22C20A1E64BA4900CA905E /* EMSRequestHandler.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSRequestHandler.swift; sourceTree = "<group>"; };
+		7E22C20F1E64BA6100CA905E /* EMSMobileSDKTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSMobileSDKTests.swift; sourceTree = "<group>"; };
+		7E4A78A31E64B3E200CE6302 /* EMSMobileSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EMSMobileSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E4A78A61E64B3E200CE6302 /* EMSMobileSDK.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EMSMobileSDK.h; sourceTree = "<group>"; };
+		7E4A78A71E64B3E200CE6302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7E4A78AC1E64B3E200CE6302 /* EMSMobileSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EMSMobileSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E4A78B31E64B3E200CE6302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		7E880C941E5FFDA8007F4891 /* Frameworks */ = {
+		7E4A789F1E64B3E200CE6302 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E880C951E5FFDA8007F4891 /* Alamofire.framework in Frameworks */,
-				7E880C961E5FFDA8007F4891 /* Pods_EMSMobileSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7EB2173A1E28452400D7AFBC /* Frameworks */ = {
+		7E4A78A91E64B3E200CE6302 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E5845251E56430400288182 /* Alamofire.framework in Frameworks */,
-				1C96D899155BB299EBAC0600 /* Pods_EMSMobileSDK.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7EB217441E28452400D7AFBC /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7EB217481E28452400D7AFBC /* EMSMobileSDK.framework in Frameworks */,
-				2B6AA8F1F837EF2113C40DB0 /* Pods_EMSMobileSDKTests.framework in Frameworks */,
+				7E4A78AD1E64B3E200CE6302 /* EMSMobileSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		612C96A92B3BE18AB670DE2B /* Pods */ = {
+		7E4A78991E64B3E200CE6302 = {
 			isa = PBXGroup;
 			children = (
-				0B828257C1F20A171A5C3A6D /* Pods-EMSMobileSDK.debug.xcconfig */,
-				0009AA35A04E91112A522D3F /* Pods-EMSMobileSDK.release.xcconfig */,
-				BAF24BE417D29121416562D2 /* Pods-EMSMobileSDKTests.debug.xcconfig */,
-				1DC3EDB363ECE2C7B4FA7B12 /* Pods-EMSMobileSDKTests.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
-		7E5845231E56430400288182 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				7E5845241E56430400288182 /* Alamofire.framework */,
-				461BC7926B90690C1E40EC54 /* Pods_EMSMobileSDK.framework */,
-				742C11BA48D9D01CD6BA000E /* Pods_EMSMobileSDKTests.framework */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		7EB217341E28452400D7AFBC = {
-			isa = PBXGroup;
-			children = (
-				7EB217401E28452400D7AFBC /* EMSMobileSDK */,
-				7EB2174B1E28452400D7AFBC /* EMSMobileSDKTests */,
-				7EB2173F1E28452400D7AFBC /* Products */,
-				7E5845231E56430400288182 /* Frameworks */,
-				612C96A92B3BE18AB670DE2B /* Pods */,
-				7E880C9E1E5FFDA8007F4891 /* EMSMobileSDK copy-Info.plist */,
+				7E4A78A51E64B3E200CE6302 /* EMSMobileSDK */,
+				7E4A78B01E64B3E200CE6302 /* EMSMobileSDKTests */,
+				7E4A78A41E64B3E200CE6302 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
-		7EB2173F1E28452400D7AFBC /* Products */ = {
+		7E4A78A41E64B3E200CE6302 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				7EB2173E1E28452400D7AFBC /* EMSMobileSDK.framework */,
-				7EB217471E28452400D7AFBC /* EMSMobileSDKTests.xctest */,
-				7E880C9D1E5FFDA8007F4891 /* EMSMobileSDKFramework.framework */,
+				7E4A78A31E64B3E200CE6302 /* EMSMobileSDK.framework */,
+				7E4A78AC1E64B3E200CE6302 /* EMSMobileSDKTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		7EB217401E28452400D7AFBC /* EMSMobileSDK */ = {
+		7E4A78A51E64B3E200CE6302 /* EMSMobileSDK */ = {
 			isa = PBXGroup;
 			children = (
-				7E7860C01E31883300D97F1E /* EMSRegions.swift */,
-				7E7860BE1E31882800D97F1E /* EMSCommsError.swift */,
-				7EB217421E28452400D7AFBC /* Info.plist */,
-				7E8776D11E285CA50044AC73 /* EMSMobileSDK.swift */,
-				7E195A071E5130DE00288301 /* EMSMobileSDK.h */,
+				7E22C2071E64BA4900CA905E /* EMSMobileSDK.swift */,
+				7E22C2081E64BA4900CA905E /* EMSRegions.swift */,
+				7E22C2091E64BA4900CA905E /* EMSCommsError.swift */,
+				7E22C20A1E64BA4900CA905E /* EMSRequestHandler.swift */,
+				7E4A78A61E64B3E200CE6302 /* EMSMobileSDK.h */,
+				7E4A78A71E64B3E200CE6302 /* Info.plist */,
 			);
 			path = EMSMobileSDK;
 			sourceTree = "<group>";
 		};
-		7EB2174B1E28452400D7AFBC /* EMSMobileSDKTests */ = {
+		7E4A78B01E64B3E200CE6302 /* EMSMobileSDKTests */ = {
 			isa = PBXGroup;
 			children = (
-				7EB2174C1E28452400D7AFBC /* EMSMobileSDKTests.swift */,
-				7EB2174E1E28452400D7AFBC /* Info.plist */,
+				7E22C20F1E64BA6100CA905E /* EMSMobileSDKTests.swift */,
+				7E4A78B31E64B3E200CE6302 /* Info.plist */,
 			);
 			path = EMSMobileSDKTests;
 			sourceTree = "<group>";
@@ -151,51 +101,25 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
-		7E880C971E5FFDA8007F4891 /* Headers */ = {
+		7E4A78A01E64B3E200CE6302 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7EB2173B1E28452400D7AFBC /* Headers */ = {
-			isa = PBXHeadersBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				7E4A78B41E64B3E200CE6302 /* EMSMobileSDK.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		7E880C8E1E5FFDA8007F4891 /* EMSMobileSDKFramework */ = {
+		7E4A78A21E64B3E200CE6302 /* EMSMobileSDK */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7E880C9A1E5FFDA8007F4891 /* Build configuration list for PBXNativeTarget "EMSMobileSDKFramework" */;
+			buildConfigurationList = 7E4A78B71E64B3E200CE6302 /* Build configuration list for PBXNativeTarget "EMSMobileSDK" */;
 			buildPhases = (
-				7E880C901E5FFDA8007F4891 /* Sources */,
-				7E880C941E5FFDA8007F4891 /* Frameworks */,
-				7E880C971E5FFDA8007F4891 /* Headers */,
-				7E880C981E5FFDA8007F4891 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = EMSMobileSDKFramework;
-			productName = EMSMobileSDK;
-			productReference = 7E880C9D1E5FFDA8007F4891 /* EMSMobileSDKFramework.framework */;
-			productType = "com.apple.product-type.framework";
-		};
-		7EB2173D1E28452400D7AFBC /* EMSMobileSDK */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 7EB217521E28452400D7AFBC /* Build configuration list for PBXNativeTarget "EMSMobileSDK" */;
-			buildPhases = (
-				7A775824EBA77A135C31981A /* [CP] Check Pods Manifest.lock */,
-				7EB217391E28452400D7AFBC /* Sources */,
-				7EB2173A1E28452400D7AFBC /* Frameworks */,
-				7EB2173B1E28452400D7AFBC /* Headers */,
-				7EB2173C1E28452400D7AFBC /* Resources */,
-				450A6FAB854316DD897486C8 /* [CP] Copy Pods Resources */,
+				7E4A789E1E64B3E200CE6302 /* Sources */,
+				7E4A789F1E64B3E200CE6302 /* Frameworks */,
+				7E4A78A01E64B3E200CE6302 /* Headers */,
+				7E4A78A11E64B3E200CE6302 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -203,91 +127,78 @@
 			);
 			name = EMSMobileSDK;
 			productName = EMSMobileSDK;
-			productReference = 7EB2173E1E28452400D7AFBC /* EMSMobileSDK.framework */;
+			productReference = 7E4A78A31E64B3E200CE6302 /* EMSMobileSDK.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		7EB217461E28452400D7AFBC /* EMSMobileSDKTests */ = {
+		7E4A78AB1E64B3E200CE6302 /* EMSMobileSDKTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7EB217551E28452400D7AFBC /* Build configuration list for PBXNativeTarget "EMSMobileSDKTests" */;
+			buildConfigurationList = 7E4A78BA1E64B3E200CE6302 /* Build configuration list for PBXNativeTarget "EMSMobileSDKTests" */;
 			buildPhases = (
-				7473195765BA4E35B74495B0 /* [CP] Check Pods Manifest.lock */,
-				7EB217431E28452400D7AFBC /* Sources */,
-				7EB217441E28452400D7AFBC /* Frameworks */,
-				7EB217451E28452400D7AFBC /* Resources */,
-				0A8961C5798341C1B1A2055A /* [CP] Embed Pods Frameworks */,
-				BAB3525C4DC43DA3DCE153B9 /* [CP] Copy Pods Resources */,
+				7E4A78A81E64B3E200CE6302 /* Sources */,
+				7E4A78A91E64B3E200CE6302 /* Frameworks */,
+				7E4A78AA1E64B3E200CE6302 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				7EB2174A1E28452400D7AFBC /* PBXTargetDependency */,
+				7E4A78AF1E64B3E200CE6302 /* PBXTargetDependency */,
 			);
 			name = EMSMobileSDKTests;
 			productName = EMSMobileSDKTests;
-			productReference = 7EB217471E28452400D7AFBC /* EMSMobileSDKTests.xctest */;
+			productReference = 7E4A78AC1E64B3E200CE6302 /* EMSMobileSDKTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		7EB217351E28452400D7AFBC /* Project object */ = {
+		7E4A789A1E64B3E200CE6302 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Experian Marketing Services";
 				TargetAttributes = {
-					7E880C8E1E5FFDA8007F4891 = {
-						DevelopmentTeam = 92ZW54NZ5P;
-					};
-					7EB2173D1E28452400D7AFBC = {
+					7E4A78A21E64B3E200CE6302 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 92ZW54NZ5P;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
-					7EB217461E28452400D7AFBC = {
+					7E4A78AB1E64B3E200CE6302 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 92ZW54NZ5P;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
-			buildConfigurationList = 7EB217381E28452400D7AFBC /* Build configuration list for PBXProject "EMSMobileSDK" */;
+			buildConfigurationList = 7E4A789D1E64B3E200CE6302 /* Build configuration list for PBXProject "EMSMobileSDK" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 			);
-			mainGroup = 7EB217341E28452400D7AFBC;
-			productRefGroup = 7EB2173F1E28452400D7AFBC /* Products */;
+			mainGroup = 7E4A78991E64B3E200CE6302;
+			productRefGroup = 7E4A78A41E64B3E200CE6302 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				7EB2173D1E28452400D7AFBC /* EMSMobileSDK */,
-				7EB217461E28452400D7AFBC /* EMSMobileSDKTests */,
-				7E880C8E1E5FFDA8007F4891 /* EMSMobileSDKFramework */,
+				7E4A78A21E64B3E200CE6302 /* EMSMobileSDK */,
+				7E4A78AB1E64B3E200CE6302 /* EMSMobileSDKTests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		7E880C981E5FFDA8007F4891 /* Resources */ = {
+		7E4A78A11E64B3E200CE6302 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7EB2173C1E28452400D7AFBC /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7EB217451E28452400D7AFBC /* Resources */ = {
+		7E4A78AA1E64B3E200CE6302 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -296,177 +207,38 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		0A8961C5798341C1B1A2055A /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EMSMobileSDKTests/Pods-EMSMobileSDKTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		450A6FAB854316DD897486C8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EMSMobileSDK/Pods-EMSMobileSDK-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		7473195765BA4E35B74495B0 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		7A775824EBA77A135C31981A /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		BAB3525C4DC43DA3DCE153B9 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EMSMobileSDKTests/Pods-EMSMobileSDKTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-/* End PBXShellScriptBuildPhase section */
-
 /* Begin PBXSourcesBuildPhase section */
-		7E880C901E5FFDA8007F4891 /* Sources */ = {
+		7E4A789E1E64B3E200CE6302 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E880C911E5FFDA8007F4891 /* EMSCommsError.swift in Sources */,
-				7E880C921E5FFDA8007F4891 /* EMSRegions.swift in Sources */,
-				7E880C931E5FFDA8007F4891 /* EMSMobileSDK.swift in Sources */,
+				7E22C20D1E64BA4900CA905E /* EMSCommsError.swift in Sources */,
+				7E22C20C1E64BA4900CA905E /* EMSRegions.swift in Sources */,
+				7E22C20B1E64BA4900CA905E /* EMSMobileSDK.swift in Sources */,
+				7E22C20E1E64BA4900CA905E /* EMSRequestHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		7EB217391E28452400D7AFBC /* Sources */ = {
+		7E4A78A81E64B3E200CE6302 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7E7860BF1E31882800D97F1E /* EMSCommsError.swift in Sources */,
-				7E7860C11E31883300D97F1E /* EMSRegions.swift in Sources */,
-				7E8776D21E285CA50044AC73 /* EMSMobileSDK.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		7EB217431E28452400D7AFBC /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7EB2174D1E28452400D7AFBC /* EMSMobileSDKTests.swift in Sources */,
+				7E22C2101E64BA6100CA905E /* EMSMobileSDKTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		7EB2174A1E28452400D7AFBC /* PBXTargetDependency */ = {
+		7E4A78AF1E64B3E200CE6302 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 7EB2173D1E28452400D7AFBC /* EMSMobileSDK */;
-			targetProxy = 7EB217491E28452400D7AFBC /* PBXContainerItemProxy */;
+			target = 7E4A78A21E64B3E200CE6302 /* EMSMobileSDK */;
+			targetProxy = 7E4A78AE1E64B3E200CE6302 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		7E880C9B1E5FFDA8007F4891 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0B828257C1F20A171A5C3A6D /* Pods-EMSMobileSDK.debug.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 92ZW54NZ5P;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = "EMSMobileSDK copy-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_BUNDLE_IDENTIFIER = com.experian.EMSMobileSDK;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = NO;
-				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
-			};
-			name = Debug;
-		};
-		7E880C9C1E5FFDA8007F4891 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0009AA35A04E91112A522D3F /* Pods-EMSMobileSDK.release.xcconfig */;
-			buildSettings = {
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "";
-				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = 92ZW54NZ5P;
-				DYLIB_COMPATIBILITY_VERSION = 1;
-				DYLIB_CURRENT_VERSION = 1;
-				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
-				INFOPLIST_FILE = "EMSMobileSDK copy-Info.plist";
-				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.experian.EMSMobileSDK;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = NO;
-				SWIFT_VERSION = 3.0;
-			};
-			name = Release;
-		};
-		7EB217501E28452400D7AFBC /* Debug */ = {
+		7E4A78B51E64B3E200CE6302 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -507,7 +279,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -519,7 +291,7 @@
 			};
 			name = Debug;
 		};
-		7EB217511E28452400D7AFBC /* Release */ = {
+		7E4A78B61E64B3E200CE6302 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -540,7 +312,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -554,7 +326,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -565,9 +337,8 @@
 			};
 			name = Release;
 		};
-		7EB217531E28452400D7AFBC /* Debug */ = {
+		7E4A78B81E64B3E200CE6302 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0B828257C1F20A171A5C3A6D /* Pods-EMSMobileSDK.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -576,25 +347,20 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/**";
 				INFOPLIST_FILE = EMSMobileSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.experian.EMSMobileSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
-		7EB217541E28452400D7AFBC /* Release */ = {
+		7E4A78B91E64B3E200CE6302 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0009AA35A04E91112A522D3F /* Pods-EMSMobileSDK.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -603,40 +369,40 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/**";
 				INFOPLIST_FILE = EMSMobileSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.experian.EMSMobileSDK;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = NO;
+				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
-		7EB217561E28452400D7AFBC /* Debug */ = {
+		7E4A78BB1E64B3E200CE6302 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = BAF24BE417D29121416562D2 /* Pods-EMSMobileSDKTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 92ZW54NZ5P;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/**";
 				INFOPLIST_FILE = EMSMobileSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.experian.EMSMobileSDKTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
-		7EB217571E28452400D7AFBC /* Release */ = {
+		7E4A78BC1E64B3E200CE6302 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1DC3EDB363ECE2C7B4FA7B12 /* Pods-EMSMobileSDKTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 92ZW54NZ5P;
+				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/**";
 				INFOPLIST_FILE = EMSMobileSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.experian.EMSMobileSDKTests;
@@ -648,43 +414,34 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7E880C9A1E5FFDA8007F4891 /* Build configuration list for PBXNativeTarget "EMSMobileSDKFramework" */ = {
+		7E4A789D1E64B3E200CE6302 /* Build configuration list for PBXProject "EMSMobileSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7E880C9B1E5FFDA8007F4891 /* Debug */,
-				7E880C9C1E5FFDA8007F4891 /* Release */,
+				7E4A78B51E64B3E200CE6302 /* Debug */,
+				7E4A78B61E64B3E200CE6302 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7EB217381E28452400D7AFBC /* Build configuration list for PBXProject "EMSMobileSDK" */ = {
+		7E4A78B71E64B3E200CE6302 /* Build configuration list for PBXNativeTarget "EMSMobileSDK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7EB217501E28452400D7AFBC /* Debug */,
-				7EB217511E28452400D7AFBC /* Release */,
+				7E4A78B81E64B3E200CE6302 /* Debug */,
+				7E4A78B91E64B3E200CE6302 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		7EB217521E28452400D7AFBC /* Build configuration list for PBXNativeTarget "EMSMobileSDK" */ = {
+		7E4A78BA1E64B3E200CE6302 /* Build configuration list for PBXNativeTarget "EMSMobileSDKTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7EB217531E28452400D7AFBC /* Debug */,
-				7EB217541E28452400D7AFBC /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		7EB217551E28452400D7AFBC /* Build configuration list for PBXNativeTarget "EMSMobileSDKTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				7EB217561E28452400D7AFBC /* Debug */,
-				7EB217571E28452400D7AFBC /* Release */,
+				7E4A78BB1E64B3E200CE6302 /* Debug */,
+				7E4A78BC1E64B3E200CE6302 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 7EB217351E28452400D7AFBC /* Project object */;
+	rootObject = 7E4A789A1E64B3E200CE6302 /* Project object */;
 }

@@ -92,9 +92,10 @@ let notificationSettings = UIUserNotificationSettings(types: [.badge, .sound, .a
 application.registerUserNotificationSettings(notificationSettings)
 UIApplication.shared.registerForRemoteNotifications()    
 
-func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {        
-	try? EMSMobileSDK.default.RemoteNotificationReceived(userInfo: userInfo)    
-}
+func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        // Application Code
+        try? EMSMobileSDK.default.Subscribe(deviceToken: deviceToken)
+    }
 ```
 
 Objective-C    
