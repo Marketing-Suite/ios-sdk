@@ -172,7 +172,7 @@ import UIKit
     func SendEMSMessage(url :String, method: HTTPMethod = .get, body: Parameters?, completionHandler :@escaping (DataResponse<Any>) throws -> Void) throws {
         Log("Calling URL: " + url)
 
-        self.backgroundSession.request(url, method: method, parameters: body).validate().responseJSON {
+        self.backgroundSession.request(url, method: method, parameters: body, encoding: URLEncoding.default).validate().responseJSON {
             response in
             print ("Received: " + String(describing: response.response?.statusCode))
             try? completionHandler(response)

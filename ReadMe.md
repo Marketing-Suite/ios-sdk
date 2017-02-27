@@ -111,8 +111,10 @@ Swift       
 
 ```swift
 //In DidFinishLaunching or child ViewController
-let notificationSettings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
-application.registerUserNotificationSettings(notificationSettings)
+UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
+(granted, error) in
+//Parse errors and track state
+}
 UIApplication.shared.registerForRemoteNotifications()    
 
 func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
