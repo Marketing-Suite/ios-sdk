@@ -54,7 +54,30 @@ Then, run the following command:
 $ pod install
 ```
 
-### 
+> ####  Remember to build the workspace so that EMSMobileSDK is visible to your code
+
+
+
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+To integrate EMSMobileSDK into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+git "http://bitbucket.eccmp.com/scm/ms/ios-sdk.git" "dev"
+```
+
+Run `carthage update` to build the framework and drag the built `EMSMobileSDK.framework and Alamofire.framework` into your Xcode project's "Linked Frameworks and Libraries".
+
+
 
 # Integrate the SDK with an App In XCode
 

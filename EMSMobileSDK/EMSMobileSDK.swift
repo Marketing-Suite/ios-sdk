@@ -74,7 +74,7 @@ import UIKit
         {
             let urlString : String = "\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
             try
-                SendEMSMessage(url: urlString, method: .post, body: ["DeviceToken": tokenString], completionHandler: { response in
+                SendEMSMessage(url: urlString, method: .post, body: ["DeviceToken": tokenString], headers: ["Content-Type": "application/x-www-form-urlencoded"], completionHandler: { response in
                     if let status = response.response?.statusCode {
                         switch(status){
                         case 201:
@@ -108,7 +108,7 @@ import UIKit
         {
             let urlString : String = "http://\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(self.deviceTokenHex)"
             try
-                SendEMSMessage(url: urlString, method: .delete, body: nil, completionHandler: { response in
+                SendEMSMessage(url: urlString, method: .delete, body: nil, headers: [:], completionHandler: { response in
                     if let status = response.response?.statusCode {
                         switch(status){
                         case 201:
@@ -159,7 +159,7 @@ import UIKit
             if let open_url = userInfo?["ems_open"] as? String
             {
                 self.Log("Received EMS_OPEN: " + open_url)
-                try? SendEMSMessage(url: open_url, body: nil, completionHandler: { response in
+                try? SendEMSMessage(url: open_url, body: nil, headers: [:], completionHandler: { response in
                     if (response.response?.statusCode == 200)
                     {
                         self.Log("Content URL Sent Successfully")
@@ -169,10 +169,10 @@ import UIKit
         }
     }
     
-    func SendEMSMessage(url :String, method: HTTPMethod = .get, body: Parameters?, completionHandler :@escaping (DataResponse<Any>) throws -> Void) throws {
+    func SendEMSMessage(url :String, method: HTTPMethod = .get, body: Parameters?, headers: HTTPHeaders, completionHandler :@escaping (DataResponse<Any>) throws -> Void) throws {
         Log("Calling URL: " + url)
 
-        self.backgroundSession.request(url, method: method, parameters: body, encoding: JSONEncoding.default, headers: nil).validate().responseJSON {
+        self.backgroundSession.request(url, method: method, parameters: body, headers: headers).validate().responseJSON {
             response in
             print ("Received: " + String(describing: response.response?.statusCode))
             try? completionHandler(response)
