@@ -43,7 +43,7 @@
 		7E7860BE1E31882800D97F1E /* EMSCommsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSCommsError.swift; sourceTree = "<group>"; };
 		7E7860C01E31883300D97F1E /* EMSRegions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSRegions.swift; sourceTree = "<group>"; };
 		7E8776D11E285CA50044AC73 /* EMSMobileSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSMobileSDK.swift; sourceTree = "<group>"; };
-		7E880C9D1E5FFDA8007F4891 /* EMSMobileSDK Framework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "EMSMobileSDK Framework.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7E880C9D1E5FFDA8007F4891 /* EMSMobileSDKFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EMSMobileSDKFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E880C9E1E5FFDA8007F4891 /* EMSMobileSDK copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "EMSMobileSDK copy-Info.plist"; path = "/Users/paulballard/Library/Mobile Documents/com~apple~CloudDocs/ios-sdk/EMSMobileSDK copy-Info.plist"; sourceTree = "<absolute>"; };
 		7EB2173E1E28452400D7AFBC /* EMSMobileSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EMSMobileSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7EB217421E28452400D7AFBC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -122,7 +122,7 @@
 			children = (
 				7EB2173E1E28452400D7AFBC /* EMSMobileSDK.framework */,
 				7EB217471E28452400D7AFBC /* EMSMobileSDKTests.xctest */,
-				7E880C9D1E5FFDA8007F4891 /* EMSMobileSDK Framework.framework */,
+				7E880C9D1E5FFDA8007F4891 /* EMSMobileSDKFramework.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -168,9 +168,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		7E880C8E1E5FFDA8007F4891 /* EMSMobileSDK Framework */ = {
+		7E880C8E1E5FFDA8007F4891 /* EMSMobileSDKFramework */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 7E880C9A1E5FFDA8007F4891 /* Build configuration list for PBXNativeTarget "EMSMobileSDK Framework" */;
+			buildConfigurationList = 7E880C9A1E5FFDA8007F4891 /* Build configuration list for PBXNativeTarget "EMSMobileSDKFramework" */;
 			buildPhases = (
 				7E880C901E5FFDA8007F4891 /* Sources */,
 				7E880C941E5FFDA8007F4891 /* Frameworks */,
@@ -181,9 +181,9 @@
 			);
 			dependencies = (
 			);
-			name = "EMSMobileSDK Framework";
+			name = EMSMobileSDKFramework;
 			productName = EMSMobileSDK;
-			productReference = 7E880C9D1E5FFDA8007F4891 /* EMSMobileSDK Framework.framework */;
+			productReference = 7E880C9D1E5FFDA8007F4891 /* EMSMobileSDKFramework.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		7EB2173D1E28452400D7AFBC /* EMSMobileSDK */ = {
@@ -267,7 +267,7 @@
 			targets = (
 				7EB2173D1E28452400D7AFBC /* EMSMobileSDK */,
 				7EB217461E28452400D7AFBC /* EMSMobileSDKTests */,
-				7E880C8E1E5FFDA8007F4891 /* EMSMobileSDK Framework */,
+				7E880C8E1E5FFDA8007F4891 /* EMSMobileSDKFramework */,
 			);
 		};
 /* End PBXProject section */
@@ -648,7 +648,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		7E880C9A1E5FFDA8007F4891 /* Build configuration list for PBXNativeTarget "EMSMobileSDK Framework" */ = {
+		7E880C9A1E5FFDA8007F4891 /* Build configuration list for PBXNativeTarget "EMSMobileSDKFramework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				7E880C9B1E5FFDA8007F4891 /* Debug */,

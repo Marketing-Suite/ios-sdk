@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7EB2173D1E28452400D7AFBC"
-               BuildableName = "EMSMobileSDK.framework"
-               BlueprintName = "EMSMobileSDK"
+               BlueprintIdentifier = "7E880C8E1E5FFDA8007F4891"
+               BuildableName = "EMSMobileSDKFramework.framework"
+               BlueprintName = "EMSMobileSDKFramework"
                ReferencedContainer = "container:EMSMobileSDK.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,26 +28,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "7EB217461E28452400D7AFBC"
-               BuildableName = "EMSMobileSDKTests.xctest"
-               BlueprintName = "EMSMobileSDKTests"
-               ReferencedContainer = "container:EMSMobileSDK.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
-      <MacroExpansion>
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7EB2173D1E28452400D7AFBC"
-            BuildableName = "EMSMobileSDK.framework"
-            BlueprintName = "EMSMobileSDK"
-            ReferencedContainer = "container:EMSMobileSDK.xcodeproj">
-         </BuildableReference>
-      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -64,9 +45,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7EB2173D1E28452400D7AFBC"
-            BuildableName = "EMSMobileSDK.framework"
-            BlueprintName = "EMSMobileSDK"
+            BlueprintIdentifier = "7E880C8E1E5FFDA8007F4891"
+            BuildableName = "EMSMobileSDKFramework.framework"
+            BlueprintName = "EMSMobileSDKFramework"
             ReferencedContainer = "container:EMSMobileSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -82,9 +63,9 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "7EB2173D1E28452400D7AFBC"
-            BuildableName = "EMSMobileSDK.framework"
-            BlueprintName = "EMSMobileSDK"
+            BlueprintIdentifier = "7E880C8E1E5FFDA8007F4891"
+            BuildableName = "EMSMobileSDKFramework.framework"
+            BlueprintName = "EMSMobileSDKFramework"
             ReferencedContainer = "container:EMSMobileSDK.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
