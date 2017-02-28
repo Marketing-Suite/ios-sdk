@@ -1,0 +1,6 @@
+Carthage/*
+.DS_Store
+xcuserdata/
+*/paulballard.xcuserdatad/*
+Pods/*
+Podfile.lock
