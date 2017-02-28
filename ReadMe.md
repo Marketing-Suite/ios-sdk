@@ -16,6 +16,69 @@ CCMP enables marketers to target mobile devices running native applications for 
 
    ​
 
+## Installation
+
+### CocoaPods
+
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+To use the private podspec repo you must add it to your environment
+
+```bash
+pod repo add PrivateRepo http://bitbucket.eccmp.com/scm/~c17045a/podspecs.git
+```
+
+To integrate EMSMobileSDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
+
+```ruby
+platform :ios, '9.0'
+
+source 'http://bitbucket.eccmp.com/scm/~c17045a/podspecs.git'
+source 'https://github.com/CocoaPods/Specs.git'
+
+target <YourApp> do
+  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
+  use_frameworks!
+
+  pod 'EMSMobileSDK'
+end
+```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
+
+> ####  Remember to build the workspace so that EMSMobileSDK is visible to your code
+
+
+
+### Carthage
+
+[Carthage](https://github.com/Carthage/Carthage) is a decentralized dependency manager that builds your dependencies and provides you with binary frameworks.
+
+You can install Carthage with [Homebrew](http://brew.sh/) using the following command:
+
+```bash
+$ brew update
+$ brew install carthage
+```
+
+To integrate EMSMobileSDK into your Xcode project using Carthage, specify it in your `Cartfile`:
+
+```ogdl
+git "http://bitbucket.eccmp.com/scm/ms/ios-sdk.git" "dev"
+```
+
+Run `carthage update` to build the framework and drag the built `EMSMobileSDK.framework and Alamofire.framework` into your Xcode project's "Embedded Binaries".
+
+
+
 # Integrate the SDK with an App In XCode
 
 With the project open, you can add the SDK to the App by dragging the EMSMobileSDK.framework package into your application project.  This will add the framework to the Linked Framework and Libraries Build Settings and will add the library as an embedded binary.For an Objective-C based application, this will also create a bridging header file (EMSMobileSDK-swift.h) that will expose the Swift based libraries to your code.
@@ -44,17 +107,22 @@ Objective-C
 
 At this point the SDK is ready.  You need to request permissions for user notifications and register for a DeviceToken via the following code.
 
+> Note:  You must enable  your application for Push Notifications in the capabilities section of your project settings.
+
 Swift        
 
 ```swift
 //In DidFinishLaunching or child ViewController
-let notificationSettings = UIUserNotificationSettings(types: [.badge, .sound, .alert], categories: nil)
-application.registerUserNotificationSettings(notificationSettings)
+UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound, .badge]) {
+(granted, error) in
+//Parse errors and track state
+}
 UIApplication.shared.registerForRemoteNotifications()    
 
-func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {        
-	try? EMSMobileSDK.default.RemoteNotificationReceived(userInfo: userInfo)    
-}
+func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        // Application Code
+        try? EMSMobileSDK.default.Subscribe(deviceToken: deviceToken)
+    }
 ```
 
 Objective-C    
@@ -95,6 +163,27 @@ Objective-C
 ```
 
 
+
+> Note:  If you are using the CCMP Sandbox, you must add App Tranport Security settings for the ccmp.com domain to allow insecure (HTTP) traffic to that domain.  All of the other regions are secured and should not require a setting.  To add ATS to your application, modify your info.plist file and add the following
+
+```xml
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>ccmp.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+
+```
 
 # EMSMobileSDK Methods and Properties
 

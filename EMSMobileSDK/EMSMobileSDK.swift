@@ -42,7 +42,7 @@ import UIKit
     
     // Constructor/Destructor
     override init() {
-        //Configure SessgionManager
+        //Configure SessionManager
         let configuration = URLSessionConfiguration.background(withIdentifier: "com.experian.emsmobilesdk")
         self.backgroundSession = Alamofire.SessionManager(configuration: configuration)
         super.init()
@@ -172,7 +172,7 @@ import UIKit
     func SendEMSMessage(url :String, method: HTTPMethod = .get, body: Parameters?, completionHandler :@escaping (DataResponse<Any>) throws -> Void) throws {
         Log("Calling URL: " + url)
 
-        self.backgroundSession.request(url, method: method, parameters: body, encoding: JSONEncoding.default, headers: nil).validate().responseJSON {
+        self.backgroundSession.request(url, method: method, parameters: body, encoding: JSONEncoding.default).validate().responseJSON {
             response in
             print ("Received: " + String(describing: response.response?.statusCode))
             try? completionHandler(response)
