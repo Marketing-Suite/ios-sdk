@@ -75,7 +75,7 @@ To integrate EMSMobileSDK into your Xcode project using Carthage, specify it in 
 git "http://bitbucket.eccmp.com/scm/ms/ios-sdk.git" "dev"
 ```
 
-Run `carthage update` to build the framework and drag the built `EMSMobileSDK.framework and Alamofire.framework` into your Xcode project's "Linked Frameworks and Libraries".
+Run `carthage update` to build the framework and drag the built `EMSMobileSDK.framework and Alamofire.framework` into your Xcode project's "Embedded Binaries".
 
 
 
@@ -106,6 +106,8 @@ Objective-C
 ```
 
 At this point the SDK is ready.  You need to request permissions for user notifications and register for a DeviceToken via the following code.
+
+> Note:  You must enable  your application for Push Notifications in the capabilities section of your project settings.
 
 Swift        
 
@@ -161,6 +163,27 @@ Objective-C
 ```
 
 
+
+> Note:  If you are using the CCMP Sandbox, you must add App Tranport Security settings for the ccmp.com domain to allow insecure (HTTP) traffic to that domain.  All of the other regions are secured and should not require a setting.  To add ATS to your application, modify your info.plist file and add the following
+
+```xml
+	<key>NSAppTransportSecurity</key>
+	<dict>
+		<key>NSAllowsArbitraryLoads</key>
+		<false/>
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>ccmp.com</key>
+			<dict>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
+	</dict>
+
+```
 
 # EMSMobileSDK Methods and Properties
 
