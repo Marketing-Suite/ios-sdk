@@ -164,7 +164,7 @@ Objective-C
 
 
 
-> Note:  If you are using the CCMP Sandbox, you must add App Tranport Security settings for the ccmp.com domain to allow insecure (HTTP) traffic to that domain.  All of the other regions are secured and should not require a setting.  To add ATS to your application, modify your info.plist file and add the following
+> Note:  If you are using the CCMP Sandbox, you must add App Tranport Security settings for the eccmp.com domain to allow insecure (HTTP) traffic to that domain.  All of the other regions are secured and should not require a setting.  To add ATS to your application, modify your info.plist file and add the following
 
 ```xml
 	<key>NSAppTransportSecurity</key>
@@ -173,7 +173,7 @@ Objective-C
 		<false/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>ccmp.com</key>
+			<key>eccmp.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>
