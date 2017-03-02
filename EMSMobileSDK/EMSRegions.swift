@@ -14,7 +14,7 @@ import Foundation
     case EMEA// = "xts.ccmp.com"
     case Japan // = "sandaws1.emssand.com"
     public static func count() -> Int { return 4 }
-    public static func keys() -> [String] { return ["NorthAmerica", "NorthAmericaSB", "EMEA", "USStandard"] }
+    public static func keys() -> [String] { return ["NorthAmerica", "Sandbox", "EMEA", "Japan"] }
     
     public static func value(region: EMSRegions) -> String {
         switch (region) {
