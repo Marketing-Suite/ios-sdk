@@ -10,9 +10,9 @@ import Foundation
 
 @objc public enum EMSRegions : Int {
     case NorthAmerica// = "xts.eccmp.com"
-    case NorthAmericaSB// = "cs.sbox.eccmp.com"
+    case Sandbox // = "cs.sbox.eccmp.com"
     case EMEA// = "xts.ccmp.com"
-    case USStandard// = "sandaws1.emssand.com"
+    case Japan // = "sandaws1.emssand.com"
     public static func count() -> Int { return 4 }
     public static func keys() -> [String] { return ["NorthAmerica", "NorthAmericaSB", "EMEA", "USStandard"] }
     
@@ -20,12 +20,12 @@ import Foundation
         switch (region) {
         case EMSRegions.NorthAmerica:
             return "https://xts.eccmp.com"
-        case EMSRegions.NorthAmericaSB:
+        case EMSRegions.Sandbox:
             return "http://cs.sbox.eccmp.com"
         case EMSRegions.EMEA:
-            return "https://xts.ccmp.com"
-        case EMSRegions.USStandard:
-            return "http://sandaws1.emssand.com"
+            return "https://xts.ccmp.eu"
+        case EMSRegions.Japan:
+            return "http://xts.ccmp.experian.co.jp"
         }
     }
     
@@ -34,17 +34,31 @@ import Foundation
         {
         case "NorthAmerica":
             return EMSRegions.NorthAmerica
-        case "NorthAmericaSB":
-            return EMSRegions.NorthAmericaSB
+        case "Sandbox":
+            return EMSRegions.Sandbox
         case "EMEA":
             return EMSRegions.EMEA
-        case "USStandard":
-            return EMSRegions.USStandard
+        case "Japan":
+            return EMSRegions.Japan
         default:
             return EMSRegions.NorthAmerica
         }
     }
     
-    public var name: String { get { return String(describing: self) }
+    public func name() -> String
+    {
+        switch(self.rawValue)
+        {
+        case EMSRegions.NorthAmerica.rawValue:
+            return "NorthAmerica"
+        case EMSRegions.Sandbox.rawValue:
+            return "Sandbox"
+        case EMSRegions.EMEA.rawValue:
+            return "EMEA"
+        case EMSRegions.Japan.rawValue:
+            return "Japan"
+        default:
+            return ""
+        }
     }
 }

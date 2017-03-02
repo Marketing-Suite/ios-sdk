@@ -27,7 +27,7 @@ import UIKit
     var backgroundSession: Alamofire.SessionManager
     public var customerID: Int = 0
     public var applicationID: String = ""
-    public var region: EMSRegions = EMSRegions.NorthAmericaSB
+    public var region: EMSRegions = EMSRegions.Sandbox
     public dynamic var prid: String?
     public dynamic var deviceTokenHex: String?
     public dynamic var deviceToken: Data? = nil
@@ -135,7 +135,7 @@ import UIKit
         return
     }
     
-    public func Initialize(customerID: Int, appID: String, region: EMSRegions = EMSRegions.NorthAmericaSB, options: [UIApplicationLaunchOptionsKey : Any]?){
+    public func Initialize(customerID: Int, appID: String, region: EMSRegions = EMSRegions.Sandbox, options: [UIApplicationLaunchOptionsKey : Any]?){
         self.customerID = customerID
         self.applicationID = appID
         self.region = region
