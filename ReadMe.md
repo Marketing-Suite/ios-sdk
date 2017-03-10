@@ -29,7 +29,7 @@ $ gem install cocoapods
 To use the private podspec repo you must add it to your environment
 
 ```bash
-pod repo add PrivateRepo http://bitbucket.eccmp.com/scm/~c17045a/podspecs.git
+pod repo add PrivateRepo https://github.com/Marketing-Suite/podSpec.git
 ```
 
 To integrate EMSMobileSDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
@@ -37,7 +37,7 @@ To integrate EMSMobileSDK into your Xcode project using CocoaPods, specify it in
 ```ruby
 platform :ios, '9.0'
 
-source 'http://bitbucket.eccmp.com/scm/~c17045a/podspecs.git'
+source 'https://github.com/Marketing-Suite/podSpec.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
 target <YourApp> do
@@ -72,7 +72,7 @@ $ brew install carthage
 To integrate EMSMobileSDK into your Xcode project using Carthage, specify it in your `Cartfile`:
 
 ```ogdl
-git "http://bitbucket.eccmp.com/scm/ms/ios-sdk.git" "dev"
+git "https://github.com/Marketing-Suite/ios-sdk.git" "master"
 ```
 
 Run `carthage update` to build the framework and drag the built `EMSMobileSDK.framework and Alamofire.framework` into your Xcode project's "Embedded Binaries".
@@ -164,7 +164,7 @@ Objective-C
 
 
 
-> Note:  If you are using the CCMP Sandbox, you must add App Tranport Security settings for the ccmp.com domain to allow insecure (HTTP) traffic to that domain.  All of the other regions are secured and should not require a setting.  To add ATS to your application, modify your info.plist file and add the following
+> Note:  If you are using the CCMP Sandbox, you must add App Tranport Security settings for the eccmp.com domain to allow insecure (HTTP) traffic to that domain.  All of the other regions are secured and should not require a setting.  To add ATS to your application, modify your info.plist file and add the following
 
 ```xml
 	<key>NSAppTransportSecurity</key>
@@ -173,7 +173,7 @@ Objective-C
 		<false/>
 		<key>NSExceptionDomains</key>
 		<dict>
-			<key>ccmp.com</key>
+			<key>eccmp.com</key>
 			<dict>
 				<key>NSIncludesSubdomains</key>
 				<true/>
