@@ -71,16 +71,20 @@ import UIKit
         tokenString = hexEncodedString(data: deviceToken)
         Log("Subscribing Token: " + tokenString)
         
-        let urlString : String = "\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
         if (tokenString != self.deviceTokenHex)
         {
+            var urlString: String
+            self.deviceTokenHex = tokenString
+            UserDefaults.standard.set(tokenString, forKey: "DeviceTokenHex")
             if (self.prid != nil)
             {
-                method = .post
+                urlString = "\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/registration/\(self.prid!)/token"
+                method = .put
             }
             else
             {
-                method = .put
+                urlString = "\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
+                method = .post
             }
             try SendEMSMessage(url: urlString, method: method, body: ["DeviceToken": tokenString], completionHandler: EMSPRIDRegistrationResponse)
         }
@@ -91,12 +95,13 @@ import UIKit
     {
         if let status = response.response?.statusCode {
             switch(status){
-            case 201:
+            case 200, 201:
                 if let result = response.result.value {
-                    self.Log("JSON Received: " + String(describing: response.result.value))
+                    self.Log("JSON Received: " + String(describing: response.result.value!))
                     let JSON = result as! NSDictionary
                     let prid = JSON["Push_Registration_Id"] as! String
                     self.prid = prid
+                    UserDefaults.standard.set(prid, forKey: "PRID")
                     self.Log("PRID: " + String(describing: prid))
                     self.Log("Device Subscribed")
                 }
