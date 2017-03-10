@@ -65,44 +65,53 @@ import UIKit
     // Public Functions
     public func Subscribe(deviceToken: Data) throws -> Void {
         var tokenString: String = ""
+        var method: HTTPMethod = .post
         
         self.deviceToken = deviceToken
         tokenString = hexEncodedString(data: deviceToken)
         Log("Subscribing Token: " + tokenString)
         
+        let urlString : String = "\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
         if (tokenString != self.deviceTokenHex)
         {
-            let urlString : String = "\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
-            try
-                SendEMSMessage(url: urlString, method: .post, body: ["DeviceToken": tokenString], completionHandler: { response in
-                    if let status = response.response?.statusCode {
-                        switch(status){
-                        case 201:
-                            if let result = response.result.value {
-                                self.Log("JSON Received: " + String(describing: response.result.value))
-                                let JSON = result as! NSDictionary
-                                let prid = JSON["Push_Registration_Id"] as! String
-                                self.prid = prid
-                                self.Log("PRID: " + String(describing: prid))
-                                self.deviceTokenHex = tokenString
-                                UserDefaults.standard.set(tokenString, forKey: "DeviceTokenHex")
-                                UserDefaults.standard.set(prid, forKey: "PRID")
-                                self.Log("Device Subscribed")
-                            }
-                        case 400:
-                            throw EMSCommsError.invalidRequest
-                        case 401:
-                            throw EMSCommsError.notAuthenticated(userName: "")
-                        case 403:
-                            throw EMSCommsError.notAuthorized(userName: "")
-                        default:
-                            self.Log("Error with response status: \(status)")
-                        }
-                    }
-                })
+            if (self.prid != nil)
+            {
+                method = .post
+            }
+            else
+            {
+                method = .put
+            }
+            try SendEMSMessage(url: urlString, method: method, body: ["DeviceToken": tokenString], completionHandler: EMSPRIDRegistrationResponse)
         }
         return
     }
+    
+    private func EMSPRIDRegistrationResponse(response: DataResponse<Any>) throws
+    {
+        if let status = response.response?.statusCode {
+            switch(status){
+            case 201:
+                if let result = response.result.value {
+                    self.Log("JSON Received: " + String(describing: response.result.value))
+                    let JSON = result as! NSDictionary
+                    let prid = JSON["Push_Registration_Id"] as! String
+                    self.prid = prid
+                    self.Log("PRID: " + String(describing: prid))
+                    self.Log("Device Subscribed")
+                }
+            case 400:
+                throw EMSCommsError.invalidRequest
+            case 401:
+                throw EMSCommsError.notAuthenticated(userName: "")
+            case 403:
+                throw EMSCommsError.notAuthorized(userName: "")
+            default:
+                self.Log("Error with response status: \(status)")
+            }
+        }
+    }
+    
     public func UnSubscribe() throws -> Void {
         if (self.deviceTokenHex != nil)
         {
@@ -171,7 +180,7 @@ import UIKit
     
     func SendEMSMessage(url :String, method: HTTPMethod = .get, body: Parameters?, completionHandler :@escaping (DataResponse<Any>) throws -> Void) throws {
         Log("Calling URL: " + url)
-
+        
         self.backgroundSession.request(url, method: method, parameters: body, encoding: JSONEncoding.default).validate().responseJSON {
             response in
             print ("Received: " + String(describing: response.response?.statusCode))
