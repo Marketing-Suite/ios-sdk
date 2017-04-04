@@ -7,7 +7,7 @@
 //
 
 import Foundation
-
+/// This enum is used to represent the various types of communications errors that can occur during calls to CCMP
 public enum EMSCommsError : Error
 {
     case invalidRequest
