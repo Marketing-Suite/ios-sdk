@@ -7,7 +7,14 @@
 //
 
 import Foundation
-
+/**
+ This enum contains the definitions for the CCMP Regions and URLs used for each
+ Options are:
+ * North America
+ * Sandbox
+ * EMEA
+ * Japan
+*/
 @objc public enum EMSRegions : Int {
     case NorthAmerica// = "xts.eccmp.com"
     case Sandbox // = "cs.sbox.eccmp.com"
@@ -16,6 +23,7 @@ import Foundation
     public static func count() -> Int { return 4 }
     public static func keys() -> [String] { return ["NorthAmerica", "Sandbox", "EMEA", "Japan"] }
     
+    /// Retrieve the value of the EMSRegion enum as a URL
     public static func value(region: EMSRegions) -> String {
         switch (region) {
         case EMSRegions.NorthAmerica:
@@ -25,10 +33,11 @@ import Foundation
         case EMSRegions.EMEA:
             return "https://xts.ccmp.eu"
         case EMSRegions.Japan:
-            return "http://xts.ccmp.experian.co.jp"
+            return "https://xts.ccmp.experian.co.jp"
         }
     }
     
+    /// Retrieve the EMSRegion from the string representation of the name of the EMSRegion
     public static func fromName(name: String) -> EMSRegions {
         switch (name)
         {
@@ -45,6 +54,7 @@ import Foundation
         }
     }
     
+    /// Retrieve the string representation of the name of the EMSRegion
     public func name() -> String
     {
         switch(self.rawValue)
