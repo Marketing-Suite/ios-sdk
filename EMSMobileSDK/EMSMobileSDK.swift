@@ -215,6 +215,21 @@ import UIKit
         }
     }
     
+    public func APIPost(formId: Int, data: Parameters?)
+    {
+        let urlString: String = "\(EMSRegions.value(region: self.region))/ats/post.aspx?cr=\(self.customerID)&fm=\(formId)"
+        try? self.SendEMSMessage(url: urlString, method: .post, body: data, completionHandler: { response in
+            if (response.response?.statusCode == 200)
+            {
+                self.Log("Form Post Sent Successfully")
+            }
+            else
+            {
+                self.Log("Error posting to form: \(formId) - \(response.response?.statusCode)")
+            }
+        })
+    }
+    
     func SendEMSMessage(url :String, method: HTTPMethod = .get, body: Parameters?, completionHandler :@escaping (DataResponse<Any>) throws -> Void) throws {
         Log("Calling URL: " + url)
         
