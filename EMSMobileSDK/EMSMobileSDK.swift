@@ -225,7 +225,7 @@ import UIKit
             }
             else
             {
-                self.Log("Error posting to form: \(formId) - \(response.response?.statusCode)")
+                self.Log("Error posting to form: \(formId) - \(String(describing: response.response?.statusCode))")
             }
         })
     }
