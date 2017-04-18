@@ -28,17 +28,17 @@ import UIKit
     public static let `default` = EMSMobileSDK()
     
     // Delegate Property
-    weak var watcherDelegate:EMSMobileSDKWatcherDelegate?
+    public weak var watcherDelegate:EMSMobileSDKWatcherDelegate?
     
     // fields
     var backgroundSession: Alamofire.SessionManager
     /// The Customer ID set in the Initialize function
-    public private(set) var customerID: Int = 0
+    public var customerID: Int = 0
     /// The Application ID set in the Initialize function
     ///  **This application ID is found in the Mobile App Group settings on CCMP**
     public var applicationID: String = ""
     /// The Region to use for all interations with CCMP, set in the Initialize function.
-    public private(set) var region: EMSRegions = EMSRegions.Sandbox
+    public var region: EMSRegions = EMSRegions.Sandbox
     /// The PRID returned fro device registration with CCMP
     public private(set) dynamic var prid: String?
     /// The current DeviceToken for this device expressed as Hex
