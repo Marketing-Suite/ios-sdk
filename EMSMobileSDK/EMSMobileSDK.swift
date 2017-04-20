@@ -215,19 +215,25 @@ import UIKit
         }
     }
     
-    public func APIPost(formId: Int, data: Parameters?)
+    /**
+        This function is used to post data to an API Post endpoing in CCMP
+        - Parameter formId:  This is the Form ID for the API Post
+        - Parameter data:  This is a dictionary of any key values you want to send.  These values should match those required by the API Post specification
+    */
+    public func APIPost(formId: Int, data: Parameters?) throws
     {
         let urlString: String = "\(EMSRegions.value(region: self.region))/ats/post.aspx?cr=\(self.customerID)&fm=\(formId)"
-        try? self.SendEMSMessage(url: urlString, method: .post, body: data, completionHandler: { response in
+        self.backgroundSession.request(urlString, method: .post, parameters: data, encoding: URLEncoding.default).validate().responseJSON {
+            response in
             if (response.response?.statusCode == 200)
             {
-                self.Log("Form Post Sent Successfully")
+                self.Log("API Post Successful")
             }
             else
             {
-                self.Log("Error posting to form: \(formId) - \(String(describing: response.response?.statusCode))")
+                self.Log("Error Posting to API\nRecieved: \(String(describing: response.response?.statusCode))")
             }
-        })
+        }
     }
     
     func SendEMSMessage(url :String, method: HTTPMethod = .get, body: Parameters?, completionHandler :@escaping (DataResponse<Any>) throws -> Void) throws {
