@@ -97,12 +97,12 @@ import UIKit
             UserDefaults.standard.set(tokenString, forKey: "DeviceTokenHex")
             if (self.prid != nil)
             {
-                urlString = "\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/registration/\(self.prid!)/token"
+                urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/registration/\(self.prid!)/token"
                 method = .put
             }
             else
             {
-                urlString = "\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
+                urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
                 method = .post
             }
             try SendEMSMessage(url: urlString, method: method, body: ["DeviceToken": tokenString], completionHandler: EMSPRIDRegistrationResponse)
@@ -142,7 +142,7 @@ import UIKit
     public func UnSubscribe() throws -> Void {
         if (self.deviceTokenHex != nil)
         {
-            let urlString : String = "http://\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(String(describing: self.deviceTokenHex))"
+            let urlString : String = "http://\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(String(describing: self.deviceTokenHex))"
             try
                 SendEMSMessage(url: urlString, method: .delete, body: nil, completionHandler: { response in
                     if let status = response.response?.statusCode {
@@ -222,7 +222,7 @@ import UIKit
     */
     public func APIPost(formId: Int, data: Parameters?) throws
     {
-        let urlString: String = "\(EMSRegions.value(region: self.region))/ats/post.aspx?cr=\(self.customerID)&fm=\(formId)"
+        let urlString: String = "\(EMSRegions.ATS(region: self.region))/ats/post.aspx?cr=\(self.customerID)&fm=\(formId)"
         self.backgroundSession.request(urlString, method: .post, parameters: data, encoding: URLEncoding.default).validate().responseJSON {
             response in
             if (response.response?.statusCode == 200)
