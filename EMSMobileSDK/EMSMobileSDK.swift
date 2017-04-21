@@ -222,7 +222,7 @@ import UIKit
     */
     public func APIPost(formId: Int, data: Parameters?) throws
     {
-        let urlString: String = "\(EMSRegions.ATS(region: self.region))/post.aspx?cr=\(self.customerID)&fm=\(formId)"
+        let urlString: String = "\(EMSRegions.ATS(region: self.region))/ats/post.aspx?cr=\(self.customerID)&fm=\(formId)"
         self.backgroundSession.request(urlString, method: .post, parameters: data, encoding: URLEncoding.default).validate().responseJSON {
             response in
             if (response.response?.statusCode == 200)

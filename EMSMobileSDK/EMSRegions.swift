@@ -43,7 +43,7 @@ import Foundation
         case EMSRegions.NorthAmerica:
             return "https://ats.eccmp.com"
         case EMSRegions.Sandbox:
-            return "http://cs.sbox.eccmp.com/ats"
+            return "http://cs.sbox.eccmp.com"
         case EMSRegions.EMEA:
             return "https://ats.ccmp.eu"
         case EMSRegions.Japan:
