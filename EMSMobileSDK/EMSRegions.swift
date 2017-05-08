@@ -23,8 +23,8 @@ import Foundation
     public static func count() -> Int { return 4 }
     public static func keys() -> [String] { return ["NorthAmerica", "Sandbox", "EMEA", "Japan"] }
     
-    /// Retrieve the value of the EMSRegion enum as a URL
-    public static func value(region: EMSRegions) -> String {
+    /// Retrieve the XTS value of the EMSRegion enum as a URL
+    public static func XTS(region: EMSRegions) -> String {
         switch (region) {
         case EMSRegions.NorthAmerica:
             return "https://xts.eccmp.com"
@@ -34,6 +34,20 @@ import Foundation
             return "https://xts.ccmp.eu"
         case EMSRegions.Japan:
             return "https://xts.ccmp.experian.co.jp"
+        }
+    }
+    
+    /// Retrieve the ATS value of the EMSRegion enum as a URL
+    public static func ATS(region: EMSRegions) -> String {
+        switch (region) {
+        case EMSRegions.NorthAmerica:
+            return "https://ats.eccmp.com"
+        case EMSRegions.Sandbox:
+            return "http://cs.sbox.eccmp.com"
+        case EMSRegions.EMEA:
+            return "https://ats.ccmp.eu"
+        case EMSRegions.Japan:
+            return "https://ats.ccmp.experian.com.jp"
         }
     }
     
