@@ -237,6 +237,6 @@ This function is called when a remote notification is received.  If the notifica
 
 
 
-Sequence
+## Sequence
 
-![EMS Mobile SDK (iOS)-2](EMS Mobile SDK (iOS)-2.png)
+![EMSMobileSDK](EMSMobileSDK.png)
