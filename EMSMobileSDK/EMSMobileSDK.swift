@@ -10,28 +10,43 @@ import Foundation
 import Alamofire
 import UIKit
 
-// Internal Extensions
+/** ##Monitor Delegate##
+ This delegate is used to receive debug and information messages from the SDK.  It should only be used for debugging
+ and not for functional logic as it can change at any time.
+ */
 @objc public protocol EMSMobileSDKWatcherDelegate: class {
     func sdkMessage(sender: EMSMobileSDK, message: String)
 }
 
+/**
+    This is the base class for accessing the EMS Mobile SDK.  It is a singleton and is referenced via
+ `EMSMobileSDK.default`
+ */
 @objc public class EMSMobileSDK : NSObject
 {
-    // Create Singleton Reference
+    /// Singleton Reference for accessing EMSMobileSDK
     public static let `default` = EMSMobileSDK()
     
-    // Monitor Delegate
+    // Delegate Property
     public weak var watcherDelegate:EMSMobileSDKWatcherDelegate?
     
     // fields
     var backgroundSession: Alamofire.SessionManager
+    /// The Customer ID set in the Initialize function
     public var customerID: Int = 0
+    /// The Application ID set in the Initialize function
+    ///  **This application ID is found in the Mobile App Group settings on CCMP**
     public var applicationID: String = ""
+    /// The Region to use for all interations with CCMP, set in the Initialize function.
     public var region: EMSRegions = EMSRegions.Sandbox
-    public dynamic var prid: String?
-    public dynamic var deviceTokenHex: String?
-    public dynamic var deviceToken: Data? = nil
+    /// The PRID returned fro device registration with CCMP
+    public private(set) dynamic var prid: String?
+    /// The current DeviceToken for this device expressed as Hex
+    public private(set) dynamic var deviceTokenHex: String?
+    /// The current DeviceToken for this device as returned by APNS
+    public private(set) dynamic var deviceToken: Data? = nil
     
+    //Logging messages to Debug and WatcherDelegate
     private func Log(_ message: String)
     {
         //For Debugging
@@ -62,7 +77,11 @@ import UIKit
         return data.map { String(format: "%02hhx", $0) }.joined()
     }
     
-    // Public Functions
+    /**
+        Used to subscribe a device to CCMP push notifications
+        **NOTE:  The Initialize function must be called before calling the Subscribe function**
+        - Parameter deviceToken:  The DeviceToken returned from APNS
+    */
     public func Subscribe(deviceToken: Data) throws -> Void {
         var tokenString: String = ""
         var method: HTTPMethod = .post
@@ -78,12 +97,12 @@ import UIKit
             UserDefaults.standard.set(tokenString, forKey: "DeviceTokenHex")
             if (self.prid != nil)
             {
-                urlString = "\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/registration/\(self.prid!)/token"
+                urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/registration/\(self.prid!)/token"
                 method = .put
             }
             else
             {
-                urlString = "\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
+                urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
                 method = .post
             }
             try SendEMSMessage(url: urlString, method: method, body: ["DeviceToken": tokenString], completionHandler: EMSPRIDRegistrationResponse)
@@ -116,11 +135,14 @@ import UIKit
             }
         }
     }
-    
+
+    /**
+     Used to unsubscribe a device to CCMP push notifications
+     */
     public func UnSubscribe() throws -> Void {
         if (self.deviceTokenHex != nil)
         {
-            let urlString : String = "http://\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(self.deviceTokenHex)"
+            let urlString : String = "http://\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(String(describing: self.deviceTokenHex))"
             try
                 SendEMSMessage(url: urlString, method: .delete, body: nil, completionHandler: { response in
                     if let status = response.response?.statusCode {
@@ -148,7 +170,14 @@ import UIKit
         }
         return
     }
-    
+
+    /**
+        This function is used to initialize the SDK values for subsequent calls to CCMP
+        - Parameter customerID:  This is your Customer ID in the CCMP application
+        - Parameter appID:  This is the Application ID created for this app in CCMP
+        - Parameter region:  This is the reqion that your CCMP instance is hosted in.  
+        - Parameter options:  This is the collection of UILaunchOptionsKeys passed into the application on didFinishLaunching or nil if no options supplied.  This is used primarily for registring the launch of the application from a PUSH notification.
+    */
     public func Initialize(customerID: Int, appID: String, region: EMSRegions = EMSRegions.Sandbox, options: [UIApplicationLaunchOptionsKey : Any]?){
         self.customerID = customerID
         self.applicationID = appID
@@ -164,7 +193,10 @@ import UIKit
         }
         Log("Initialized with CustomerID: \(self.customerID), AppID: \(self.applicationID), Region: \(self.region.rawValue)")
     }
-    
+    /**
+     This function is called to allow the EMS Mobile SDK to process any push notifications relevant to CCMP
+     > Note:  Only messages that contain CCMP specific functionality will result in a message being sent to CCMP.  Any application specific messages are ignored.
+    */
     public func RemoteNotificationReceived(userInfo: [AnyHashable: Any]?) throws
     {
         if (userInfo != nil)
@@ -179,6 +211,27 @@ import UIKit
                         self.Log("Content URL Sent Successfully")
                     }
                 })
+            }
+        }
+    }
+    
+    /**
+        This function is used to post data to an API Post endpoing in CCMP
+        - Parameter formId:  This is the Form ID for the API Post
+        - Parameter data:  This is a dictionary of any key values you want to send.  These values should match those required by the API Post specification
+    */
+    public func APIPost(formId: Int, data: Parameters?) throws
+    {
+        let urlString: String = "\(EMSRegions.ATS(region: self.region))/ats/post.aspx?cr=\(self.customerID)&fm=\(formId)"
+        self.backgroundSession.request(urlString, method: .post, parameters: data, encoding: URLEncoding.default).validate().responseJSON {
+            response in
+            if (response.response?.statusCode == 200)
+            {
+                self.Log("API Post Successful")
+            }
+            else
+            {
+                self.Log("Error Posting to API\nRecieved: \(String(describing: response.response?.statusCode))")
             }
         }
     }
