@@ -44,7 +44,7 @@ platform :ios, '9.0'
 source 'https://github.com/Marketing-Suite/podSpec.git'
 source 'https://github.com/CocoaPods/Specs.git'
 
-target <YourApp> do
+target '<YourApp>' do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
@@ -238,3 +238,9 @@ The UnSubscribe function sends a message to CCMP unsubscribing the device from f
 This function is called when a remote notification is received.  If the notification is from CCMP the SDK will parse the contents and register the receipt of the message as an open in CCMP.  This method is used when the app is running in the foreground when a push notification is received.  Once the RemoteNotificationReceived function is called, the app developer is free to act upon the notification in any way they see fit.
 
 **userInfo** -- An array of Hashable items sent from APNS which may or may not include data from CCMP.  If there is no CCMP specific data in the array, no processing occurs on the SDK.
+
+
+
+## Sequence
+
+![EMSMobileSDK](EMSMobileSDK.png)

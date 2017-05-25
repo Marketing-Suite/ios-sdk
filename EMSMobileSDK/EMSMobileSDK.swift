@@ -28,17 +28,17 @@ import UIKit
     public static let `default` = EMSMobileSDK()
     
     // Delegate Property
-    weak var watcherDelegate:EMSMobileSDKWatcherDelegate?
+    public weak var watcherDelegate:EMSMobileSDKWatcherDelegate?
     
     // fields
     var backgroundSession: Alamofire.SessionManager
     /// The Customer ID set in the Initialize function
-    public private(set) var customerID: Int = 0
+    public var customerID: Int = 0
     /// The Application ID set in the Initialize function
     ///  **This application ID is found in the Mobile App Group settings on CCMP**
     public var applicationID: String = ""
     /// The Region to use for all interations with CCMP, set in the Initialize function.
-    public private(set) var region: EMSRegions = EMSRegions.Sandbox
+    public var region: EMSRegions = EMSRegions.Sandbox
     /// The PRID returned fro device registration with CCMP
     public private(set) dynamic var prid: String?
     /// The current DeviceToken for this device expressed as Hex
@@ -97,12 +97,12 @@ import UIKit
             UserDefaults.standard.set(tokenString, forKey: "DeviceTokenHex")
             if (self.prid != nil)
             {
-                urlString = "\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/registration/\(self.prid!)/token"
+                urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/registration/\(self.prid!)/token"
                 method = .put
             }
             else
             {
-                urlString = "\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
+                urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
                 method = .post
             }
             try SendEMSMessage(url: urlString, method: method, body: ["DeviceToken": tokenString], completionHandler: EMSPRIDRegistrationResponse)
@@ -142,7 +142,7 @@ import UIKit
     public func UnSubscribe() throws -> Void {
         if (self.deviceTokenHex != nil)
         {
-            let urlString : String = "http://\(EMSRegions.value(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(String(describing: self.deviceTokenHex))"
+            let urlString : String = "http://\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(String(describing: self.deviceTokenHex))"
             try
                 SendEMSMessage(url: urlString, method: .delete, body: nil, completionHandler: { response in
                     if let status = response.response?.statusCode {
@@ -211,6 +211,27 @@ import UIKit
                         self.Log("Content URL Sent Successfully")
                     }
                 })
+            }
+        }
+    }
+    
+    /**
+        This function is used to post data to an API Post endpoing in CCMP
+        - Parameter formId:  This is the Form ID for the API Post
+        - Parameter data:  This is a dictionary of any key values you want to send.  These values should match those required by the API Post specification
+    */
+    public func APIPost(formId: Int, data: Parameters?) throws
+    {
+        let urlString: String = "\(EMSRegions.ATS(region: self.region))/ats/post.aspx?cr=\(self.customerID)&fm=\(formId)"
+        self.backgroundSession.request(urlString, method: .post, parameters: data, encoding: URLEncoding.default).validate().responseJSON {
+            response in
+            if (response.response?.statusCode == 200)
+            {
+                self.Log("API Post Successful")
+            }
+            else
+            {
+                self.Log("Error Posting to API\nRecieved: \(String(describing: response.response?.statusCode))")
             }
         }
     }
