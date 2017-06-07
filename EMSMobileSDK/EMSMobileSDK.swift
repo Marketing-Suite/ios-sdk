@@ -10,6 +10,7 @@ import Foundation
 import Alamofire
 import UIKit
 
+
 /** ##Monitor Delegate##
  This delegate is used to receive debug and information messages from the SDK.  It should only be used for debugging
  and not for functional logic as it can change at any time.
@@ -72,17 +73,30 @@ import UIKit
     deinit {
         Log("SDK DeInit")
     }
-    
+
+    // Private Functions
     func hexEncodedString(data: Data) -> String {
         return data.map { String(format: "%02hhx", $0) }.joined()
     }
+
+    func SendEMSMessage(url :String, method: HTTPMethod = .get, body: Parameters?, completionHandler :@escaping (DataResponse<Any>) throws ->Void) throws -> Void {
+        Log("Calling URL: " + url)
+        
+        self.backgroundSession.request(url, method: method, parameters: body, encoding: JSONEncoding.default).validate().responseJSON {
+            response in
+            print ("Received: " + String(describing: response.response?.statusCode))
+            try? completionHandler(response)
+        }
+    }
     
+    // Public Functions
     /**
         Used to subscribe a device to CCMP push notifications
         **NOTE:  The Initialize function must be called before calling the Subscribe function**
         - Parameter deviceToken:  The DeviceToken returned from APNS
+        - Parameter completionHandler:  A callback function to be executed when the call is complete.  If successful, will pass the PRID received back.  Otherwise you will receive an error message or exception.
     */
-    public func Subscribe(deviceToken: Data) throws -> Void {
+    public func Subscribe(deviceToken: Data, completionHandler: ((String)->Void)?) throws -> Void {
         var tokenString: String = ""
         var method: HTTPMethod = .post
         
@@ -105,41 +119,43 @@ import UIKit
                 urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
                 method = .post
             }
-            try SendEMSMessage(url: urlString, method: method, body: ["DeviceToken": tokenString], completionHandler: EMSPRIDRegistrationResponse)
+            try SendEMSMessage(url: urlString, method: method, body: ["DeviceToken": tokenString], completionHandler:     {
+                response in
+                if let status = response.response?.statusCode {
+                    switch(status){
+                    case 200, 201:
+                        if let result = response.result.value {
+                            self.Log("JSON Received: " + String(describing: response.result.value!))
+                            let JSON = result as! NSDictionary
+                            let prid = JSON["Push_Registration_Id"] as! String
+                            self.prid = prid
+                            UserDefaults.standard.set(prid, forKey: "PRID")
+                            self.Log("PRID: " + String(describing: prid))
+                            self.Log("Device Subscribed")
+                            if (completionHandler != nil) {
+                                completionHandler!(prid)
+                            }
+                        }
+                    case 400:
+                        throw EMSCommsError.invalidRequest
+                    case 401:
+                        throw EMSCommsError.notAuthenticated(userName: "")
+                    case 403:
+                        throw EMSCommsError.notAuthorized(userName: "")
+                    default:
+                        self.Log("Error with response status: \(status)")
+                    }
+                }
+            })
         }
         return
     }
     
-    private func EMSPRIDRegistrationResponse(response: DataResponse<Any>) throws
-    {
-        if let status = response.response?.statusCode {
-            switch(status){
-            case 200, 201:
-                if let result = response.result.value {
-                    self.Log("JSON Received: " + String(describing: response.result.value!))
-                    let JSON = result as! NSDictionary
-                    let prid = JSON["Push_Registration_Id"] as! String
-                    self.prid = prid
-                    UserDefaults.standard.set(prid, forKey: "PRID")
-                    self.Log("PRID: " + String(describing: prid))
-                    self.Log("Device Subscribed")
-                }
-            case 400:
-                throw EMSCommsError.invalidRequest
-            case 401:
-                throw EMSCommsError.notAuthenticated(userName: "")
-            case 403:
-                throw EMSCommsError.notAuthorized(userName: "")
-            default:
-                self.Log("Error with response status: \(status)")
-            }
-        }
-    }
-
     /**
      Used to unsubscribe a device to CCMP push notifications
+     - Parameter completionHandler: A callback function executed when the device is unsubscribed
      */
-    public func UnSubscribe() throws -> Void {
+    public func UnSubscribe(completionHandler: @escaping (String)->Void) throws -> Void {
         if (self.deviceTokenHex != nil)
         {
             let urlString : String = "http://\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(String(describing: self.deviceTokenHex))"
@@ -155,6 +171,7 @@ import UIKit
                                 UserDefaults.standard.set(self.deviceTokenHex, forKey: "DeviceTokenHex")
                                 UserDefaults.standard.set(self.prid, forKey: "PRID")
                                 self.Log("Device Unsubscribed")
+                                completionHandler("Device Unsubscribed")
                             }
                         case 400:
                             throw EMSCommsError.invalidRequest
@@ -219,30 +236,28 @@ import UIKit
         This function is used to post data to an API Post endpoing in CCMP
         - Parameter formId:  This is the Form ID for the API Post
         - Parameter data:  This is a dictionary of any key values you want to send.  These values should match those required by the API Post specification
+        - Parameter completionHandler: A callback function executed after the call is complete.  Will return a bool value indicating if the call was successful
     */
-    public func APIPost(formId: Int, data: Parameters?) throws
+    public func APIPost(formId: Int, data: Parameters?, completionHandler: ((Bool)->Void)?) throws
     {
         let urlString: String = "\(EMSRegions.ATS(region: self.region))/ats/post.aspx?cr=\(self.customerID)&fm=\(formId)"
+        var result = false
         self.backgroundSession.request(urlString, method: .post, parameters: data, encoding: URLEncoding.default).validate().responseJSON {
             response in
             if (response.response?.statusCode == 200)
             {
                 self.Log("API Post Successful")
+                result = true
             }
             else
             {
                 self.Log("Error Posting to API\nRecieved: \(String(describing: response.response?.statusCode))")
+                result = false
             }
-        }
-    }
-    
-    func SendEMSMessage(url :String, method: HTTPMethod = .get, body: Parameters?, completionHandler :@escaping (DataResponse<Any>) throws -> Void) throws {
-        Log("Calling URL: " + url)
-        
-        self.backgroundSession.request(url, method: method, parameters: body, encoding: JSONEncoding.default).validate().responseJSON {
-            response in
-            print ("Received: " + String(describing: response.response?.statusCode))
-            try? completionHandler(response)
+            if (completionHandler != nil)
+            {
+                completionHandler!(result)
+            }
         }
     }
 }
