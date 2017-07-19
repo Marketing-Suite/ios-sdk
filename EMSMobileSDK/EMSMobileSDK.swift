@@ -19,6 +19,9 @@ import UIKit
     func sdkMessage(sender: EMSMobileSDK, message: String)
 }
 
+public typealias StringCompletionHandlerType = (_ result : String)->Void
+public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
+
 /**
     This is the base class for accessing the EMS Mobile SDK.  It is a singleton and is referenced via
  `EMSMobileSDK.default`
@@ -96,7 +99,7 @@ import UIKit
         - Parameter deviceToken:  The DeviceToken returned from APNS
         - Parameter completionHandler:  A callback function to be executed when the call is complete.  If successful, will pass the PRID received back.  Otherwise you will receive an error message or exception.
     */
-    public func Subscribe(deviceToken: Data, completionHandler: ((String)->Void)?) throws -> Void {
+    public func Subscribe(deviceToken: Data, completionHandler: StringCompletionHandlerType? = nil) throws -> Void {
         var tokenString: String = ""
         var method: HTTPMethod = .post
         
@@ -132,9 +135,7 @@ import UIKit
                             UserDefaults.standard.set(prid, forKey: "PRID")
                             self.Log("PRID: " + String(describing: prid))
                             self.Log("Device Subscribed")
-                            if (completionHandler != nil) {
-                                completionHandler!(prid)
-                            }
+                            completionHandler?(prid)
                         }
                     case 400:
                         throw EMSCommsError.invalidRequest
@@ -148,6 +149,10 @@ import UIKit
                 }
             })
         }
+        else
+        {
+            completionHandler?(self.prid!)
+        }
         return
     }
     
@@ -155,7 +160,7 @@ import UIKit
      Used to unsubscribe a device to CCMP push notifications
      - Parameter completionHandler: A callback function executed when the device is unsubscribed
      */
-    public func UnSubscribe(completionHandler: @escaping (String)->Void) throws -> Void {
+    public func UnSubscribe(completionHandler: StringCompletionHandlerType? = nil) throws -> Void {
         if (self.deviceTokenHex != nil)
         {
             let urlString : String = "http://\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(String(describing: self.deviceTokenHex))"
@@ -171,7 +176,7 @@ import UIKit
                                 UserDefaults.standard.set(self.deviceTokenHex, forKey: "DeviceTokenHex")
                                 UserDefaults.standard.set(self.prid, forKey: "PRID")
                                 self.Log("Device Unsubscribed")
-                                completionHandler("Device Unsubscribed")
+                                completionHandler?("Device Unsubscribed")
                             }
                         case 400:
                             throw EMSCommsError.invalidRequest
@@ -238,7 +243,7 @@ import UIKit
         - Parameter data:  This is a dictionary of any key values you want to send.  These values should match those required by the API Post specification
         - Parameter completionHandler: A callback function executed after the call is complete.  Will return a bool value indicating if the call was successful
     */
-    public func APIPost(formId: Int, data: Parameters?, completionHandler: ((Bool)->Void)?) throws
+    public func APIPost(formId: Int, data: Parameters?, completionHandler: BoolCompletionHandlerType? = nil) throws
     {
         let urlString: String = "\(EMSRegions.ATS(region: self.region))/ats/post.aspx?cr=\(self.customerID)&fm=\(formId)"
         var result = false
@@ -254,10 +259,7 @@ import UIKit
                 self.Log("Error Posting to API\nRecieved: \(String(describing: response.response?.statusCode))")
                 result = false
             }
-            if (completionHandler != nil)
-            {
-                completionHandler!(result)
-            }
+            completionHandler?(result)
         }
     }
 }
