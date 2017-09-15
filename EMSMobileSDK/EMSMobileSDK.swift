@@ -107,7 +107,7 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         tokenString = hexEncodedString(data: deviceToken)
         Log("Subscribing Token: " + tokenString)
         
-        if (tokenString != self.deviceTokenHex)
+        if (tokenString != self.deviceTokenHex || self.prid == nil)
         {
             var urlString: String
             self.deviceTokenHex = tokenString
