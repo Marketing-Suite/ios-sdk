@@ -10,6 +10,9 @@ import Foundation
 import Alamofire
 import UIKit
 
+import UserNotifications
+
+
 
 /** ##Monitor Delegate##
  This delegate is used to receive debug and information messages from the SDK.  It should only be used for debugging
@@ -91,7 +94,88 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
             try? completionHandler(response)
         }
     }
+  
+  /*
+   
+   If notifications are turned off at the operating system level, the SDK should detect this,
+   and send an http DELETE containing the _cust id_, _application id_, and _device token_ to the {{xts/registration}} API,
+   in order to mark the PRID as opted out, so that it is not processed in during MLC.
+   
+   Upon detection of notifications being turned back on, the SDK should send an http POST containing the same details in order to mark the record as opted back in.
+   */
+  private func checkOSNotificationSettings(customerId custID: Int?, appID: String?, deviceToken: String?) {
     
+    /*
+     1. off, send http delete (opt out)
+     2. turned back on, http post (opt back in)
+     3. suppor OS >= 10 < OS
+     */
+    
+    guard let custID = custID, let appID = appID, let devToken = deviceToken else {
+      print("#: missing required params")
+      print("++")
+      
+      return
+    }
+    
+    
+    if #available(iOS 10.0, *) {
+      let current = UNUserNotificationCenter.current()
+      var method: HTTPMethod = .post
+      var urlString = ""
+
+      //check opt out setting
+      if UserDefaults.standard.object(forKey: "userOptedOutSetting") != nil {
+        print("++++")
+        let defSet = (UserDefaults.standard.object(forKey: "userOptedOutSetting") != nil) ? "yes" : "no"
+        print("previous setting: \(defSet)")
+        print("++++")
+      }
+      
+      //read OS settings
+      current.getNotificationSettings(completionHandler: { (settings) in
+        switch settings.authorizationStatus {
+        case .denied:
+          //user (said no) needs enable in settings
+          //call delete
+          UserDefaults.standard.set(true, forKey: "userOptedOutSetting")
+          //DELETE /pns/registration/cust/{cust}/application/{application}/token/{token}
+          urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(custID))/application/\(appID)/token/\(devToken)"
+          method = .delete
+          
+          break
+        case .authorized:
+          //user said yes
+          // /pns/registration/cust/{cust}/application/{application}/token/{token}
+          UserDefaults.standard.set(false, forKey: "userOptOutSetting")
+          urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(custID))/application/\(appID)/token/\(devToken)"
+          
+          break
+        case .notDetermined:
+          //request
+          break
+        }
+      })
+      
+      //check network settings
+      print("++++")
+      print("url string: \(urlString)\nmethod: \(method)")
+      print("++++")
+      
+    } else {
+      //fallbakc
+      if UIApplication.shared.isRegisteredForRemoteNotifications {
+        print("#: APNS - enabled")
+        print("++")
+      } else {
+        print("#: APNS - disabled")
+        print("++")
+      }
+    }
+    
+  }
+  
+  
     // Public Functions
     /**
         Used to subscribe a device to CCMP push notifications
@@ -107,11 +191,16 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         tokenString = hexEncodedString(data: deviceToken)
         Log("Subscribing Token: " + tokenString)
         
-        if (tokenString != self.deviceTokenHex || self.prid == nil)
-        {
+        if (tokenString != self.deviceTokenHex || self.prid == nil) {
             var urlString: String
             self.deviceTokenHex = tokenString
             UserDefaults.standard.set(tokenString, forKey: "DeviceTokenHex")
+
+          //check optin/out status
+          checkOSNotificationSettings(customerId: customerID, appID: applicationID, deviceToken: deviceTokenHex)
+          
+          
+          
             if (self.prid != nil)
             {
                 urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/registration/\(self.prid!)/token"
@@ -192,7 +281,7 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         }
         return
     }
-
+  
     /**
         This function is used to initialize the SDK values for subsequent calls to CCMP
         - Parameter customerID:  This is your Customer ID in the CCMP application
@@ -204,6 +293,10 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         self.customerID = customerID
         self.applicationID = appID
         self.region = region
+      
+      //check optin/out status
+      checkOSNotificationSettings(customerId: customerID, appID: applicationID, deviceToken: deviceTokenHex)
+      
         if (options != nil)
         {
             if let userInfo = options?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable: Any]

@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		447989A0574664BBBC96CC1B /* Pods_EMSMobileSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B566183704E89FA7FCC559B /* Pods_EMSMobileSDK.framework */; };
 		796ABC00332E7CC331FB76C3 /* Pods_EMSMobileSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6B0F9CCFF55ECA5CE797DD99 /* Pods_EMSMobileSDKTests.framework */; };
+		7B74DD1C1FABBADA00AA8B5D /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7B74DD1B1FABBADA00AA8B5D /* Alamofire.framework */; };
 		7E22C20B1E64BA4900CA905E /* EMSMobileSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22C2071E64BA4900CA905E /* EMSMobileSDK.swift */; };
 		7E22C20C1E64BA4900CA905E /* EMSRegions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22C2081E64BA4900CA905E /* EMSRegions.swift */; };
 		7E22C20D1E64BA4900CA905E /* EMSCommsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22C2091E64BA4900CA905E /* EMSCommsError.swift */; };
@@ -33,6 +34,7 @@
 		3C2C82A28DB498E09CEC439B /* Pods-EMSMobileSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSMobileSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EMSMobileSDK/Pods-EMSMobileSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		6B0F9CCFF55ECA5CE797DD99 /* Pods_EMSMobileSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EMSMobileSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6B566183704E89FA7FCC559B /* Pods_EMSMobileSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EMSMobileSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B74DD1B1FABBADA00AA8B5D /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "Pods/../build/Release-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		7E22C2071E64BA4900CA905E /* EMSMobileSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSMobileSDK.swift; sourceTree = "<group>"; };
 		7E22C2081E64BA4900CA905E /* EMSRegions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSRegions.swift; sourceTree = "<group>"; };
 		7E22C2091E64BA4900CA905E /* EMSCommsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSCommsError.swift; sourceTree = "<group>"; };
@@ -52,6 +54,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7B74DD1C1FABBADA00AA8B5D /* Alamofire.framework in Frameworks */,
 				447989A0574664BBBC96CC1B /* Pods_EMSMobileSDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -124,6 +127,7 @@
 		FD8EEE3032D348CF8A004DF8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7B74DD1B1FABBADA00AA8B5D /* Alamofire.framework */,
 				6B566183704E89FA7FCC559B /* Pods_EMSMobileSDK.framework */,
 				6B0F9CCFF55ECA5CE797DD99 /* Pods_EMSMobileSDKTests.framework */,
 			);
@@ -475,6 +479,11 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(inherited)",
+					"$(PROJECT_DIR)/build/Release-iphoneos/Alamofire",
+				);
+				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
+					"$(SRCROOT)",
+					"$(inherited)",
 				);
 				INFOPLIST_FILE = EMSMobileSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -501,6 +510,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SRCROOT)",
 					"$(inherited)",
+					"$(PROJECT_DIR)/build/Release-iphoneos/Alamofire",
 				);
 				INFOPLIST_FILE = EMSMobileSDK/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
@@ -519,7 +529,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 92ZW54NZ5P;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/**";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/**",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = EMSMobileSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.experian.EMSMobileSDKTests;
@@ -536,7 +549,10 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 92ZW54NZ5P;
-				FRAMEWORK_SEARCH_PATHS = "$(PROJECT_DIR)/**";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/**",
+					"$(inherited)",
+				);
 				INFOPLIST_FILE = EMSMobileSDKTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.experian.EMSMobileSDKTests;
