@@ -7,7 +7,7 @@
 //
 
 import XCTest
-//import Alamofire
+import Alamofire
 @testable import EMSMobileSDK
 
 class EMSMobileSDKTests: XCTestCase {
