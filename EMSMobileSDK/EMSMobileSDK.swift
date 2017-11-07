@@ -114,7 +114,6 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
     guard let custID = custID, let appID = appID, let devToken = deviceToken else {
       print("#: missing required params")
       print("++")
-      
       return
     }
     

@@ -21,8 +21,7 @@ class EMSMobileSDKTests: XCTestCase {
         super.tearDown()
     }
     
-    func testInit()
-    {
+    func testInit(){
         let sdk = EMSMobileSDK()
         XCTAssertNotNil(sdk.backgroundSession)
     }

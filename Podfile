@@ -6,7 +6,8 @@ target 'EMSMobileSDK' do
   use_frameworks!
 
   # Pods for EMSMobileSDK
-  pod 'Alamofire' 
+  pod 'Alamofire'
+  pod 'SwiftLint'
 
   target 'EMSMobileSDKTests' do
     inherit! :search_paths
