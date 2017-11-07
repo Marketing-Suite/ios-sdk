@@ -128,6 +128,7 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         print("++++")
         let defSet = (UserDefaults.standard.object(forKey: "userOptedOutSetting") != nil) ? "yes" : "no"
         print("previous setting: \(defSet)")
+        print("test submodule update")
         print("++++")
       }
       
