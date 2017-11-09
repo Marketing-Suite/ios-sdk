@@ -551,7 +551,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 075A5E3DB59317FEE080A3DA /* Pods-EMSMobileSDKTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 92ZW54NZ5P;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -571,7 +571,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F0162146EB575CA060178041 /* Pods-EMSMobileSDKTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = 92ZW54NZ5P;
 				FRAMEWORK_SEARCH_PATHS = (
