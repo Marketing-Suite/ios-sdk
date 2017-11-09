@@ -495,6 +495,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 3C2C82A28DB498E09CEC439B /* Pods-EMSMobileSDK.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
@@ -528,6 +529,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = AFB08D7539C2DE05101D6A51 /* Pods-EMSMobileSDK.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
