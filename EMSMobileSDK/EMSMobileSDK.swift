@@ -117,18 +117,17 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
       return
     }
     
+    var method: HTTPMethod = .post
+    var urlString = ""
     
     if #available(iOS 10.0, *) {
       let current = UNUserNotificationCenter.current()
-      var method: HTTPMethod = .post
-      var urlString = ""
-
+      
       //check opt out setting
       if UserDefaults.standard.object(forKey: "userOptedOutSetting") != nil {
         print("++++")
         let defSet = (UserDefaults.standard.object(forKey: "userOptedOutSetting") != nil) ? "yes" : "no"
         print("previous setting: \(defSet)")
-        print("++test submodule update++")
         print("++++")
       }
       
@@ -147,12 +146,12 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         case .authorized:
           //user said yes
           // /pns/registration/cust/{cust}/application/{application}/token/{token}
-          UserDefaults.standard.set(false, forKey: "userOptOutSetting")
+          UserDefaults.standard.set(false, forKey: "userOptedOutSetting")
           urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(custID))/application/\(appID)/token/\(devToken)"
           
           break
         case .notDetermined:
-          //request
+          //request, notification permission hasn't been asked for yet.....
           break
         }
       })
@@ -163,15 +162,43 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
       print("++++")
       
     } else {
+      
+      //check opt out setting
+      if UserDefaults.standard.object(forKey: "userOptedOutSetting") != nil {
+        print("++++")
+        let defSet = (UserDefaults.standard.object(forKey: "userOptedOutSetting") != nil) ? "yes" : "no"
+        print("FALLBACK: previous setting: \(defSet)")
+        print("++++")
+      }
+      
       //fallbakc
       if UIApplication.shared.isRegisteredForRemoteNotifications {
         print("#: APNS - enabled")
         print("++")
+        
+        //user said yes
+        // /pns/registration/cust/{cust}/application/{application}/token/{token}
+        UserDefaults.standard.set(false, forKey: "userOptedOutSetting")
+        urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(custID))/application/\(appID)/token/\(devToken)"
+        
       } else {
         print("#: APNS - disabled")
         print("++")
+        
+        UserDefaults.standard.set(true, forKey: "userOptedOutSetting")
+        //DELETE /pns/registration/cust/{cust}/application/{application}/token/{token}
+        urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(custID))/application/\(appID)/token/\(devToken)"
+        method = .delete
+        
       }
     }
+    
+    if urlString != "" {
+      print("/n/n")
+      print("++SEND EMS Message++")
+      print("/n/n")
+    }
+    
     
   }
   
