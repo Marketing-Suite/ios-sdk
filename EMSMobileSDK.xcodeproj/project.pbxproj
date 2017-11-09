@@ -495,7 +495,7 @@
 					"$(inherited)",
 				);
 				"FRAMEWORK_SEARCH_PATHS[arch=*]" = (
-					"$(SRCROOT)",
+					"$(SRCROOT)/**",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = EMSMobileSDK/Info.plist;
