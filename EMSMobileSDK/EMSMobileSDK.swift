@@ -102,26 +102,24 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
     public func Subscribe(deviceToken: Data, completionHandler: StringCompletionHandlerType? = nil) throws -> Void {
         var tokenString: String = ""
         var method: HTTPMethod = .post
-        
         self.deviceToken = deviceToken
         tokenString = hexEncodedString(data: deviceToken)
+      
         Log("Subscribing Token: " + tokenString)
-        
-        if (tokenString != self.deviceTokenHex || self.prid == nil)
-        {
+      
+        if ((tokenString != self.deviceTokenHex) || self.prid == nil) {
             var urlString: String
             self.deviceTokenHex = tokenString
             UserDefaults.standard.set(tokenString, forKey: "DeviceTokenHex")
-            if (self.prid != nil)
-            {
+          
+            if (self.prid != nil) {
                 urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/registration/\(self.prid!)/token"
                 method = .put
-            }
-            else
-            {
+            } else {
                 urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
                 method = .post
             }
+          
             try SendEMSMessage(url: urlString, method: method, body: ["DeviceToken": tokenString], completionHandler:     {
                 response in
                 if let status = response.response?.statusCode {
@@ -148,11 +146,15 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
                     }
                 }
             })
+        } else {
+          guard let customerPrid = self.prid else {
+            print("could not access prid property")
+            return
+          }
+          
+          completionHandler?(customerPrid)
         }
-        else
-        {
-            completionHandler?(self.prid!)
-        }
+      
         return
     }
     
