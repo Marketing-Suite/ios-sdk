@@ -152,7 +152,7 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         else
         {
           guard let customerPrid = self.prid else {
-            print("could not access prid property")
+            Log("could not access prid property")
             return
           }
           
