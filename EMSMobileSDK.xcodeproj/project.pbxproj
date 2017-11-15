@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		11FF949DE484BE4FE4635B3B /* Pods_EMSMobileSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 661A148E19808D01CD9EE5F1 /* Pods_EMSMobileSDK.framework */; };
+		7BF6356F1FBBB8430037BAF7 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7BF6356E1FBBB8430037BAF7 /* Alamofire.framework */; };
 		7E22C20B1E64BA4900CA905E /* EMSMobileSDK.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22C2071E64BA4900CA905E /* EMSMobileSDK.swift */; };
 		7E22C20C1E64BA4900CA905E /* EMSRegions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22C2081E64BA4900CA905E /* EMSRegions.swift */; };
 		7E22C20D1E64BA4900CA905E /* EMSCommsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22C2091E64BA4900CA905E /* EMSCommsError.swift */; };
@@ -32,6 +33,7 @@
 		4B6E9560A652A82AD6148550 /* Pods-EMSMobileSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSMobileSDKTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EMSMobileSDKTests/Pods-EMSMobileSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
 		661A148E19808D01CD9EE5F1 /* Pods_EMSMobileSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EMSMobileSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		6C122D92529C8CA8D52D07B5 /* Pods-EMSMobileSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSMobileSDK.release.xcconfig"; path = "Pods/Target Support Files/Pods-EMSMobileSDK/Pods-EMSMobileSDK.release.xcconfig"; sourceTree = "<group>"; };
+		7BF6356E1FBBB8430037BAF7 /* Alamofire.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Alamofire.framework; path = "../../../../Library/Developer/Xcode/DerivedData/EMSMobileSDK-fjpyykvcxpmsdxaoyllrynyrffty/Build/Products/Debug-iphoneos/Alamofire/Alamofire.framework"; sourceTree = "<group>"; };
 		7E22C2071E64BA4900CA905E /* EMSMobileSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSMobileSDK.swift; sourceTree = "<group>"; };
 		7E22C2081E64BA4900CA905E /* EMSRegions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSRegions.swift; sourceTree = "<group>"; };
 		7E22C2091E64BA4900CA905E /* EMSCommsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSCommsError.swift; sourceTree = "<group>"; };
@@ -53,6 +55,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				11FF949DE484BE4FE4635B3B /* Pods_EMSMobileSDK.framework in Frameworks */,
+				7BF6356F1FBBB8430037BAF7 /* Alamofire.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -82,6 +85,7 @@
 		45D0A289F0CA18931DD8C05A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7BF6356E1FBBB8430037BAF7 /* Alamofire.framework */,
 				661A148E19808D01CD9EE5F1 /* Pods_EMSMobileSDK.framework */,
 				E64202BE7BC5B5D3AEB607E7 /* Pods_EMSMobileSDKTests.framework */,
 			);
