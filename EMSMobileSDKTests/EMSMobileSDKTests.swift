@@ -36,7 +36,7 @@ class EMSMobileSDKTests: XCTestCase {
     
     func testInitialization() {
         let custID = 100
-        let appID = "33f84e87-36df-426f-9ee0-a5c0b0b5433c"
+        let appID = "e7dcd69c-5ea8-4f95-84c4-ed8b81ca2d80"
         let region = EMSRegions.NorthAmerica
         EMSMobileSDK.default.Initialize(customerID: custID, appID: appID, region: region, options: nil)
         XCTAssertEqual(custID, EMSMobileSDK.default.customerID)
