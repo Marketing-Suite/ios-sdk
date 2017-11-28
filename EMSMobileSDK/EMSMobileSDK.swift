@@ -218,7 +218,8 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         tokenString = hexEncodedString(data: deviceToken)
         Log("Subscribing Token: " + tokenString)
         
-        if (tokenString != self.deviceTokenHex || self.prid == nil) {
+        if ((tokenString != self.deviceTokenHex) || self.prid == nil)
+        {
             var urlString: String
             self.deviceTokenHex = tokenString
             UserDefaults.standard.set(tokenString, forKey: "DeviceTokenHex")
@@ -267,7 +268,12 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         }
         else
         {
-            completionHandler?(self.prid!)
+          guard let customerPrid = self.prid else {
+            Log("could not access prid property")
+            return
+          }
+          
+          completionHandler?(customerPrid)
         }
         return
     }
