@@ -95,6 +95,15 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         }
     }
   
+    private func postOptInOutSetting(urlString: String, method: HTTPMethod, body: Parameters?) {
+      if urlString != "" {
+        self.backgroundSession.request(urlString, method: method, parameters: body, encoding: JSONEncoding.default).validate().responseJSON { response in
+          self.Log("OptInOut request status: " + String(describing: response.response?.statusCode))
+        }
+      }
+    }
+  
+    // Public Functions
   /*
    
    If notifications are turned off at the operating system level, the SDK should detect this,
@@ -103,107 +112,58 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
    
    Upon detection of notifications being turned back on, the SDK should send an http POST containing the same details in order to mark the record as opted back in.
    */
-  private func checkOSNotificationSettings(customerId custID: Int?, appID: String?, deviceToken: String?) {
-    
-    /*
-     1. off, send http delete (opt out)
-     2. turned back on, http post (opt back in)
-     3. suppor OS >= 10 < OS
-     */
-    
-    guard let custID = custID, let appID = appID, let devToken = deviceToken else {
-      print("#: missing required params")
-      print("++")
-      return
-    }
-    
-    var method: HTTPMethod = .post
-    var urlString = ""
-    
-    if #available(iOS 10.0, *) {
-      let current = UNUserNotificationCenter.current()
-      
-      //check opt out setting
-      if UserDefaults.standard.object(forKey: "userOptedOutSetting") != nil {
-        print("++++")
-        let defSet = (UserDefaults.standard.object(forKey: "userOptedOutSetting") != nil) ? "yes" : "no"
-        print("previous setting: \(defSet)")
-        print("++++")
-      }
-      
-      //read OS settings
-      current.getNotificationSettings(completionHandler: { (settings) in
-        switch settings.authorizationStatus {
-        case .denied:
-          //user (said no) needs enable in settings
-          //call delete
-          UserDefaults.standard.set(true, forKey: "userOptedOutSetting")
-          //DELETE /pns/registration/cust/{cust}/application/{application}/token/{token}
-          urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(custID))/application/\(appID)/token/\(devToken)"
-          method = .delete
-          
-          break
-        case .authorized:
-          //user said yes
-          // /pns/registration/cust/{cust}/application/{application}/token/{token}
-          UserDefaults.standard.set(false, forKey: "userOptedOutSetting")
-          urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(custID))/application/\(appID)/token/\(devToken)"
-          
-          break
-        case .notDetermined:
-          //request, notification permission hasn't been asked for yet.....
-          break
-        }
-      })
-      
-      //check network settings
-      print("++++")
-      print("url string: \(urlString)\nmethod: \(method)")
-      print("++++")
-      
-    } else {
-      
-      //check opt out setting
-      if UserDefaults.standard.object(forKey: "userOptedOutSetting") != nil {
-        print("++++")
-        let defSet = (UserDefaults.standard.object(forKey: "userOptedOutSetting") != nil) ? "yes" : "no"
-        print("FALLBACK: previous setting: \(defSet)")
-        print("++++")
-      }
-      
-      //fallbakc
-      if UIApplication.shared.isRegisteredForRemoteNotifications {
-        print("#: APNS - enabled")
-        print("++")
+    public func checkOSNotificationSettings() {
+      //inidcates user has at least enabled push once to initially subscribe
+      if (self.deviceTokenHex != nil) {
+        let previousPushSetting = UserDefaults.standard.bool(forKey: "previousPushSetting") ? "yes" : "no"
+        //available ios 8 and up
+        let currentPushSetting = UIApplication.shared.isRegisteredForRemoteNotifications ? "yes" : "no"
         
-        //user said yes
-        // /pns/registration/cust/{cust}/application/{application}/token/{token}
-        UserDefaults.standard.set(false, forKey: "userOptedOutSetting")
-        urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(custID))/application/\(appID)/token/\(devToken)"
+        Log("\n\n+++++\n")
+        Log("+app entered foreground:\n")
+        Log("+previous push setting: \(previousPushSetting)\n")
+        Log("+retistration setting: \(currentPushSetting)")
+        Log("\n+++++\n\n")
+        
+        guard let devToken = self.deviceTokenHex else {
+          Log("missing required param, device token in optinout check")
+          return
+        }
+        
+        var method: HTTPMethod = .post
+        var urlString = ""
+        
+        //if prev setting and current setting don't match handle optin/out
+        //if setting = yes and prv = no then opt in
+        //if setting = no and prev = yes then opt out
+        if previousPushSetting != currentPushSetting {
+          
+          Log("\n\n")
+          Log("OPTIN/OUT params:\n")
+          Log("customerID: \(self.customerID)\nappID: \(self.applicationID)\ndeviceToken: \(devToken)")
+          Log("\n")
+          
+          if (previousPushSetting == "no") && (currentPushSetting == "yes") {
+            UserDefaults.standard.set(true, forKey: "previousPushSetting")
+            urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(devToken)"
+            Log("OPTING IN: \(UserDefaults.standard.object(forKey: "previousPushSetting") ?? "..")\n")
+          } else if (previousPushSetting == "yes") && (currentPushSetting == "no") {
+            UserDefaults.standard.set(false, forKey: "previousPushSetting")
+            urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(devToken)"
+            method = .delete
+            Log("OPTING OUT: \(UserDefaults.standard.object(forKey: "previousPushSetting") ?? "..")\n")
+          }
+          
+          self.postOptInOutSetting(urlString: urlString, method: method, body: nil)
+          
+        }
         
       } else {
-        print("#: APNS - disabled")
-        print("++")
-        
-        UserDefaults.standard.set(true, forKey: "userOptedOutSetting")
-        //DELETE /pns/registration/cust/{cust}/application/{application}/token/{token}
-        urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(custID))/application/\(appID)/token/\(devToken)"
-        method = .delete
-        
+        Log("+User has never subscribed with current app configuration")
       }
+      
     }
-    
-    if urlString != "" {
-      print("/n/n")
-      print("++SEND EMS Message++")
-      print("/n/n")
-    }
-    
-    
-  }
   
-  
-    // Public Functions
     /**
         Used to subscribe a device to CCMP push notifications
         **NOTE:  The Initialize function must be called before calling the Subscribe function**
@@ -223,11 +183,6 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
             var urlString: String
             self.deviceTokenHex = tokenString
             UserDefaults.standard.set(tokenString, forKey: "DeviceTokenHex")
-
-          //check optin/out status
-          checkOSNotificationSettings(customerId: customerID, appID: applicationID, deviceToken: deviceTokenHex)
-          
-          
           
             if (self.prid != nil)
             {
@@ -252,6 +207,8 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
                             UserDefaults.standard.set(prid, forKey: "PRID")
                             self.Log("PRID: " + String(describing: prid))
                             self.Log("Device Subscribed")
+                            //store setting for optin/out checks
+                            UserDefaults.standard.set(true, forKey: "previousPushSetting")
                             completionHandler?(prid)
                         }
                     case 400:
@@ -326,9 +283,6 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         self.customerID = customerID
         self.applicationID = appID
         self.region = region
-      
-      //check optin/out status
-      checkOSNotificationSettings(customerId: customerID, appID: applicationID, deviceToken: deviceTokenHex)
       
         if (options != nil)
         {
