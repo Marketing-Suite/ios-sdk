@@ -10,10 +10,6 @@ import Foundation
 import Alamofire
 import UIKit
 
-import UserNotifications
-
-
-
 /** ##Monitor Delegate##
  This delegate is used to receive debug and information messages from the SDK.  It should only be used for debugging
  and not for functional logic as it can change at any time.
@@ -136,7 +132,6 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         //if setting = yes and prv = no then opt in
         //if setting = no and prev = yes then opt out
         if previousPushSetting != currentPushSetting {
-          
           Log("\n\n")
           Log("OPTIN/OUT params:\n")
           Log("customerID: \(self.customerID)\nappID: \(self.applicationID)\ndeviceToken: \(devToken)")
@@ -158,11 +153,9 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
           self.postOptInOutSetting(urlString: urlString, method: method, body: nil)
           
         }
-        
       } else {
         Log("+User has never subscribed with current app configuration")
       }
-      
     }
   
     /**
@@ -184,7 +177,6 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
             var urlString: String
             self.deviceTokenHex = tokenString
             UserDefaults.standard.set(tokenString, forKey: "DeviceTokenHex")
-          
             if (self.prid != nil)
             {
                 urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/registration/\(self.prid!)/token"
@@ -284,7 +276,6 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         self.customerID = customerID
         self.applicationID = appID
         self.region = region
-      
         if (options != nil)
         {
             if let userInfo = options?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable: Any]
