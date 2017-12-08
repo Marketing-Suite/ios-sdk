@@ -115,14 +115,14 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
     public func checkOSNotificationSettings() {
       //inidcates user has at least enabled push once to initially subscribe
       if (self.deviceTokenHex != nil) {
-        let previousPushSetting = UserDefaults.standard.bool(forKey: "previousPushSetting") ? "yes" : "no"
+        let previousPushSetting = UserDefaults.standard.bool(forKey: "EMSPreviousPushSetting")
         //available ios 8 and up
-        let currentPushSetting = UIApplication.shared.isRegisteredForRemoteNotifications ? "yes" : "no"
+        let currentPushSetting = UIApplication.shared.isRegisteredForRemoteNotifications
         
         Log("\n\n+++++\n")
         Log("+app entered foreground:\n")
-        Log("+previous push setting: \(previousPushSetting)\n")
-        Log("+retistration setting: \(currentPushSetting)")
+        Log("+previous push setting: \(previousPushSetting ? "yes" : "no")\n")
+        Log("+retistration setting: \(currentPushSetting ? "yes" : "no")")
         Log("\n+++++\n\n")
         
         guard let devToken = self.deviceTokenHex else {
@@ -131,7 +131,6 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         }
         
         var method: HTTPMethod = .post
-        var urlString = ""
         
         //if prev setting and current setting don't match handle optin/out
         //if setting = yes and prv = no then opt in
@@ -143,15 +142,17 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
           Log("customerID: \(self.customerID)\nappID: \(self.applicationID)\ndeviceToken: \(devToken)")
           Log("\n")
           
-          if (previousPushSetting == "no") && (currentPushSetting == "yes") {
-            UserDefaults.standard.set(true, forKey: "previousPushSetting")
-            urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(devToken)"
-            Log("OPTING IN: \(UserDefaults.standard.object(forKey: "previousPushSetting") ?? "..")\n")
-          } else if (previousPushSetting == "yes") && (currentPushSetting == "no") {
-            UserDefaults.standard.set(false, forKey: "previousPushSetting")
-            urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(devToken)"
+          let urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(devToken)"
+          
+          if (currentPushSetting == false){
+            //opt out
+            UserDefaults.standard.set(false, forKey: "EMSPreviousPushSetting")
             method = .delete
-            Log("OPTING OUT: \(UserDefaults.standard.object(forKey: "previousPushSetting") ?? "..")\n")
+            Log("OPTING OUT: \(UserDefaults.standard.object(forKey: "EMSPreviousPushSetting") ?? "..")\n")
+          } else {
+            //opt in
+            UserDefaults.standard.set(true, forKey: "EMSPreviousPushSetting")
+            Log("OPTING IN: \(UserDefaults.standard.object(forKey: "EMSPreviousPushSetting") ?? "..")\n")
           }
           
           self.postOptInOutSetting(urlString: urlString, method: method, body: nil)
@@ -208,7 +209,7 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
                             self.Log("PRID: " + String(describing: prid))
                             self.Log("Device Subscribed")
                             //store setting for optin/out checks
-                            UserDefaults.standard.set(true, forKey: "previousPushSetting")
+                            UserDefaults.standard.set(true, forKey: "EMSPreviousPushSetting")
                             completionHandler?(prid)
                         }
                     case 400:
