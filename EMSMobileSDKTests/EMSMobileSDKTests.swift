@@ -6,6 +6,7 @@
 //  Copyright © 2017 Experian Marketing Services. All rights reserved.
 //
 
+
 import XCTest
 import Alamofire
 @testable import EMSMobileSDK
@@ -21,8 +22,7 @@ class EMSMobileSDKTests: XCTestCase {
         super.tearDown()
     }
     
-    func testInit()
-    {
+    func testInit(){
         let sdk = EMSMobileSDK()
         XCTAssertNotNil(sdk.backgroundSession)
     }
@@ -54,4 +54,3 @@ class EMSMobileSDKTests: XCTestCase {
         XCTAssertTrue(storedToken == EMSMobileSDK.default.deviceTokenHex!)
     } 
 }
-
