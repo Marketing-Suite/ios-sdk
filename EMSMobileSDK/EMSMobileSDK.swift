@@ -10,7 +10,6 @@ import Foundation
 import Alamofire
 import UIKit
 
-
 /** ##Monitor Delegate##
  This delegate is used to receive debug and information messages from the SDK.  It should only be used for debugging
  and not for functional logic as it can change at any time.
@@ -91,8 +90,74 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
             try? completionHandler(response)
         }
     }
-    
+  
+    private func postOptInOutSetting(urlString: String, method: HTTPMethod, body: Parameters?) {
+      if urlString != "" {
+        self.backgroundSession.request(urlString, method: method, parameters: body, encoding: JSONEncoding.default).validate().responseJSON { response in
+          self.Log("OptInOut request status: " + String(describing: response.response?.statusCode))
+        }
+      }
+    }
+  
     // Public Functions
+  /*
+   
+   If notifications are turned off at the operating system level, the SDK should detect this,
+   and send an http DELETE containing the _cust id_, _application id_, and _device token_ to the {{xts/registration}} API,
+   in order to mark the PRID as opted out, so that it is not processed in during MLC.
+   
+   Upon detection of notifications being turned back on, the SDK should send an http POST containing the same details in order to mark the record as opted back in.
+   */
+    public func checkOSNotificationSettings() {
+      //inidcates user has at least enabled push once to initially subscribe
+      if (self.deviceTokenHex != nil) {
+        let previousPushSetting = UserDefaults.standard.bool(forKey: "EMSPreviousPushSetting")
+        //available ios 8 and up
+        let currentPushSetting = UIApplication.shared.isRegisteredForRemoteNotifications
+        
+        Log("\n\n+++++\n")
+        Log("+app entered foreground:\n")
+        Log("+previous push setting: \(previousPushSetting ? "yes" : "no")\n")
+        Log("+retistration setting: \(currentPushSetting ? "yes" : "no")")
+        Log("\n+++++\n\n")
+        
+        guard let devToken = self.deviceTokenHex else {
+          Log("missing required param, device token in optinout check")
+          return
+        }
+        
+        var method: HTTPMethod = .post
+        
+        //if prev setting and current setting don't match handle optin/out
+        //if setting = yes and prv = no then opt in
+        //if setting = no and prev = yes then opt out
+        if previousPushSetting != currentPushSetting {
+          Log("\n\n")
+          Log("OPTIN/OUT params:\n")
+          Log("customerID: \(self.customerID)\nappID: \(self.applicationID)\ndeviceToken: \(devToken)")
+          Log("\n")
+          
+          let urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(devToken)"
+          
+          if (currentPushSetting == false){
+            //opt out
+            UserDefaults.standard.set(false, forKey: "EMSPreviousPushSetting")
+            method = .delete
+            Log("OPTING OUT: \(UserDefaults.standard.object(forKey: "EMSPreviousPushSetting") ?? "..")\n")
+          } else {
+            //opt in
+            UserDefaults.standard.set(true, forKey: "EMSPreviousPushSetting")
+            Log("OPTING IN: \(UserDefaults.standard.object(forKey: "EMSPreviousPushSetting") ?? "..")\n")
+          }
+          
+          self.postOptInOutSetting(urlString: urlString, method: method, body: nil)
+          
+        }
+      } else {
+        Log("+User has never subscribed with current app configuration")
+      }
+    }
+  
     /**
         Used to subscribe a device to CCMP push notifications
         **NOTE:  The Initialize function must be called before calling the Subscribe function**
@@ -135,6 +200,8 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
                             UserDefaults.standard.set(prid, forKey: "PRID")
                             self.Log("PRID: " + String(describing: prid))
                             self.Log("Device Subscribed")
+                            //store setting for optin/out checks
+                            UserDefaults.standard.set(true, forKey: "EMSPreviousPushSetting")
                             completionHandler?(prid)
                         }
                     case 400:
@@ -197,7 +264,7 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         }
         return
     }
-
+  
     /**
         This function is used to initialize the SDK values for subsequent calls to CCMP
         - Parameter customerID:  This is your Customer ID in the CCMP application
