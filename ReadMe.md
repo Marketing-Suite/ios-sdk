@@ -85,17 +85,22 @@ Run `carthage update` to build the framework and drag the built `EMSMobileSDK.fr
 
 # Integrate the SDK with an App In XCode
 
-With the project open, you can add the SDK to the App by dragging the EMSMobileSDK.framework package into your application project.  This will add the framework to the Linked Framework and Libraries Build Settings and will add the library as an embedded binary.For an Objective-C based application, this will also create a bridging header file (EMSMobileSDK-swift.h) that will expose the Swift based libraries to your code.
+With the project open, you can add the SDK to the App by dragging the EMSMobileSDK.framework package into your application project.  This will add the framework to the Linked Framework and Libraries Build Settings and will add the library as an embedded binary.  For an Objective-C based application, this will also create a bridging header file (EMSMobileSDK-swift.h) that will expose the Swift based libraries to your code.
 
-Now that the framework is available to your app, you need to initialize the SDK by adding the following line to the AppDelegate file
+Now that the framework is available to your app, you need to initialize the SDK by adding the following line to the AppDelegate file.  It is also necessary to add the Notifications settings line.
 
 Swift
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
-// Override point for customization after application launch.
-	EMSMobileSDK.default.Initialize(customerID: 100, appID: "", region: 	EMSRegions.NorthAmerica, options: launchOptions)        
+	// Override point for customization after application launch.
+	EMSMobileSDK.default.Initialize(customerID: 100, appID: "", region:EMSRegions.NorthAmerica, options: launchOptions)        
 	return true    
+}
+
+func applicationWillEnterForeground(_ application: UIApplication) {
+	// Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+	EMSMobileSDK.default.checkOSNotificationSettings()
 }
 ```
 
@@ -104,9 +109,15 @@ Objective-C
 ```objective-c
 -(BOOL)application:(UIApplication )application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Override point for customization after application launch.    
-	[[EMSMobileSDK default] InitializeWithCustomerID:100 appID:@""  region:EMSRegionsNorthAmerica options:launchOptions];    
+	[[EMSMobileSDK default] InitializeWithCustomerID:100 appID:@"" region:EMSRegionsNorthAmerica options:launchOptions];    
 	return YES;
 }
+
+-(void)applicationWillEnterForeground:(UIApplication *)application {
+  // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+  
+  [[EMSMobileSDK default] checkOSNotificationSettings];
+  }
 ```
 
 At this point the SDK is ready.  You need to request permissions for user notifications and register for a DeviceToken via the following code.
@@ -208,6 +219,10 @@ Objective-C
 **Initialize**(**customerID**: int, **appID**: String, **region**: EMSRegions, **options**: launchOptions)
 
 The Initialize method initializes the SDK from the application setting up the default values used in calling CCMP.  The method allows for the region to be specified but If no region is specified the SDK defaults to North America.  If the userInfo object contains remote notifications, it will use the PRID stored in NSUserDefaults to register the app open with CCMP.
+
+**checkOSNotificationSettings**
+
+The checkOSNotificationSettings function detects OS push notification settings and reports back to the system in order to opt users in/out.
 
 **appID** -- The Application ID from CCMP.
 

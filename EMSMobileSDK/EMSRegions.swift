@@ -33,7 +33,7 @@ import Foundation
         case EMSRegions.EMEA:
             return "https://xts.ccmp.eu"
         case EMSRegions.Japan:
-            return "https://xts.ccmp.experian.co.jp"
+            return "https://xts.marketingsuite.jp"
         }
     }
     
@@ -47,7 +47,7 @@ import Foundation
         case EMSRegions.EMEA:
             return "https://ats.ccmp.eu"
         case EMSRegions.Japan:
-            return "https://ats.ccmp.experian.com.jp"
+            return "https://ats.marketingsuite.jp"
         }
     }
     
