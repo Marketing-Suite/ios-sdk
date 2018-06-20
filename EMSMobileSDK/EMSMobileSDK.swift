@@ -334,4 +334,32 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
             completionHandler?(result)
         }
     }
+    
+    public func HandleDeepLink(continue userActivity: NSUserActivity) -> EMSDeepLink{
+        
+        let deepLink = EMSDeepLink()
+        guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
+            let url = userActivity.webpageURL,
+            let components = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
+                return deepLink
+        }
+        
+        deepLink.deepLinkParameter = (components.queryItems?.first(where: {$0.name == "dl"})?.value)!
+        deepLink.deepLinkUrl = url.absoluteString
+        
+        self.Log("Getting response from URL \(String(describing: deepLink.deepLinkUrl))")
+        
+        self.backgroundSession.request(deepLink.deepLinkUrl).responseString{
+            response in
+            if (response.response?.statusCode == 200)
+            {
+                self.Log("Post Successful")
+            }
+            else
+            {
+                self.Log("Error Posting to API\nRecieved: \(String(describing: response.response?.statusCode))")
+            }
+        }
+        return deepLink
+    }
 }

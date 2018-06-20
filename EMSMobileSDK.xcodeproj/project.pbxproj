@@ -17,6 +17,7 @@
 		7E4A78AD1E64B3E200CE6302 /* EMSMobileSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4A78A31E64B3E200CE6302 /* EMSMobileSDK.framework */; };
 		7E4A78B41E64B3E200CE6302 /* EMSMobileSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E4A78A61E64B3E200CE6302 /* EMSMobileSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A2D8CCC2BF719BA1931EEB46 /* Pods_EMSMobileSDKTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E64202BE7BC5B5D3AEB607E7 /* Pods_EMSMobileSDKTests.framework */; };
+		D185B0C920DACEB80018C24E /* EMSDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = D185B0C820DACEB80018C24E /* EMSDeepLink.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		7E4A78AC1E64B3E200CE6302 /* EMSMobileSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EMSMobileSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E4A78B31E64B3E200CE6302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		85172CE74A534A5EA777B793 /* Pods-EMSMobileSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSMobileSDKTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-EMSMobileSDKTests/Pods-EMSMobileSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		D185B0C820DACEB80018C24E /* EMSDeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EMSDeepLink.swift; sourceTree = "<group>"; };
 		DF9EC29166F687CEC3E2F251 /* Pods-EMSMobileSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSMobileSDK.debug.xcconfig"; path = "Pods/Target Support Files/Pods-EMSMobileSDK/Pods-EMSMobileSDK.debug.xcconfig"; sourceTree = "<group>"; };
 		E64202BE7BC5B5D3AEB607E7 /* Pods_EMSMobileSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EMSMobileSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -121,6 +123,7 @@
 				7E22C20A1E64BA4900CA905E /* EMSRequestHandler.swift */,
 				7E4A78A61E64B3E200CE6302 /* EMSMobileSDK.h */,
 				7E4A78A71E64B3E200CE6302 /* Info.plist */,
+				D185B0C820DACEB80018C24E /* EMSDeepLink.swift */,
 			);
 			path = EMSMobileSDK;
 			sourceTree = "<group>";
@@ -157,7 +160,6 @@
 				7E4A789F1E64B3E200CE6302 /* Frameworks */,
 				7E4A78A01E64B3E200CE6302 /* Headers */,
 				7E4A78A11E64B3E200CE6302 /* Resources */,
-				BCA1648358FBF4A4E38DE785 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -177,7 +179,6 @@
 				7E4A78A91E64B3E200CE6302 /* Frameworks */,
 				7E4A78AA1E64B3E200CE6302 /* Resources */,
 				076CE7F4301FCB5AC9E80D3B /* [CP] Embed Pods Frameworks */,
-				CA70D511436ED5FA6FE0C37B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -303,36 +304,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		BCA1648358FBF4A4E38DE785 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EMSMobileSDK/Pods-EMSMobileSDK-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		CA70D511436ED5FA6FE0C37B /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-EMSMobileSDKTests/Pods-EMSMobileSDKTests-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -343,6 +314,7 @@
 				7BD52B801FBDF1BD008A0755 /* EMSMobileSDK.swift in Sources */,
 				7E22C20D1E64BA4900CA905E /* EMSCommsError.swift in Sources */,
 				7E22C20C1E64BA4900CA905E /* EMSRegions.swift in Sources */,
+				D185B0C920DACEB80018C24E /* EMSDeepLink.swift in Sources */,
 				7E22C20E1E64BA4900CA905E /* EMSRequestHandler.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
