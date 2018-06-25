@@ -344,7 +344,10 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
                 return deepLink
         }
         
-        deepLink.deepLinkParameter = (components.queryItems?.first(where: {$0.name == "dl"})?.value)!
+        if let deepLinkParam = components.queryItems?.first(where: {$0.name == "dl"}){
+            deepLink.deepLinkParameter = deepLinkParam.value!
+        }
+        
         deepLink.deepLinkUrl = url.absoluteString
         
         self.Log("Getting response from URL \(String(describing: deepLink.deepLinkUrl))")
