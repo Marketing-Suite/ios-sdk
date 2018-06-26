@@ -350,17 +350,17 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         
         deepLink.deepLinkUrl = url.absoluteString
         
-        self.Log("Getting response from URL \(String(describing: deepLink.deepLinkUrl))")
+        self.Log("Getting response from Deep link URL \(String(describing: deepLink.deepLinkUrl))")
         
         self.backgroundSession.request(deepLink.deepLinkUrl).responseString{
             response in
             if (response.response?.statusCode == 200)
             {
-                self.Log("Post Successful")
+                self.Log("Deep Link URL Post Successful")
             }
             else
             {
-                self.Log("Error Posting to API\nRecieved: \(String(describing: response.response?.statusCode))")
+                self.Log("Error Posting to Deep Link URL\nRecieved: \(String(describing: response.response?.statusCode))")
             }
         }
         return deepLink
