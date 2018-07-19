@@ -200,6 +200,38 @@ Objective-C
 
 ```
 
+## Using Deep Link
+
+The SDK offers a method to handle deep links from CCMP, the call to EMSMobileSDK.default.HandleDeepLink will parse the incoming deep link URL and returns the original URL along with the Deep Link Parameter entered on CCMP (if any)
+
+> Note:  You first need to configure the app to handle universal links(Select the project -> Capabilities tab -> Turn on Associated Domains -> Add the domain using "applinks" prefix).
+
+```swift
+func application(_ application: UIApplication,
+                    continue userActivity: NSUserActivity,
+                    restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+       
+       let deeplink = EMSMobileSDK.default.HandleDeepLink(continue: userActivity)
+
+       //deeplink.deepLinkParameter - dl parameter from CCMP if any
+       //deeplink.deepLinkUrl		- Original Deep link URL
+       
+       return true
+   }
+```
+
+Objective-C
+
+```objective-c
+- (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler {
+    if ([[userActivity activityType] isEqualToString:NSUserActivityTypeBrowsingWeb])
+    {
+        [[EMSMobileSDK default] HandleDeepLinkWithUserActivity:userActivity];
+    }
+    return YES;
+}
+```
+
 # EMSMobileSDK Methods and Properties
 
 ## Properties
@@ -253,6 +285,14 @@ The UnSubscribe function sends a message to CCMP unsubscribing the device from f
 This function is called when a remote notification is received.  If the notification is from CCMP the SDK will parse the contents and register the receipt of the message as an open in CCMP.  This method is used when the app is running in the foreground when a push notification is received.  Once the RemoteNotificationReceived function is called, the app developer is free to act upon the notification in any way they see fit.
 
 **userInfo** -- An array of Hashable items sent from APNS which may or may not include data from CCMP.  If there is no CCMP specific data in the array, no processing occurs on the SDK.
+
+
+
+**HandleDeepLink**(**userActivity**: NSUserActivity)
+
+The HandleDeepLink function parses the information from the userActivity and returns the original Deep link URL, the Deep link Paramater if any, and finally register the link count on CCMP.
+
+**userActivity** -- Passed-in userActivity.
 
 
 
