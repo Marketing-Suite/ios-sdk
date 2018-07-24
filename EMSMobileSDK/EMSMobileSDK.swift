@@ -352,7 +352,7 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         
         self.Log("Getting response from Deep link URL \(String(describing: deepLink.deepLinkUrl))")
         
-        self.backgroundSession.request(deepLink.deepLinkUrl).responseString{
+        self.backgroundSession.download(deepLink.deepLinkUrl).responseString{
             response in
             if (response.response?.statusCode == 200)
             {
