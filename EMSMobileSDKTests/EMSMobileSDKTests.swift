@@ -51,6 +51,6 @@ class EMSMobileSDKTests: XCTestCase {
         let storedToken = "fe5da804bb6167fa8a1fe44164828d5bfd853521ebc93f683de7bc4edf9a360d"
         UserDefaults.standard.set(storedToken, forKey:"DeviceTokenHex")
         EMSMobileSDK.default.Initialize(customerID: custID, appID: appID, region: region, options: nil)
-        XCTAssertTrue(storedToken == EMSMobileSDK.default.deviceTokenHex!)
+        XCTAssertEqual(storedToken, EMSMobileSDK.default.deviceTokenHex)
     } 
 }
