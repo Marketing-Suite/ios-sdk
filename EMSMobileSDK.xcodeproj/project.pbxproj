@@ -207,7 +207,7 @@
 					};
 					7E4A78AB1E64B3E200CE6302 = {
 						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = 6V98MPD55U;
+						DevelopmentTeam = 92ZW54NZ5P;
 						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
@@ -459,7 +459,7 @@
 			baseConfigurationReference = DF9EC29166F687CEC3E2F251 /* Pods-EMSMobileSDK.debug.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
@@ -489,7 +489,7 @@
 			baseConfigurationReference = 6C122D92529C8CA8D52D07B5 /* Pods-EMSMobileSDK.release.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Manual;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
@@ -519,7 +519,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 6V98MPD55U;
+				DEVELOPMENT_TEAM = 92ZW54NZ5P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/**",
 					"$(inherited)",
@@ -539,7 +539,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = "$(inherited)";
 				CLANG_ENABLE_MODULES = YES;
-				DEVELOPMENT_TEAM = 6V98MPD55U;
+				DEVELOPMENT_TEAM = 92ZW54NZ5P;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)/**",
 					"$(inherited)",
