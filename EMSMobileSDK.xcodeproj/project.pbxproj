@@ -197,13 +197,14 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 1010;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Experian Marketing Services";
 				TargetAttributes = {
 					7E4A78A21E64B3E200CE6302 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 92ZW54NZ5P;
 						LastSwiftMigration = 0820;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					7E4A78AB1E64B3E200CE6302 = {
 						CreatedOnToolsVersion = 8.2.1;

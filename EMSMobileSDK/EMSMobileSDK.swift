@@ -267,7 +267,7 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
   
     /**
         This function is used to initialize the SDK values for subsequent calls to CCMP
-        - Parameter customerID:  This is your Customer ID in the CCMP application4
+        - Parameter customerID:  This is your Customer ID in the CCMP application
         - Parameter appID:  This is the Application ID created for this app in CCMP
         - Parameter region:  This is the reqion that your CCMP instance is hosted in.  
         - Parameter options:  This is the collection of UILaunchOptionsKeys passed into the application on didFinishLaunching or nil if no options supplied.  This is used primarily for registring the launch of the application from a PUSH notification.
