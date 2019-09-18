@@ -10,12 +10,14 @@ target 'EMSMobileSDK' do
   #this version of Alamofire is necessary for Swift 3, Xcode 8, iOS 8+ configuration!
   #do not use optimistic operator '~>' as this will cause minor releases to pull in, i.e. 4.5.1
   #4.1.0, necessary for "retryCount"
-  pod 'Alamofire', '4.1.0'
+  pod 'Alamofire', '4.8.2'
   pod 'SwiftLint'
 
   target 'EMSMobileSDKTests' do
     inherit! :search_paths
     # Pods for testing
+  pod 'Alamofire', '4.8.2'
+  pod 'SwiftLint'
   end
 
 end

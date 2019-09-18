@@ -43,11 +43,11 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
     /// The Region to use for all interations with CCMP, set in the Initialize function.
     public var region: EMSRegions = EMSRegions.Sandbox
     /// The PRID returned fro device registration with CCMP
-    public private(set) dynamic var prid: String?
+    @objc public private(set) dynamic var prid: String?
     /// The current DeviceToken for this device expressed as Hex
-    public private(set) dynamic var deviceTokenHex: String?
+    @objc public private(set) dynamic var deviceTokenHex: String?
     /// The current DeviceToken for this device as returned by APNS
-    public private(set) dynamic var deviceToken: Data? = nil
+    @objc public private(set) dynamic var deviceToken: Data? = nil
     
     //Logging messages to Debug and WatcherDelegate
     private func Log(_ message: String)
@@ -272,13 +272,13 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         - Parameter region:  This is the reqion that your CCMP instance is hosted in.  
         - Parameter options:  This is the collection of UILaunchOptionsKeys passed into the application on didFinishLaunching or nil if no options supplied.  This is used primarily for registring the launch of the application from a PUSH notification.
     */
-    public func Initialize(customerID: Int, appID: String, region: EMSRegions = EMSRegions.Sandbox, options: [UIApplicationLaunchOptionsKey : Any]?){
+    public func Initialize(customerID: Int, appID: String, region: EMSRegions = EMSRegions.Sandbox, options: [UIApplication.LaunchOptionsKey : Any]?){
         self.customerID = customerID
         self.applicationID = appID
         self.region = region
         if (options != nil)
         {
-            if let userInfo = options?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable: Any]
+            if let userInfo = options?[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable: Any]
             {
                 //Woken up by Push Notification - Notify CCMP
                 Log("Awoken by Remote Notification")
