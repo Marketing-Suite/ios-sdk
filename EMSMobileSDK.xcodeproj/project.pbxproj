@@ -197,30 +197,29 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0820;
-				LastUpgradeCheck = 1020;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Experian Marketing Services";
 				TargetAttributes = {
 					7E4A78A21E64B3E200CE6302 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 92ZW54NZ5P;
-						LastSwiftMigration = 1020;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 					7E4A78AB1E64B3E200CE6302 = {
 						CreatedOnToolsVersion = 8.2.1;
 						DevelopmentTeam = 92ZW54NZ5P;
-						LastSwiftMigration = 1020;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = 7E4A789D1E64B3E200CE6302 /* Build configuration list for PBXProject "EMSMobileSDK" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = en;
+			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 			);
 			mainGroup = 7E4A78991E64B3E200CE6302;
 			productRefGroup = 7E4A78A41E64B3E200CE6302 /* Products */;
