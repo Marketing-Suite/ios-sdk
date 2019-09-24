@@ -4,7 +4,7 @@ This document, source code, and resulting compiled library (SDK) is intended to 
 
 # Integrating CCMP with iOS Mobile SDK
 
-CCMP enables marketers to target mobile devices running native applications for iOS and Android. The iOS platform uses APNS and is written in Swift 3. With push notifications, there are three parties in play: CCMP, APNS, and the user's device with an app installed. The basic flow is as follows for Push Notifications.1. After the app starts, the app contacts APNS and requests a **device token**.1. The **device token** is sent back to the device.1. The **device token** is sent to CCMP along with an **App ID** and **Customer ID**.
+CCMP enables marketers to target mobile devices running native applications for iOS and Android. The iOS platform uses APNS and is written in Swift 5. With push notifications, there are three parties in play: CCMP, APNS, and the user's device with an app installed. The basic flow is as follows for Push Notifications.1. After the app starts, the app contacts APNS and requests a **device token**.1. The **device token** is sent back to the device.1. The **device token** is sent to CCMP along with an **App ID** and **Customer ID**.
 
 1. CCMP registers the device token with the **App ID** and **Customer ID**, and sends back a **Push Registration ID** (PRID).
 
@@ -19,6 +19,12 @@ CCMP enables marketers to target mobile devices running native applications for 
    To make all this work, associations need to be set up between all three parties. This guide will walk you through these steps.
 
    ​
+
+## Requirements 
+* Deployment Target: iOS 9.0
+* Xcode 10.2 and up
+* Swift 5.0
+
 
 ## Installation
 
