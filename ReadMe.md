@@ -21,7 +21,7 @@ CCMP enables marketers to target mobile devices running native applications for 
    ​
 
 ## Requirements 
-* Deployment Target: iOS 9.0
+* Deployment Target: iOS 10.0
 * Xcode 10.2 and up
 * Swift 5.0
 
@@ -45,7 +45,7 @@ pod repo add PrivateRepo https://github.com/Marketing-Suite/podSpec.git
 To integrate EMSMobileSDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-platform :ios, '9.0'
+platform :ios, '10.0'
 
 source 'https://github.com/Marketing-Suite/podSpec.git'
 source 'https://github.com/CocoaPods/Specs.git'
