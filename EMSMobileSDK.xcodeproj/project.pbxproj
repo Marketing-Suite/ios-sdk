@@ -219,6 +219,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 			);
 			mainGroup = 7E4A78991E64B3E200CE6302;
@@ -464,6 +465,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = "$(VERSION_NUMBER)";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 92ZW54NZ5P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -484,6 +486,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
+				VERSION_NUMBER = 1.4.0;
 			};
 			name = Debug;
 		};
@@ -494,6 +497,7 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
+				CURRENT_PROJECT_VERSION = "$(VERSION_NUMBER)";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 92ZW54NZ5P;
 				DYLIB_COMPATIBILITY_VERSION = 1;
@@ -513,6 +517,7 @@
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_VERSION = 5.0;
+				VERSION_NUMBER = 1.4.0;
 			};
 			name = Release;
 		};
