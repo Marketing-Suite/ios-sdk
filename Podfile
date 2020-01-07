@@ -1,23 +1,21 @@
-source 'https://github.com/CocoaPods/Specs.git'
-# Uncomment the next line to define a global platform for your project
 platform :ios, '10.0'
+inhibit_all_warnings!
+source 'https://github.com/CocoaPods/Specs.git'
 
-project 'EMSMobileSDK.xcodeproj'
-target 'EMSMobileSDK' do
-  # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
-  use_frameworks!
-  # Pods for EMSMobileSDK
-  #this version of Alamofire is necessary for Swift 3, Xcode 8, iOS 8+ configuration!
-  #do not use optimistic operator '~>' as this will cause minor releases to pull in, i.e. 4.5.1
-  #4.1.0, necessary for "retryCount"
+def development_pod
   pod 'Alamofire', '4.9.1'
-  pod 'SwiftLint'
+end
+
+target 'EMSMobileSDK' do
+  # Comment the next line if you don't want to use dynamic frameworks
+  use_frameworks!
+
+  # Pods for EMSMobileSDK
+  development_pod
 
   target 'EMSMobileSDKTests' do
-    inherit! :search_paths
-    # Pods for testing
-  pod 'Alamofire', '4.9.1'
-  pod 'SwiftLint'
+  	inherit! :search_paths
+  	development_pod
   end
 
 end
