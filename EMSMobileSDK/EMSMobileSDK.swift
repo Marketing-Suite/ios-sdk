@@ -27,6 +27,11 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
  */
 @objc public class EMSMobileSDK : NSObject
 {
+    private let keychainPRID = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
+                                                    account: "EMSMobileSDK.PRID")
+    private let keychainDeviceTokenHex = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
+                                                              account: "EMSMobileSDK.DeviceTokenHex")
+    
     /// Singleton Reference for accessing EMSMobileSDK
     public static let `default` = EMSMobileSDK()
     
@@ -66,9 +71,9 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         super.init()
         
         //Retrieve Defaults
-        self.prid = UserDefaults.standard.string(forKey: "PRID")
+        self.prid = try? keychainPRID.readPassword()
         if (self.prid != nil) { Log("Retrieved Stored PRID: " + self.prid!) }
-        self.deviceTokenHex = UserDefaults.standard.string(forKey: "DeviceTokenHex")
+        self.deviceTokenHex = try? keychainDeviceTokenHex.readPassword()
         if (self.deviceTokenHex != nil) { Log("Retrieved Stored DeviceToken(Hex): " + self.deviceTokenHex!) }
     }
     
@@ -176,7 +181,7 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         {
             var urlString: String
             self.deviceTokenHex = tokenString
-            UserDefaults.standard.set(tokenString, forKey: "DeviceTokenHex")
+            try? keychainDeviceTokenHex.writePassword(tokenString)
             if (self.prid != nil)
             {
                 urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/registration/\(self.prid!)/token"
@@ -197,7 +202,7 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
                             let JSON = result as! NSDictionary
                             let prid = JSON["Push_Registration_Id"] as! String
                             self.prid = prid
-                            UserDefaults.standard.set(prid, forKey: "PRID")
+                            try? self.keychainPRID.writePassword(prid)
                             self.Log("PRID: " + String(describing: prid))
                             self.Log("Device Subscribed")
                             //store setting for optin/out checks
@@ -245,8 +250,8 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
                                 self.Log("JSON Received: " + String(describing: response.result.value))
                                 self.prid = nil
                                 self.deviceTokenHex = nil
-                                UserDefaults.standard.set(self.deviceTokenHex, forKey: "DeviceTokenHex")
-                                UserDefaults.standard.set(self.prid, forKey: "PRID")
+                                try? self.keychainDeviceTokenHex.delete()
+                                try? self.keychainPRID.delete()
                                 self.Log("Device Unsubscribed")
                                 completionHandler?("Device Unsubscribed")
                             }
