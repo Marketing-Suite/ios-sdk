@@ -8,8 +8,8 @@
 
 import Foundation
 
-@objc public class EMSDeepLink : NSObject
-{
+@objc
+public class EMSDeepLink: NSObject {
     public var deepLinkParameter: String = ""
     public var deepLinkUrl: String = ""
 }
