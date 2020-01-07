@@ -6,8 +6,8 @@
 //  Copyright © 2017 Experian Marketing Services. All rights reserved.
 //
 
-import Foundation
 import Alamofire
+import Foundation
 import UIKit
 
 /** ##Monitor Delegate##
@@ -18,25 +18,25 @@ import UIKit
     func sdkMessage(sender: EMSMobileSDK, message: String)
 }
 
-public typealias StringCompletionHandlerType = (_ result : String)->Void
-public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
+public typealias StringCompletionHandlerType = (_ result: String) -> Void
+public typealias BoolCompletionHandlerType = (_ success: Bool) -> Void
 
 /**
     This is the base class for accessing the EMS Mobile SDK.  It is a singleton and is referenced via
  `EMSMobileSDK.default`
  */
-@objc public class EMSMobileSDK : NSObject
-{
+@objc
+public class EMSMobileSDK: NSObject {
     private let keychainPRID = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
-                                                    account: "EMSMobileSDK.PRID")
+                                            account: "EMSMobileSDK.PRID")
     private let keychainDeviceTokenHex = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
-                                                              account: "EMSMobileSDK.DeviceTokenHex")
+                                                      account: "EMSMobileSDK.DeviceTokenHex")
     
     /// Singleton Reference for accessing EMSMobileSDK
     public static let `default` = EMSMobileSDK()
     
     // Delegate Property
-    public weak var watcherDelegate:EMSMobileSDKWatcherDelegate?
+    public weak var watcherDelegate: EMSMobileSDKWatcherDelegate?
     
     // fields
     var backgroundSession: Alamofire.SessionManager
@@ -52,11 +52,10 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
     /// The current DeviceToken for this device expressed as Hex
     @objc public private(set) dynamic var deviceTokenHex: String?
     /// The current DeviceToken for this device as returned by APNS
-    @objc public private(set) dynamic var deviceToken: Data? = nil
+    @objc public private(set) dynamic var deviceToken: Data?
     
     //Logging messages to Debug and WatcherDelegate
-    private func Log(_ message: String)
-    {
+    private func log(_ message: String) {
         //For any UI Listeners
         self.watcherDelegate?.sdkMessage(sender: self, message: message)
     }
@@ -70,13 +69,17 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         
         //Retrieve Defaults
         self.prid = try? keychainPRID.readPassword()
-        if (self.prid != nil) { Log("Retrieved Stored PRID: " + self.prid!) }
+        if self.prid != nil {
+            log("Retrieved Stored PRID: " + self.prid!)
+        }
         self.deviceTokenHex = try? keychainDeviceTokenHex.readPassword()
-        if (self.deviceTokenHex != nil) { Log("Retrieved Stored DeviceToken(Hex): " + self.deviceTokenHex!) }
+        if self.deviceTokenHex != nil {
+            log("Retrieved Stored DeviceToken(Hex): " + self.deviceTokenHex!)
+        }
     }
     
     deinit {
-        Log("SDK DeInit")
+        log("SDK DeInit")
     }
 
     // Private Functions
@@ -84,21 +87,32 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         return data.map { String(format: "%02hhx", $0) }.joined()
     }
 
-    func SendEMSMessage(url :String, method: HTTPMethod = .get, body: Parameters?, completionHandler :@escaping (DataResponse<Any>) throws ->Void) throws -> Void {
-        Log("Calling URL: " + url)
+    func sendEMSMessage(url: String,
+                        method: HTTPMethod = .get,
+                        body: Parameters?,
+                        completionHandler: @escaping (DataResponse<Any>) throws -> Void) throws {
+        log("Calling URL: " + url)
         
-        self.backgroundSession.request(url, method: method, parameters: body, encoding: JSONEncoding.default).validate().responseJSON {
-            response in
+        let request = self.backgroundSession.request(url,
+                                                     method: method,
+                                                     parameters: body,
+                                                     encoding: JSONEncoding.default)
+        
+        request.validate().responseJSON { response in
             try? completionHandler(response)
         }
     }
   
     private func postOptInOutSetting(urlString: String, method: HTTPMethod, body: Parameters?) {
-      if urlString != "" {
-        self.backgroundSession.request(urlString, method: method, parameters: body, encoding: JSONEncoding.default).validate().responseJSON { response in
-          self.Log("OptInOut request status: " + String(describing: response.response?.statusCode))
+        if !urlString.isEmpty {
+            let request = self.backgroundSession.request(urlString,
+                                                         method: method,
+                                                         parameters: body,
+                                                         encoding: JSONEncoding.default)
+            request.validate().responseJSON { response in
+                self.log("OptInOut request status: " + String(describing: response.response?.statusCode))
+            }
         }
-      }
     }
   
     // Public Functions
@@ -112,19 +126,19 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
    */
     public func checkOSNotificationSettings() {
       //inidcates user has at least enabled push once to initially subscribe
-      if (self.deviceTokenHex != nil) {
+      if self.deviceTokenHex != nil {
         let previousPushSetting = UserDefaults.standard.bool(forKey: "EMSPreviousPushSetting")
         //available ios 8 and up
         let currentPushSetting = UIApplication.shared.isRegisteredForRemoteNotifications
         
-        Log("\n\n+++++\n")
-        Log("+app entered foreground:\n")
-        Log("+previous push setting: \(previousPushSetting ? "yes" : "no")\n")
-        Log("+retistration setting: \(currentPushSetting ? "yes" : "no")")
-        Log("\n+++++\n\n")
+        log("\n\n+++++\n")
+        log("+app entered foreground:\n")
+        log("+previous push setting: \(previousPushSetting ? "yes" : "no")\n")
+        log("+retistration setting: \(currentPushSetting ? "yes" : "no")")
+        log("\n+++++\n\n")
         
         guard let devToken = self.deviceTokenHex else {
-          Log("missing required param, device token in optinout check")
+          log("missing required param, device token in optinout check")
           return
         }
         
@@ -134,29 +148,29 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         //if setting = yes and prv = no then opt in
         //if setting = no and prev = yes then opt out
         if previousPushSetting != currentPushSetting {
-          Log("\n\n")
-          Log("OPTIN/OUT params:\n")
-          Log("customerID: \(self.customerID)\nappID: \(self.applicationID)\ndeviceToken: \(devToken)")
-          Log("\n")
+          log("\n\n")
+          log("OPTIN/OUT params:\n")
+          log("customerID: \(self.customerID)\nappID: \(self.applicationID)\ndeviceToken: \(devToken)")
+          log("\n")
           
           let urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(devToken)"
           
-          if (currentPushSetting == false){
+          if currentPushSetting == false {
             //opt out
             UserDefaults.standard.set(false, forKey: "EMSPreviousPushSetting")
             method = .delete
-            Log("OPTING OUT: \(UserDefaults.standard.object(forKey: "EMSPreviousPushSetting") ?? "..")\n")
+            log("OPTING OUT: \(UserDefaults.standard.object(forKey: "EMSPreviousPushSetting") ?? "..")\n")
           } else {
             //opt in
             UserDefaults.standard.set(true, forKey: "EMSPreviousPushSetting")
-            Log("OPTING IN: \(UserDefaults.standard.object(forKey: "EMSPreviousPushSetting") ?? "..")\n")
+            log("OPTING IN: \(UserDefaults.standard.object(forKey: "EMSPreviousPushSetting") ?? "..")\n")
           }
           
           self.postOptInOutSetting(urlString: urlString, method: method, body: nil)
           
         }
       } else {
-        Log("+User has never subscribed with current app configuration")
+        log("+User has never subscribed with current app configuration")
       }
     }
   
@@ -166,90 +180,83 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         - Parameter deviceToken:  The DeviceToken returned from APNS
         - Parameter completionHandler:  A callback function to be executed when the call is complete.  If successful, will pass the PRID received back.  Otherwise you will receive an error message or exception.
     */
-    public func Subscribe(deviceToken: Data, completionHandler: StringCompletionHandlerType? = nil) throws -> Void {
+    public func subscribe(deviceToken: Data, completionHandler: StringCompletionHandlerType? = nil) throws {
         var tokenString: String = ""
         var method: HTTPMethod = .post
         
         self.deviceToken = deviceToken
         tokenString = hexEncodedString(data: deviceToken)
-        Log("Subscribing Token: " + tokenString)
+        log("Subscribing Token: " + tokenString)
         
-        if ((tokenString != self.deviceTokenHex) || self.prid == nil)
-        {
+        if (tokenString != self.deviceTokenHex) || self.prid == nil {
             var urlString: String
             self.deviceTokenHex = tokenString
             try? keychainDeviceTokenHex.writePassword(tokenString)
-            if (self.prid != nil)
-            {
+            if self.prid != nil {
                 urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/registration/\(self.prid!)/token"
                 method = .put
-            }
-            else
-            {
+            } else {
                 urlString = "\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token"
                 method = .post
             }
-            try SendEMSMessage(url: urlString, method: method, body: ["DeviceToken": tokenString], completionHandler:     {
-                response in
-                if let status = response.response?.statusCode {
-                    switch(status){
-                    case 200, 201:
-                        if let result = response.result.value {
-                            self.Log("JSON Received: " + String(describing: response.result.value!))
-                            let JSON = result as! NSDictionary
-                            let prid = JSON["Push_Registration_Id"] as! String
-                            self.prid = prid
-                            try? self.keychainPRID.writePassword(prid)
-                            self.Log("PRID: " + String(describing: prid))
-                            self.Log("Device Subscribed")
-                            //store setting for optin/out checks
-                            UserDefaults.standard.set(true, forKey: "EMSPreviousPushSetting")
-                            completionHandler?(prid)
-                        }
-                    case 400:
-                        throw EMSCommsError.invalidRequest
-                    case 401:
-                        throw EMSCommsError.notAuthenticated(userName: "")
-                    case 403:
-                        throw EMSCommsError.notAuthorized(userName: "")
-                    default:
-                        self.Log("Error with response status: \(status)")
-                    }
-                }
+            try sendEMSMessage(url: urlString,
+                               method: method,
+                               body: ["DeviceToken": tokenString],
+                               completionHandler: { response in
+                                if let status = response.response?.statusCode {
+                                    switch status {
+                                    case 200, 201:
+                                        if let result = response.result.value,
+                                            let JSON = result as? NSDictionary,
+                                            let prid = JSON["Push_Registration_Id"] as? String {
+                                            self.log("JSON Received: " + String(describing: response.result.value!))
+                                            self.prid = prid
+                                            try? self.keychainPRID.writePassword(prid)
+                                            self.log("PRID: " + String(describing: prid))
+                                            self.log("Device Subscribed")
+                                            //store setting for optin/out checks
+                                            UserDefaults.standard.set(true, forKey: "EMSPreviousPushSetting")
+                                            completionHandler?(prid)
+                                        }
+                                    case 400:
+                                        throw EMSCommsError.invalidRequest
+                                    case 401:
+                                        throw EMSCommsError.notAuthenticated(userName: "")
+                                    case 403:
+                                        throw EMSCommsError.notAuthorized(userName: "")
+                                    default:
+                                        self.log("Error with response status: \(status)")
+                                    }
+                                }
             })
-        }
-        else
-        {
+        } else {
           guard let customerPrid = self.prid else {
-            Log("could not access prid property")
+            log("could not access prid property")
             return
           }
-          
           completionHandler?(customerPrid)
         }
-        return
     }
     
     /**
      Used to unsubscribe a device to CCMP push notifications
      - Parameter completionHandler: A callback function executed when the device is unsubscribed
      */
-    public func UnSubscribe(completionHandler: StringCompletionHandlerType? = nil) throws -> Void {
-        if (self.deviceTokenHex != nil)
-        {
-            let urlString : String = "http://\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(String(describing: self.deviceTokenHex))"
+    public func unsubscribe(completionHandler: StringCompletionHandlerType? = nil) throws {
+        if self.deviceTokenHex != nil {
+            let urlString: String = "http://\(EMSRegions.XTS(region: self.region))/xts/registration/cust/\(self.customerID)/application/\(self.applicationID)/token/\(String(describing: self.deviceTokenHex))"
             try
-                SendEMSMessage(url: urlString, method: .delete, body: nil, completionHandler: { response in
+                sendEMSMessage(url: urlString, method: .delete, body: nil, completionHandler: { response in
                     if let status = response.response?.statusCode {
-                        switch(status){
+                        switch status {
                         case 201:
                             if response.result.value != nil {
-                                self.Log("JSON Received: " + String(describing: response.result.value))
+                                self.log("JSON Received: " + String(describing: response.result.value))
                                 self.prid = nil
                                 self.deviceTokenHex = nil
                                 try? self.keychainDeviceTokenHex.delete()
                                 try? self.keychainPRID.delete()
-                                self.Log("Device Unsubscribed")
+                                self.log("Device Unsubscribed")
                                 completionHandler?("Device Unsubscribed")
                             }
                         case 400:
@@ -259,7 +266,7 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
                         case 403:
                             throw EMSCommsError.notAuthorized(userName: "")
                         default:
-                            self.Log("Error with response status: \(status)")
+                            self.log("Error with response status: \(status)")
                         }
                     }
                 })
@@ -274,37 +281,34 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         - Parameter region:  This is the reqion that your CCMP instance is hosted in.  
         - Parameter options:  This is the collection of UILaunchOptionsKeys passed into the application on didFinishLaunching or nil if no options supplied.  This is used primarily for registring the launch of the application from a PUSH notification.
     */
-    public func Initialize(customerID: Int, appID: String, region: EMSRegions = EMSRegions.sandbox, options: [UIApplication.LaunchOptionsKey : Any]?){
+    public func initialize(customerID: Int,
+                           appID: String,
+                           region: EMSRegions = EMSRegions.sandbox,
+                           options: [UIApplication.LaunchOptionsKey: Any]?) {
         self.customerID = customerID
         self.applicationID = appID
         self.region = region
-        if (options != nil)
-        {
-            if let userInfo = options?[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable: Any]
-            {
+        if options != nil {
+            if let userInfo = options?[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable: Any] {
                 //Woken up by Push Notification - Notify CCMP
-                Log("Awoken by Remote Notification")
-                try? RemoteNotificationReceived(userInfo: userInfo)
+                log("Awoken by Remote Notification")
+                try? remoteNotificationReceived(userInfo: userInfo)
             }
         }
-        Log("Initialized with CustomerID: \(self.customerID), AppID: \(self.applicationID), Region: \(self.region.rawValue)")
+        log("Initialized with CustomerID: \(self.customerID), AppID: \(self.applicationID), Region: \(self.region.rawValue)")
     }
     /**
      This function is called to allow the EMS Mobile SDK to process any push notifications relevant to CCMP
      > Note:  Only messages that contain CCMP specific functionality will result in a message being sent to CCMP.  Any application specific messages are ignored.
     */
-    public func RemoteNotificationReceived(userInfo: [AnyHashable: Any]?) throws
-    {
-        if (userInfo != nil)
-        {
-            self.Log("Raw Push Data Received: " + String(describing: userInfo))
-            if let open_url = userInfo?["ems_open"] as? String
-            {
-                self.Log("Received EMS_OPEN: " + open_url)
-                try? SendEMSMessage(url: open_url, body: nil, completionHandler: { response in
-                    if (response.response?.statusCode == 200)
-                    {
-                        self.Log("Content URL Sent Successfully")
+    public func remoteNotificationReceived(userInfo: [AnyHashable: Any]?) throws {
+        if userInfo != nil {
+            self.log("Raw Push Data Received: " + String(describing: userInfo))
+            if let openUrl = userInfo?["ems_open"] as? String {
+                self.log("Received EMS_OPEN: " + openUrl)
+                try? sendEMSMessage(url: openUrl, body: nil, completionHandler: { response in
+                    if response.response?.statusCode == 200 {
+                        self.log("Content URL Sent Successfully")
                     }
                 })
             }
@@ -317,27 +321,26 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         - Parameter data:  This is a dictionary of any key values you want to send.  These values should match those required by the API Post specification
         - Parameter completionHandler: A callback function executed after the call is complete.  Will return a bool value indicating if the call was successful
     */
-    public func APIPost(formId: Int, data: Parameters?, completionHandler: BoolCompletionHandlerType? = nil) throws
-    {
+    public func APIPost(formId: Int, data: Parameters?, completionHandler: BoolCompletionHandlerType? = nil) throws {
         let urlString: String = "\(EMSRegions.ATS(region: self.region))/ats/post.aspx?cr=\(self.customerID)&fm=\(formId)"
         var result = false
-        self.backgroundSession.request(urlString, method: .post, parameters: data, encoding: URLEncoding.default).validate().responseJSON {
-            response in
-            if (response.response?.statusCode == 200)
-            {
-                self.Log("API Post Successful")
+        let request = self.backgroundSession.request(urlString,
+                                                     method: .post,
+                                                     parameters: data,
+                                                     encoding: URLEncoding.default)
+        request.validate().responseJSON { response in
+            if response.response?.statusCode == 200 {
+                self.log("API Post Successful")
                 result = true
-            }
-            else
-            {
-                self.Log("Error Posting to API\nRecieved: \(String(describing: response.response?.statusCode))")
+            } else {
+                self.log("Error Posting to API\nRecieved: \(String(describing: response.response?.statusCode))")
                 result = false
             }
             completionHandler?(result)
         }
     }
     
-    public func HandleDeepLink(continue userActivity: NSUserActivity) -> EMSDeepLink{
+    public func handleDeepLink(continue userActivity: NSUserActivity) -> EMSDeepLink {
         
         let deepLink = EMSDeepLink()
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
@@ -346,23 +349,19 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
                 return deepLink
         }
         
-        if let deepLinkParam = components.queryItems?.first(where: {$0.name == "dl"}){
+        if let deepLinkParam = components.queryItems?.first(where: { $0.name == "dl" }) {
             deepLink.deepLinkParameter = deepLinkParam.value!
         }
         
         deepLink.deepLinkUrl = url.absoluteString
         
-        self.Log("Getting response from Deep link URL \(String(describing: deepLink.deepLinkUrl))")
+        self.log("Getting response from Deep link URL \(String(describing: deepLink.deepLinkUrl))")
         
-        self.backgroundSession.download(deepLink.deepLinkUrl).responseString{
-            response in
-            if (response.response?.statusCode == 200)
-            {
-                self.Log("Deep Link URL Post Successful")
-            }
-            else
-            {
-                self.Log("Error Posting to Deep Link URL\nRecieved: \(String(describing: response.response?.statusCode))")
+        self.backgroundSession.download(deepLink.deepLinkUrl).responseString { response in
+            if response.response?.statusCode == 200 {
+                self.log("Deep Link URL Post Successful")
+            } else {
+                self.log("Error Posting to Deep Link URL\nRecieved: \(String(describing: response.response?.statusCode))")
             }
         }
         return deepLink

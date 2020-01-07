@@ -6,10 +6,9 @@
 //  Copyright © 2017 Experian Marketing Services. All rights reserved.
 //
 
-
-import XCTest
 import Alamofire
 @testable import EMSMobileSDK
+import XCTest
 
 class EMSMobileSDKTests: XCTestCase {
     
@@ -22,12 +21,10 @@ class EMSMobileSDKTests: XCTestCase {
         super.tearDown()
     }
     
-    func testInit(){
-        let sdk = EMSMobileSDK()
-        XCTAssertNotNil(sdk.backgroundSession)
+    func testInit() {
+        let mobileSDK = EMSMobileSDK()
+        XCTAssertNotNil(mobileSDK.backgroundSession)
     }
-    
-    
     
     func testHexEncoding() {
         let result = EMSMobileSDK.default.hexEncodedString(data: "ABCDEFG".data(using: .ascii)!)
@@ -37,22 +34,22 @@ class EMSMobileSDKTests: XCTestCase {
     func testInitialization() {
         let custID = 100
         let appID = "e7dcd69c-5ea8-4f95-84c4-ed8b81ca2d80"
-        let region = EMSRegions.NorthAmerica
-        EMSMobileSDK.default.Initialize(customerID: custID, appID: appID, region: region, options: nil)
+        let region = EMSRegions.northAmerica
+        EMSMobileSDK.default.initialize(customerID: custID, appID: appID, region: region, options: nil)
         XCTAssertEqual(custID, EMSMobileSDK.default.customerID)
         XCTAssertEqual(appID, EMSMobileSDK.default.applicationID)
         XCTAssertNotNil(EMSMobileSDK.default.backgroundSession)
     }
     
-    func testInitializationUserDefaults(){
+    func testInitializationUserDefaults() {
         let keychainDeviceTokenHex = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
-                                                                  account: "EMSMobileSDK.DeviceTokenHex")
+                                                  account: "EMSMobileSDK.DeviceTokenHex")
         let custID = 100
         let appID = "33f84e87-36df-426f-9ee0-a5c0b0b5433c"
-        let region = EMSRegions.NorthAmerica
+        let region = EMSRegions.northAmerica
         let storedToken = "fe5da804bb6167fa8a1fe44164828d5bfd853521ebc93f683de7bc4edf9a360d"
         try? keychainDeviceTokenHex.writePassword(storedToken)
-        EMSMobileSDK.default.Initialize(customerID: custID, appID: appID, region: region, options: nil)
+        EMSMobileSDK.default.initialize(customerID: custID, appID: appID, region: region, options: nil)
         XCTAssertEqual(storedToken, EMSMobileSDK.default.deviceTokenHex)
-    } 
+    }
 }
