@@ -52,8 +52,6 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
     //Logging messages to Debug and WatcherDelegate
     private func Log(_ message: String)
     {
-        //For Debugging
-        print ("EMS: " + message)
         //For any UI Listeners
         self.watcherDelegate?.sdkMessage(sender: self, message: message)
     }
@@ -86,7 +84,6 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         
         self.backgroundSession.request(url, method: method, parameters: body, encoding: JSONEncoding.default).validate().responseJSON {
             response in
-            print ("Received: " + String(describing: response.response?.statusCode))
             try? completionHandler(response)
         }
     }
