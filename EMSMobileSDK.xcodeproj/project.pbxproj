@@ -232,6 +232,7 @@
 				7E4A789F1E64B3E200CE6302 /* Frameworks */,
 				7E4A78A01E64B3E200CE6302 /* Headers */,
 				7E4A78A11E64B3E200CE6302 /* Resources */,
+				90B6656723C423A4009BC2F3 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -269,8 +270,8 @@
 		7E4A789A1E64B3E200CE6302 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 0820;
+				LastSwiftUpdateCheck = 0820;
+				LastUpgradeCheck = 1130;
 				ORGANIZATIONNAME = "Experian Marketing Services";
 				TargetAttributes = {
 					7DA4239023C465390082B7C4 = {
@@ -295,10 +296,9 @@
 			};
 			buildConfigurationList = 7E4A789D1E64B3E200CE6302 /* Build configuration list for PBXProject "EMSMobileSDK" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -377,6 +377,23 @@
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
+		};
+		90B6656723C423A4009BC2F3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint --config .swiftlint.yml \nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 		E0483E906827056C9BA7B203 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -633,7 +650,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DF9EC29166F687CEC3E2F251 /* Pods-EMSMobileSDK.debug.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = "$(VERSION_NUMBER)";
@@ -665,7 +681,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 6C122D92529C8CA8D52D07B5 /* Pods-EMSMobileSDK.release.xcconfig */;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CURRENT_PROJECT_VERSION = "$(VERSION_NUMBER)";
