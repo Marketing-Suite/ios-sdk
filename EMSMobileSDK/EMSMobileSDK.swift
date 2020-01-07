@@ -46,7 +46,7 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
     ///  **This application ID is found in the Mobile App Group settings on CCMP**
     public var applicationID: String = ""
     /// The Region to use for all interations with CCMP, set in the Initialize function.
-    public var region: EMSRegions = EMSRegions.Sandbox
+    public var region: EMSRegions = EMSRegions.sandbox
     /// The PRID returned fro device registration with CCMP
     @objc public private(set) dynamic var prid: String?
     /// The current DeviceToken for this device expressed as Hex
@@ -274,7 +274,7 @@ public typealias BoolCompletionHandlerType = (_ success: Bool)->Void
         - Parameter region:  This is the reqion that your CCMP instance is hosted in.  
         - Parameter options:  This is the collection of UILaunchOptionsKeys passed into the application on didFinishLaunching or nil if no options supplied.  This is used primarily for registring the launch of the application from a PUSH notification.
     */
-    public func Initialize(customerID: Int, appID: String, region: EMSRegions = EMSRegions.Sandbox, options: [UIApplication.LaunchOptionsKey : Any]?){
+    public func Initialize(customerID: Int, appID: String, region: EMSRegions = EMSRegions.sandbox, options: [UIApplication.LaunchOptionsKey : Any]?){
         self.customerID = customerID
         self.applicationID = appID
         self.region = region
