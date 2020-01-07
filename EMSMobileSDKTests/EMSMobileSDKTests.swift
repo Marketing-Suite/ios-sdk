@@ -45,11 +45,13 @@ class EMSMobileSDKTests: XCTestCase {
     }
     
     func testInitializationUserDefaults(){
+        let keychainDeviceTokenHex = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
+                                                                  account: "EMSMobileSDK.DeviceTokenHex")
         let custID = 100
         let appID = "33f84e87-36df-426f-9ee0-a5c0b0b5433c"
         let region = EMSRegions.NorthAmerica
         let storedToken = "fe5da804bb6167fa8a1fe44164828d5bfd853521ebc93f683de7bc4edf9a360d"
-        UserDefaults.standard.set(storedToken, forKey:"DeviceTokenHex")
+        try? keychainDeviceTokenHex.writePassword(storedToken)
         EMSMobileSDK.default.Initialize(customerID: custID, appID: appID, region: region, options: nil)
         XCTAssertEqual(storedToken, EMSMobileSDK.default.deviceTokenHex)
     } 
