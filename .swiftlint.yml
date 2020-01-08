@@ -77,6 +77,8 @@ identifier_name:
     - hex
     - lat
     - long
+    - xts
+    - ats
 cyclomatic_complexity:
   ignores_case_statements: true
 large_tuple:
