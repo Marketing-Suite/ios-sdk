@@ -24,7 +24,9 @@
 		7E22C2101E64BA6100CA905E /* EMSMobileSDKTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22C20F1E64BA6100CA905E /* EMSMobileSDKTests.swift */; };
 		7E4A78AD1E64B3E200CE6302 /* EMSMobileSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E4A78A31E64B3E200CE6302 /* EMSMobileSDK.framework */; };
 		7E4A78B41E64B3E200CE6302 /* EMSMobileSDK.h in Headers */ = {isa = PBXBuildFile; fileRef = 7E4A78A61E64B3E200CE6302 /* EMSMobileSDK.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		90B6656B23C7069C009BC2F3 /* EMSAPITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 90B6656A23C7069C009BC2F3 /* EMSAPITests.swift */; };
 		D185B0C920DACEB80018C24E /* EMSDeepLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = D185B0C820DACEB80018C24E /* EMSDeepLink.swift */; };
+		E14AC603C21F87B974C1528A /* Pods_EMSMobileSDKHost.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 740800ADB6DA3601C96BAE74 /* Pods_EMSMobileSDKHost.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,8 @@
 
 /* Begin PBXFileReference section */
 		207EC30A8BFDBBC4C06677D5 /* Pods-EMSMobileSDKTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSMobileSDKTests.release.xcconfig"; path = "Target Support Files/Pods-EMSMobileSDKTests/Pods-EMSMobileSDKTests.release.xcconfig"; sourceTree = "<group>"; };
+		70FA679672A61D68C5ED01EA /* Pods-EMSMobileSDKHost.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSMobileSDKHost.debug.xcconfig"; path = "Target Support Files/Pods-EMSMobileSDKHost/Pods-EMSMobileSDKHost.debug.xcconfig"; sourceTree = "<group>"; };
+		740800ADB6DA3601C96BAE74 /* Pods_EMSMobileSDKHost.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EMSMobileSDKHost.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7DA4238723C433B40082B7C4 /* KeychainAccess.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAccess.swift; sourceTree = "<group>"; };
 		7DA4238B23C434670082B7C4 /* KeychainAccessTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeychainAccessTests.swift; sourceTree = "<group>"; };
 		7DA4239123C465390082B7C4 /* EMSMobileSDKHost.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EMSMobileSDKHost.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -67,10 +71,12 @@
 		7E4A78AC1E64B3E200CE6302 /* EMSMobileSDKTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EMSMobileSDKTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		7E4A78B31E64B3E200CE6302 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		895A7C4226BA93664502DB3F /* Pods-EMSMobileSDK.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSMobileSDK.debug.xcconfig"; path = "Target Support Files/Pods-EMSMobileSDK/Pods-EMSMobileSDK.debug.xcconfig"; sourceTree = "<group>"; };
+		90B6656A23C7069C009BC2F3 /* EMSAPITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EMSAPITests.swift; sourceTree = "<group>"; };
 		AA56D3E7DB09218E3F27E6E5 /* Pods_EMSMobileSDK.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EMSMobileSDK.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BB0B16D3AC97067C8F8F60A2 /* Pods-EMSMobileSDKTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSMobileSDKTests.debug.xcconfig"; path = "Target Support Files/Pods-EMSMobileSDKTests/Pods-EMSMobileSDKTests.debug.xcconfig"; sourceTree = "<group>"; };
 		D185B0C820DACEB80018C24E /* EMSDeepLink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EMSDeepLink.swift; sourceTree = "<group>"; };
 		D3F60FA92208466C81E98B38 /* Pods_EMSMobileSDKTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_EMSMobileSDKTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		ECF484E5A7D5C0E7E42399E0 /* Pods-EMSMobileSDKHost.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSMobileSDKHost.release.xcconfig"; path = "Target Support Files/Pods-EMSMobileSDKHost/Pods-EMSMobileSDKHost.release.xcconfig"; sourceTree = "<group>"; };
 		F7E132AF2D4FA3219AF458A2 /* Pods-EMSMobileSDK.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-EMSMobileSDK.release.xcconfig"; path = "Target Support Files/Pods-EMSMobileSDK/Pods-EMSMobileSDK.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -79,6 +85,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E14AC603C21F87B974C1528A /* Pods_EMSMobileSDKHost.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -164,6 +171,7 @@
 			isa = PBXGroup;
 			children = (
 				7E4A78B31E64B3E200CE6302 /* Info.plist */,
+				90B6656A23C7069C009BC2F3 /* EMSAPITests.swift */,
 				7E22C20F1E64BA6100CA905E /* EMSMobileSDKTests.swift */,
 				7DDD02F323C7028B0047ADA7 /* EMSRegionsTests.swift */,
 				7DA4238B23C434670082B7C4 /* KeychainAccessTests.swift */,
@@ -176,6 +184,7 @@
 			children = (
 				AA56D3E7DB09218E3F27E6E5 /* Pods_EMSMobileSDK.framework */,
 				D3F60FA92208466C81E98B38 /* Pods_EMSMobileSDKTests.framework */,
+				740800ADB6DA3601C96BAE74 /* Pods_EMSMobileSDKHost.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -187,6 +196,8 @@
 				F7E132AF2D4FA3219AF458A2 /* Pods-EMSMobileSDK.release.xcconfig */,
 				BB0B16D3AC97067C8F8F60A2 /* Pods-EMSMobileSDKTests.debug.xcconfig */,
 				207EC30A8BFDBBC4C06677D5 /* Pods-EMSMobileSDKTests.release.xcconfig */,
+				70FA679672A61D68C5ED01EA /* Pods-EMSMobileSDKHost.debug.xcconfig */,
+				ECF484E5A7D5C0E7E42399E0 /* Pods-EMSMobileSDKHost.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -209,9 +220,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7DA423A223C4653C0082B7C4 /* Build configuration list for PBXNativeTarget "EMSMobileSDKHost" */;
 			buildPhases = (
+				FF1EEBEE37BEA20B88461ED6 /* [CP] Check Pods Manifest.lock */,
 				7DA4238D23C465390082B7C4 /* Sources */,
 				7DA4238E23C465390082B7C4 /* Frameworks */,
 				7DA4238F23C465390082B7C4 /* Resources */,
+				033BC0120DEB3AC4FD3DEFC1 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -341,6 +354,24 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		033BC0120DEB3AC4FD3DEFC1 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-EMSMobileSDKHost/Pods-EMSMobileSDKHost-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EMSMobileSDKHost/Pods-EMSMobileSDKHost-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		123B2D1C6381EC294E8AC839 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -416,6 +447,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-EMSMobileSDKTests/Pods-EMSMobileSDKTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		FF1EEBEE37BEA20B88461ED6 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-EMSMobileSDKHost-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -445,6 +498,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				90B6656B23C7069C009BC2F3 /* EMSAPITests.swift in Sources */,
 				7E22C2101E64BA6100CA905E /* EMSMobileSDKTests.swift in Sources */,
 				7DDD02F423C7028B0047ADA7 /* EMSRegionsTests.swift in Sources */,
 				7DA4238C23C434670082B7C4 /* KeychainAccessTests.swift in Sources */,
@@ -488,6 +542,7 @@
 /* Begin XCBuildConfiguration section */
 		7DA423A323C4653C0082B7C4 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 70FA679672A61D68C5ED01EA /* Pods-EMSMobileSDKHost.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
@@ -511,6 +566,7 @@
 		};
 		7DA423A423C4653C0082B7C4 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = ECF484E5A7D5C0E7E42399E0 /* Pods-EMSMobileSDKHost.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
