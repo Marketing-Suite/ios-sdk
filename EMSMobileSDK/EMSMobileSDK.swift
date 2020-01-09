@@ -22,7 +22,7 @@ public typealias StringCompletionHandlerType = (_ result: String?, _ error: Erro
 public typealias BoolCompletionHandlerType = (_ success: Bool) -> Void
 
 /**
-    This is the base class for accessing the EMS Mobile SDK.  It is a singleton and is referenced via
+ This is the base class for accessing the EMS Mobile SDK.  It is a singleton and is referenced via
  `EMSMobileSDK.default`
  */
 @objc
@@ -73,12 +73,12 @@ public class EMSMobileSDK: NSObject {
     
     // MARK: - Public Functions
     /**
-        This function is used to initialize the SDK values for subsequent calls to CCMP
-        - Parameter customerID:  This is your Customer ID in the CCMP application
-        - Parameter appID:  This is the Application ID created for this app in CCMP
-        - Parameter region:  This is the reqion that your CCMP instance is hosted in.
-        - Parameter options:  This is the collection of UILaunchOptionsKeys passed into the application on didFinishLaunching or nil if no options supplied.  This is used primarily for registring the launch of the application from a PUSH notification.
-    */
+     This function is used to initialize the SDK values for subsequent calls to CCMP
+     - Parameter customerID:  This is your Customer ID in the CCMP application
+     - Parameter appID:  This is the Application ID created for this app in CCMP
+     - Parameter region:  This is the reqion that your CCMP instance is hosted in.
+     - Parameter options:  This is the collection of UILaunchOptionsKeys passed into the application on didFinishLaunching or nil if no options supplied.  This is used primarily for registring the launch of the application from a PUSH notification.
+     */
     public func initialize(customerID: Int,
                            appID: String,
                            region: EMSRegions = EMSRegions.sandbox,
@@ -93,10 +93,13 @@ public class EMSMobileSDK: NSObject {
         }
         log("Initialized with CustomerID: \(self.customerID), AppID: \(self.applicationID), Region: \(self.region.rawValue)")
     }
+    
     /**
      This function is called to allow the EMS Mobile SDK to process any push notifications relevant to CCMP
-     > Note:  Only messages that contain CCMP specific functionality will result in a message being sent to CCMP.  Any application specific messages are ignored.
-    */
+     - Parameter userInfo: An array of Hashable items sent from APNS which may or may not include data from CCMP.
+     **NOTE:  Only messages that contain CCMP specific functionality will result in a message being sent to CCMP.**
+     **Any application specific messages are ignored.**
+     */
     public func remoteNotificationReceived(userInfo: [AnyHashable: Any]?) {
         guard let openUrl = userInfo?["ems_open"] as? String else { return }
         
@@ -107,12 +110,12 @@ public class EMSMobileSDK: NSObject {
             self?.log("Content URL Sent Successfully")
         }
     }
-  
+    
     /**
-        Used to subscribe a device to CCMP push notifications
-        **NOTE:  The Initialize function must be called before calling the Subscribe function**
-        - Parameter deviceToken:  The DeviceToken returned from APNS
-        - Parameter completionHandler:  A callback function to be executed when the call is complete.  If successful, will pass the PRID received back.  Otherwise you will receive an error message or exception.
+     Used to subscribe a device to CCMP push notifications
+     **NOTE: The Initialize function must be called before calling the Subscribe function**
+     - Parameter deviceToken:  The DeviceToken returned from APNS
+     - Parameter completionHandler:  A callback function to be executed when the call is complete.  If successful, will pass the PRID received back.  Otherwise you will receive an error message or exception.
      */
     public func subscribe(deviceToken: Data,
                           completionHandler: StringCompletionHandlerType? = nil) {
@@ -193,12 +196,12 @@ public class EMSMobileSDK: NSObject {
     }
     
     /**
-    If notifications are turned off at the operating system level, the SDK should detect this,
-    and send an http DELETE containing the _cust id_, _application id_, and _device token_ to the {{xts/registration}} API,
-    in order to mark the PRID as opted out, so that it is not processed in during MLC.
-    
-    Upon detection of notifications being turned back on, the SDK should send an http POST containing the same details in order to mark the record as opted back in.
-    */
+     If notifications are turned off at the operating system level, the SDK should detect this,
+     and send an http DELETE containing the _cust id_, _application id_, and _device token_ to the {{xts/registration}} API,
+     in order to mark the PRID as opted out, so that it is not processed in during MLC.
+     
+     Upon detection of notifications being turned back on, the SDK should send an http POST containing the same details in order to mark the record as opted back in.
+     */
     public func updateEMSSubscriptionIfNeeded() {
         let previousPushSetting = UserDefaults.standard.bool(forKey: "EMSPreviousPushSetting")
         let currentPushSetting = UIApplication.shared.isRegisteredForRemoteNotifications
@@ -217,7 +220,7 @@ public class EMSMobileSDK: NSObject {
         log("+previous push setting: \(previousPushSetting ? "yes" : "no")\n")
         log("+registration setting: \(currentPushSetting ? "yes" : "no")")
         log("\n+++++\n\n")
-            
+        
         //if prev setting and current setting don't match handle optin/out
         //if setting = yes and prv = no then opt in
         //if setting = no and prev = yes then opt out
@@ -226,7 +229,7 @@ public class EMSMobileSDK: NSObject {
         log("\n\nOPTIN/OUT params:\n")
         log("customerID: \(self.customerID)\nappID: \(self.applicationID)\ndeviceToken: \(devToken)\n")
         log("\(currentPushSetting ? "OPTING IN" : "OPTING OUT")...\n")
-
+        
         if currentPushSetting {
             subscribe(deviceTokenString: devToken)
         } else {
@@ -235,11 +238,11 @@ public class EMSMobileSDK: NSObject {
     }
     
     /**
-        This function is used to post data to an API Post endpoing in CCMP
-        - Parameter formId:  This is the Form ID for the API Post
-        - Parameter data:  This is a dictionary of any key values you want to send.  These values should match those required by the API Post specification
-        - Parameter completionHandler: A callback function executed after the call is complete.  Will return a bool value indicating if the call was successful
-    */
+     This function is used to post data to an API Post endpoing in CCMP
+     - Parameter formId:  This is the Form ID for the API Post
+     - Parameter data:  This is a dictionary of any key values you want to send.  These values should match those required by the API Post specification
+     - Parameter completionHandler: A callback function executed after the call is complete.  Will return a bool value indicating if the call was successful
+     */
     public func APIPost(formId: Int, data: Parameters?, completionHandler: BoolCompletionHandlerType? = nil) {
         apiService.emsPost(formId: formId, data: data) { [weak self] response in
             var result = false
@@ -257,6 +260,11 @@ public class EMSMobileSDK: NSObject {
         }
     }
     
+    /**
+     The handleDeepLink function parses the information from the userActivity and returns the original Deep link URL,
+     the Deep link Paramater if any, and finally register the link count on CCMP.
+     - Parameter userActivity: This is the Passed-in userActivity
+     */
     public func handleDeepLink(continue userActivity: NSUserActivity) -> EMSDeepLink {
         let deepLink = EMSDeepLink()
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
