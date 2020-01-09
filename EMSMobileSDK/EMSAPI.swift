@@ -11,29 +11,38 @@ import Foundation
 
 @objc
 public class EMSAPI: NSObject {
+    // fields
+    public var backgroundSession: Alamofire.SessionManager
     
-    public static func subscribe(region: EMSRegions = EMSMobileSDK.default.region,
-                                 customerID: Int = EMSMobileSDK.default.customerID,
-                                 applicationID: String = EMSMobileSDK.default.applicationID,
-                                 deviceToken: String,
-                                 completionHandler: @escaping (DataResponse<Any>) -> Void) {
+    override init() {
+        //Configure SessionManager
+        let configuration = URLSessionConfiguration.background(withIdentifier: "com.experian.emsmobilesdk")
+        backgroundSession = Alamofire.SessionManager(configuration: configuration)
+        super.init()
+    }
+    
+    public func subscribe(region: EMSRegions = EMSMobileSDK.default.region,
+                          customerID: Int = EMSMobileSDK.default.customerID,
+                          applicationID: String = EMSMobileSDK.default.applicationID,
+                          deviceToken: String,
+                          completionHandler: @escaping (DataResponse<Any>) -> Void) {
         let url = "\(region.xts))/xts/registration/cust/\(customerID)/application/\(applicationID)/token"
         
         let body: Parameters = ["DeviceToken": deviceToken]
         
-        let request = EMSMobileSDK.default.backgroundSession.request(url,
-                                                                     method: .post,
-                                                                     parameters: body,
-                                                                     encoding: JSONEncoding.default)
+        let request = backgroundSession.request(url,
+                                                method: .post,
+                                                parameters: body,
+                                                encoding: JSONEncoding.default)
         request.validate().responseJSON(completionHandler: completionHandler)
     }
     
-    public static func resubscribe(region: EMSRegions = EMSMobileSDK.default.region,
-                                   customerID: Int = EMSMobileSDK.default.customerID,
-                                   applicationID: String = EMSMobileSDK.default.applicationID,
-                                   deviceToken: String,
-                                   prid: String? = EMSMobileSDK.default.prid,
-                                   completionHandler: @escaping (DataResponse<Any>) -> Void) {
+    public func resubscribe(region: EMSRegions = EMSMobileSDK.default.region,
+                            customerID: Int = EMSMobileSDK.default.customerID,
+                            applicationID: String = EMSMobileSDK.default.applicationID,
+                            deviceToken: String,
+                            prid: String? = EMSMobileSDK.default.prid,
+                            completionHandler: @escaping (DataResponse<Any>) -> Void) {
         
         let url = "\(region.xts))/xts/registration/cust/\(customerID)/application/\(applicationID)/registration/\(prid ?? "")/token"
         
@@ -48,55 +57,54 @@ public class EMSAPI: NSObject {
         
         let body: Parameters = ["DeviceToken": deviceToken]
         
-        let request = EMSMobileSDK.default.backgroundSession.request(url,
-                                                                     method: .put,
-                                                                     parameters: body,
-                                                                     encoding: JSONEncoding.default)
+        let request = backgroundSession.request(url,
+                                                method: .put,
+                                                parameters: body,
+                                                encoding: JSONEncoding.default)
         request.validate().responseJSON(completionHandler: completionHandler)
     }
     
-    public static func unsubscribe(region: EMSRegions = EMSMobileSDK.default.region,
-                                   customerID: Int = EMSMobileSDK.default.customerID,
-                                   applicationID: String = EMSMobileSDK.default.applicationID,
-                                   deviceToken: String,
-                                   completionHandler: @escaping (DataResponse<Any>) -> Void) {
+    public func unsubscribe(region: EMSRegions = EMSMobileSDK.default.region,
+                            customerID: Int = EMSMobileSDK.default.customerID,
+                            applicationID: String = EMSMobileSDK.default.applicationID,
+                            deviceToken: String,
+                            completionHandler: @escaping (DataResponse<Any>) -> Void) {
         let url = "\(region.xts))/xts/registration/cust/\(customerID)/application/\(applicationID)/token"
         
         let body: Parameters = ["DeviceToken": deviceToken]
         
-        let request = EMSMobileSDK.default.backgroundSession.request(url,
-                                                                     method: .delete,
-                                                                     parameters: body,
-                                                                     encoding: JSONEncoding.default)
+        let request = backgroundSession.request(url,
+                                                method: .delete,
+                                                parameters: body,
+                                                encoding: JSONEncoding.default)
         request.validate().responseJSON(completionHandler: completionHandler)
     }
     
-    public static func emsPost(region: EMSRegions = EMSMobileSDK.default.region,
-                               customerID: Int = EMSMobileSDK.default.customerID,
-                               formId: Int,
-                               data: Parameters?,
-                               completionHandler: @escaping (DataResponse<Any>) -> Void) {
+    public func emsPost(region: EMSRegions = EMSMobileSDK.default.region,
+                        customerID: Int = EMSMobileSDK.default.customerID,
+                        formId: Int,
+                        data: Parameters?,
+                        completionHandler: @escaping (DataResponse<Any>) -> Void) {
         let urlString: String = "\(region.ats))/ats/post.aspx?cr=\(customerID)&fm=\(formId)"
-        let request = EMSMobileSDK.default.backgroundSession.request(urlString,
-                                                                     method: .post,
-                                                                     parameters: data,
-                                                                     encoding: URLEncoding.default)
+        let request = backgroundSession.request(urlString,
+                                                method: .post,
+                                                parameters: data,
+                                                encoding: URLEncoding.default)
         request.validate().responseJSON(completionHandler: completionHandler)
     }
     
-    public static func logDeepLink(_ deepLinkUrl: String,
-                                   completionHandler: @escaping (DownloadResponse<String>) -> Void) {
-        let request = EMSMobileSDK.default.backgroundSession.download(deepLinkUrl)
+    public func logDeepLink(_ deepLinkUrl: String,
+                            completionHandler: @escaping (DownloadResponse<String>) -> Void) {
+        let request = backgroundSession.download(deepLinkUrl)
         request.validate().responseString(completionHandler: completionHandler)
     }
     
-    public static func logEMSOpen(url: String,
-                                  completionHandler: @escaping (DataResponse<Any>) -> Void) {
-        let request = EMSMobileSDK.default.backgroundSession.request(url,
-                                                                     method: .get,
-                                                                     parameters: nil,
-                                                                     encoding: JSONEncoding.default)
-        
+    public func logEMSOpen(url: String,
+                           completionHandler: @escaping (DataResponse<Any>) -> Void) {
+        let request = backgroundSession.request(url,
+                                                method: .get,
+                                                parameters: nil,
+                                                encoding: JSONEncoding.default)
         request.validate().responseJSON(completionHandler: completionHandler)
     }
 }
