@@ -14,7 +14,7 @@ public class EMSAPI: NSObject {
     // fields
     public var backgroundSession: Alamofire.SessionManager
     
-    override init() {
+    override public init() {
         //Configure SessionManager
         let configuration = URLSessionConfiguration.background(withIdentifier: "com.experian.emsmobilesdk")
         backgroundSession = Alamofire.SessionManager(configuration: configuration)
@@ -26,14 +26,13 @@ public class EMSAPI: NSObject {
                           applicationID: String = EMSMobileSDK.default.applicationID,
                           deviceToken: String,
                           completionHandler: @escaping (DataResponse<Any>) -> Void) {
-        let url = "\(region.xts))/xts/registration/cust/\(customerID)/application/\(applicationID)/token"
+        let url = "\(region.xts)/xts/registration/cust/\(customerID)/application/\(applicationID)/token"
         
         let body: Parameters = ["DeviceToken": deviceToken]
         
         let request = backgroundSession.request(url,
                                                 method: .post,
-                                                parameters: body,
-                                                encoding: JSONEncoding.default)
+                                                parameters: body)
         request.validate().responseJSON(completionHandler: completionHandler)
     }
     
@@ -44,7 +43,7 @@ public class EMSAPI: NSObject {
                             prid: String? = EMSMobileSDK.default.prid,
                             completionHandler: @escaping (DataResponse<Any>) -> Void) {
         
-        let url = "\(region.xts))/xts/registration/cust/\(customerID)/application/\(applicationID)/registration/\(prid ?? "")/token"
+        let url = "\(region.xts)/xts/registration/cust/\(customerID)/application/\(applicationID)/registration/\(prid ?? "")/token"
         
         guard prid != nil else {
             let dataResponse = DataResponse<Any>(request: nil,
@@ -59,8 +58,7 @@ public class EMSAPI: NSObject {
         
         let request = backgroundSession.request(url,
                                                 method: .put,
-                                                parameters: body,
-                                                encoding: JSONEncoding.default)
+                                                parameters: body)
         request.validate().responseJSON(completionHandler: completionHandler)
     }
     
@@ -69,14 +67,13 @@ public class EMSAPI: NSObject {
                             applicationID: String = EMSMobileSDK.default.applicationID,
                             deviceToken: String,
                             completionHandler: @escaping (DataResponse<Any>) -> Void) {
-        let url = "\(region.xts))/xts/registration/cust/\(customerID)/application/\(applicationID)/token"
+        let url = "\(region.xts)/xts/registration/cust/\(customerID)/application/\(applicationID)/token"
         
         let body: Parameters = ["DeviceToken": deviceToken]
         
         let request = backgroundSession.request(url,
                                                 method: .delete,
-                                                parameters: body,
-                                                encoding: JSONEncoding.default)
+                                                parameters: body)
         request.validate().responseJSON(completionHandler: completionHandler)
     }
     
@@ -85,11 +82,10 @@ public class EMSAPI: NSObject {
                         formId: Int,
                         data: Parameters?,
                         completionHandler: @escaping (DataResponse<Any>) -> Void) {
-        let urlString: String = "\(region.ats))/ats/post.aspx?cr=\(customerID)&fm=\(formId)"
+        let urlString: String = "\(region.ats)/ats/post.aspx?cr=\(customerID)&fm=\(formId)"
         let request = backgroundSession.request(urlString,
                                                 method: .post,
-                                                parameters: data,
-                                                encoding: URLEncoding.default)
+                                                parameters: data)
         request.validate().responseJSON(completionHandler: completionHandler)
     }
     
@@ -103,8 +99,7 @@ public class EMSAPI: NSObject {
                            completionHandler: @escaping (DataResponse<Any>) -> Void) {
         let request = backgroundSession.request(url,
                                                 method: .get,
-                                                parameters: nil,
-                                                encoding: JSONEncoding.default)
+                                                parameters: nil)
         request.validate().responseJSON(completionHandler: completionHandler)
     }
 }
