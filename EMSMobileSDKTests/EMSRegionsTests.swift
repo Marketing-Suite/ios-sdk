@@ -11,14 +11,6 @@ import XCTest
 
 class EMSRegionsTests: XCTestCase {
 
-    override func setUp() {
-        super.setUp()
-    }
-
-    override func tearDown() {
-        super.tearDown()
-    }
-    
     func testRegionNorthAmerica() {
         let region = EMSRegions.northAmerica
         
