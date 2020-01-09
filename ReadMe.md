@@ -100,13 +100,13 @@ Swift
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 	// Override point for customization after application launch.
-	EMSMobileSDK.default.Initialize(customerID: 100, appID: "", region:EMSRegions.NorthAmerica, options: launchOptions)        
+	EMSMobileSDK.default.initialize(customerID: 100, appID: "", region:EMSRegions.NorthAmerica, options: launchOptions)        
 	return true    
 }
 
 func applicationWillEnterForeground(_ application: UIApplication) {
 	// Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
-	EMSMobileSDK.default.checkOSNotificationSettings()
+	EMSMobileSDK.default.updateEMSSubscriptionIfNeeded()      
 }
 ```
 
@@ -115,15 +115,15 @@ Objective-C
 ```objective-c
 -(BOOL)application:(UIApplication )application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Override point for customization after application launch.    
-	[[EMSMobileSDK default] InitializeWithCustomerID:100 appID:@"" region:EMSRegionsNorthAmerica options:launchOptions];    
+    [[EMSMobileSDK default] initializeWithCustomerID:100 appID:@"" region:EMSRegionsNorthAmerica options:launchOptions];    
 	return YES;
 }
 
 -(void)applicationWillEnterForeground:(UIApplication *)application {
   // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
   
-  [[EMSMobileSDK default] checkOSNotificationSettings];
-  }
+  [[EMSMobileSDK default] updateEMSSubscriptionIfNeeded];
+}
 ```
 
 At this point the SDK is ready.  You need to request permissions for user notifications and register for a DeviceToken via the following code.
@@ -141,9 +141,9 @@ UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound
 UIApplication.shared.registerForRemoteNotifications()    
 
 func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-        // Application Code
-        try? EMSMobileSDK.default.Subscribe(deviceToken: deviceToken)
-    }
+    // Application Code
+    EMSMobileSDK.default.subscribe(deviceToken: deviceToken, completionHandler: StringCompletionHandlerType? = nil)
+}
 ```
 
 Objective-C    
@@ -158,7 +158,7 @@ UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTy
 
 - (void)application:(UIApplication )application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {    
   NSError *error;    
-  [[EMSMobileSDK default] SubscribeWithDeviceToken:deviceToken error:&error];
+  [[EMSMobileSDK default] subscribeWithDeviceToken:deviceToken error:&error, completionHandler:completionHandler;
 }
 ```
 
@@ -169,9 +169,9 @@ When a push notification is received, whether from CCMP or your own services, ca
 Swift    
 
 ```swift
-func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-	try? EMSMobileSDK.default.RemoteNotificationReceived(userInfo: userInfo)    
-	}
+func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+	EMSMobileSDK.default.remoteNotificationReceived(userInfo: userInfo)
+}
 ```
 
 Objective-C
@@ -179,7 +179,7 @@ Objective-C
 ```objective-c
 -(void)application:(UIApplication )application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{    
   NSError *error;    
-  [[EMSMobileSDK default] RemoteNotificationReceivedWithUserInfo:userInfo error:&error];
+  [[EMSMobileSDK default] remoteNotificationReceivedWithUserInfo: userInfo error: &error];
 }
 ```
 
@@ -208,7 +208,7 @@ Objective-C
 
 ## Using Deep Link
 
-The SDK offers a method to handle deep links from CCMP, the call to EMSMobileSDK.default.HandleDeepLink will parse the incoming deep link URL and returns the original URL along with the Deep Link Parameter entered on CCMP (if any)
+The SDK offers a method to handle deep links from CCMP, the call to EMSMobileSDK.default.handleDeepLink will parse the incoming deep link URL and returns the original URL along with the Deep Link Parameter entered on CCMP (if any)
 
 > Note:  You first need to configure the app to handle universal links(Select the project -> Capabilities tab -> Turn on Associated Domains -> Add the domain using "applinks" prefix).
 
@@ -217,22 +217,22 @@ func application(_ application: UIApplication,
                     continue userActivity: NSUserActivity,
                     restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
        
-       let deeplink = EMSMobileSDK.default.HandleDeepLink(continue: userActivity)
+   let deeplink = EMSMobileSDK.default.handleDeepLink(continue: userActivity)
 
-       //deeplink.deepLinkParameter - dl parameter from CCMP if any
-       //deeplink.deepLinkUrl		- Original Deep link URL
-       
-       return true
-   }
+   //deeplink.deepLinkParameter - dl parameter from CCMP if any
+   //deeplink.deepLinkUrl		- Original Deep link URL
+   
+   return true
+}
 ```
 
 Objective-C
 
 ```objective-c
-- (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity restorationHandler:(nonnull void (^)(NSArray * _Nullable))restorationHandler {
-    if ([[userActivity activityType] isEqualToString:NSUserActivityTypeBrowsingWeb])
+- (BOOL)application:(UIApplication *)application continueUserActivity: (nonnull NSUserActivity *)userActivity restorationHandler: (nonnull void (^)(NSArray * _Nullable))restorationHandler {
+    if ([[userActivity activityType] isEqualToString: NSUserActivityTypeBrowsingWeb])
     {
-        [[EMSMobileSDK default] HandleDeepLinkWithUserActivity:userActivity];
+        [[EMSMobileSDK default] handleDeepLinkWithUserActivity: userActivity];
     }
     return YES;
 }
@@ -254,13 +254,9 @@ Objective-C
 
 ## Methods
 
-**Initialize**(**customerID**: int, **appID**: String, **region**: EMSRegions, **options**: launchOptions)
+**initialize**(**customerID**: int, **appID**: String, **region**: EMSRegions, **options**: launchOptions)
 
 The Initialize method initializes the SDK from the application setting up the default values used in calling CCMP.  The method allows for the region to be specified but If no region is specified the SDK defaults to North America.  If the userInfo object contains remote notifications, it will use the PRID stored in NSUserDefaults to register the app open with CCMP.
-
-**checkOSNotificationSettings**
-
-The checkOSNotificationSettings function detects OS push notification settings and reports back to the system in order to opt users in/out.
 
 **appID** -- The Application ID from CCMP.
 
@@ -272,21 +268,7 @@ The checkOSNotificationSettings function detects OS push notification settings a
 
 
 
-**Subscribe**(**deviceToken**: Data)
-
-The Subscribe function registers the deviceToken with CCMP for receiving Push Notifications via CCMP campaigns.
-
-**deviceToken** -- The device token sent to the app by the iOS platform.
-
-
-
-**UnSubscribe**()
-
-The UnSubscribe function sends a message to CCMP unsubscribing the device from future push notification campaigns.
-
-
-
-**RemoteNotificationReceived**(**userInfo**: [AnyHashable: Any])
+**remoteNotificationReceived**(**userInfo**: [AnyHashable: Any])
 
 This function is called when a remote notification is received.  If the notification is from CCMP the SDK will parse the contents and register the receipt of the message as an open in CCMP.  This method is used when the app is running in the foreground when a push notification is received.  Once the RemoteNotificationReceived function is called, the app developer is free to act upon the notification in any way they see fit.
 
@@ -294,7 +276,44 @@ This function is called when a remote notification is received.  If the notifica
 
 
 
-**HandleDeepLink**(**userActivity**: NSUserActivity)
+**subscribe**(**deviceToken**: Data, **completionHandler**: StringCompletionHandlerType? = nil)
+
+The Subscribe function registers the deviceToken with CCMP for receiving Push Notifications via CCMP campaigns.
+
+**deviceToken** -- The device token sent to the app by the iOS platform.
+
+**completionHandler** -- A callback function to be executed when the call is complete.
+
+
+
+**unsubscribe**(**completionHandler**: StringCompletionHandlerType? = nil)
+
+The UnSubscribe function sends a message to CCMP unsubscribing the device from future push notification campaigns.
+
+**completionHandler** -- **completionHandler** -- A callback function executed when the device is unsubscribed.
+
+
+
+**updateEMSSubscriptionIfNeeded**()
+
+The updateEMSSubscriptionIfNeeded function detects OS push notification settings and reports back to the system in order to opt users in/out.
+
+
+
+
+**APIPost**(**formId**: Int, **data**: Parameters?, **completionHandler**: BoolCompletionHandlerType? = nil)
+
+This function is used to post data to an API Post endpoing in CCMP
+
+**formId** --  This is the Form ID for the API Post
+
+**data** -- This is a dictionary of any key values you want to send.  These values should match those required by the API Post specification
+
+**completionHandler** -- A callback function executed after the call is complete.  Will return a bool value indicating if the call was successful
+
+
+
+**handleDeepLink**(**userActivity**: NSUserActivity)
 
 The HandleDeepLink function parses the information from the userActivity and returns the original Deep link URL, the Deep link Paramater if any, and finally register the link count on CCMP.
 
