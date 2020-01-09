@@ -17,70 +17,66 @@ import Foundation
 */
 @objc
 public enum EMSRegions: Int {
-    case northAmerica// = "xts.eccmp.com"
-    case sandbox // = "cs.sbox.eccmp.com"
-    case emea// = "xts.ccmp.com"
-    case japan // = "sandaws1.emssand.com"
-    public static func count() -> Int { return 4 }
-    public static func keys() -> [String] { return ["NorthAmerica", "Sandbox", "EMEA", "Japan"] }
+    case northAmerica
+    case sandbox
+    case emea
+    case japan
     
-    /// Retrieve the XTS value of the EMSRegion enum as a URL
-    public static func XTS(region: EMSRegions) -> String {
-        switch region {
-        case EMSRegions.northAmerica:
+    /// Retrieve the string representation of the name of the EMSRegion
+    public var name: String {
+        switch self {
+        case .northAmerica:
+            return "NorthAmerica"
+        case .sandbox:
+            return "Sandbox"
+        case .emea:
+            return "EMEA"
+        case .japan:
+            return "Japan"
+        }
+    }
+    
+    /// Retrieve the XTS value of the EMSRegion enum as a URL String
+    public var xts: String {
+        switch self {
+        case .northAmerica:
             return "https://xts.eccmp.com"
-        case EMSRegions.sandbox:
+        case .sandbox:
             return "http://cs.sbox.eccmp.com"
-        case EMSRegions.emea:
+        case .emea:
             return "https://xts.ccmp.eu"
-        case EMSRegions.japan:
+        case .japan:
             return "https://xts.marketingsuite.jp"
         }
     }
     
-    /// Retrieve the ATS value of the EMSRegion enum as a URL
-    public static func ATS(region: EMSRegions) -> String {
-        switch region {
-        case EMSRegions.northAmerica:
+    /// Retrieve the ATS value of the EMSRegion enum as a URL String
+    public var ats: String {
+        switch self {
+        case .northAmerica:
             return "https://ats.eccmp.com"
-        case EMSRegions.sandbox:
+        case .sandbox:
             return "http://cs.sbox.eccmp.com"
-        case EMSRegions.emea:
+        case .emea:
             return "https://ats.ccmp.eu"
-        case EMSRegions.japan:
+        case .japan:
             return "https://ats.marketingsuite.jp"
         }
     }
     
     /// Retrieve the EMSRegion from the string representation of the name of the EMSRegion
-    public static func fromName(name: String) -> EMSRegions {
+    public init?(with name: String) {
         switch name {
         case "NorthAmerica":
-            return EMSRegions.northAmerica
+            self = .northAmerica
         case "Sandbox":
-            return EMSRegions.sandbox
+            self = .sandbox
         case "EMEA":
-            return EMSRegions.emea
+            self = .emea
         case "Japan":
-            return EMSRegions.japan
+            self = .japan
         default:
-            return EMSRegions.northAmerica
-        }
-    }
-    
-    /// Retrieve the string representation of the name of the EMSRegion
-    public func name() -> String {
-        switch self.rawValue {
-        case EMSRegions.northAmerica.rawValue:
-            return "NorthAmerica"
-        case EMSRegions.sandbox.rawValue:
-            return "Sandbox"
-        case EMSRegions.emea.rawValue:
-            return "EMEA"
-        case EMSRegions.japan.rawValue:
-            return "Japan"
-        default:
-            return ""
+            return nil
         }
     }
 }

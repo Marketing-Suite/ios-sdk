@@ -17,6 +17,7 @@
 		7DA4239B23C465390082B7C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DA4239923C465390082B7C4 /* Main.storyboard */; };
 		7DA4239D23C4653C0082B7C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7DA4239C23C4653C0082B7C4 /* Assets.xcassets */; };
 		7DA423A023C4653C0082B7C4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7DA4239E23C4653C0082B7C4 /* LaunchScreen.storyboard */; };
+		7DDD02F223C5C66A0047ADA7 /* EMSAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7DDD02F123C5C66A0047ADA7 /* EMSAPI.swift */; };
 		7E22C20C1E64BA4900CA905E /* EMSRegions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22C2081E64BA4900CA905E /* EMSRegions.swift */; };
 		7E22C20D1E64BA4900CA905E /* EMSCommsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22C2091E64BA4900CA905E /* EMSCommsError.swift */; };
 		7E22C20E1E64BA4900CA905E /* EMSRequestHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E22C20A1E64BA4900CA905E /* EMSRequestHandler.swift */; };
@@ -54,6 +55,7 @@
 		7DA4239C23C4653C0082B7C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7DA4239F23C4653C0082B7C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7DA423A123C4653C0082B7C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		7DDD02F123C5C66A0047ADA7 /* EMSAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EMSAPI.swift; sourceTree = "<group>"; };
 		7E22C2071E64BA4900CA905E /* EMSMobileSDK.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSMobileSDK.swift; sourceTree = "<group>"; };
 		7E22C2081E64BA4900CA905E /* EMSRegions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSRegions.swift; sourceTree = "<group>"; };
 		7E22C2091E64BA4900CA905E /* EMSCommsError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EMSCommsError.swift; sourceTree = "<group>"; };
@@ -146,14 +148,15 @@
 		7E4A78A51E64B3E200CE6302 /* EMSMobileSDK */ = {
 			isa = PBXGroup;
 			children = (
-				7DA4238523C433980082B7C4 /* Helper */,
 				7E4A78A61E64B3E200CE6302 /* EMSMobileSDK.h */,
 				7E4A78A71E64B3E200CE6302 /* Info.plist */,
+				7DDD02F123C5C66A0047ADA7 /* EMSAPI.swift */,
 				7E22C2091E64BA4900CA905E /* EMSCommsError.swift */,
 				D185B0C820DACEB80018C24E /* EMSDeepLink.swift */,
 				7E22C2071E64BA4900CA905E /* EMSMobileSDK.swift */,
 				7E22C2081E64BA4900CA905E /* EMSRegions.swift */,
 				7E22C20A1E64BA4900CA905E /* EMSRequestHandler.swift */,
+				7DA4238523C433980082B7C4 /* Helper */,
 			);
 			path = EMSMobileSDK;
 			sourceTree = "<group>";
@@ -435,6 +438,7 @@
 				7E22C20C1E64BA4900CA905E /* EMSRegions.swift in Sources */,
 				D185B0C920DACEB80018C24E /* EMSDeepLink.swift in Sources */,
 				7E22C20E1E64BA4900CA905E /* EMSRequestHandler.swift in Sources */,
+				7DDD02F223C5C66A0047ADA7 /* EMSAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
