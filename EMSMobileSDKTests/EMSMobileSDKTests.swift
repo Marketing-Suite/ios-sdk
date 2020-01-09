@@ -62,13 +62,15 @@ class EMSMobileSDKTests: XCTestCase {
     }
     
     func testUpdateEMSSubscriptionIfNeeded() {
+        
         let keychainDeviceTokenHex = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
                                                   account: "EMSMobileSDK.DeviceTokenHex")
         try? keychainDeviceTokenHex.writePassword(storedToken)
+        
         let keychainPRID = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
                                         account: "EMSMobileSDK.PRID")
         try? keychainPRID.writePassword(prid)
-        try? keychainDeviceTokenHex.writePassword(storedToken)
+        
         let mobileSDK = EMSMobileSDK.default
         mobileSDK.region = .northAmerica
         mobileSDK.customerID = custID
