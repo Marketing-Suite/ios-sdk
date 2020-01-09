@@ -64,15 +64,16 @@ public class EMSAPI: NSObject {
                             customerID: Int = EMSMobileSDK.default.customerID,
                             applicationID: String = EMSMobileSDK.default.applicationID,
                             deviceToken: String,
-                            completionHandler: @escaping (DataResponse<Any>) -> Void) {
+                            completionHandler: @escaping (DataResponse<String>) -> Void) {
         let url = "\(region.xts)/xts/registration/cust/\(customerID)/application/\(applicationID)/token"
         
         let body: Parameters = ["DeviceToken": deviceToken]
         
         let request = session.request(url,
                                       method: .delete,
-                                      parameters: body)
-        request.validate().responseJSON(completionHandler: completionHandler)
+                                      parameters: body,
+                                      encoding: JSONEncoding.default)
+        request.validate().responseString(completionHandler: completionHandler)
     }
     
     public func emsPost(region: EMSRegions = EMSMobileSDK.default.region,
