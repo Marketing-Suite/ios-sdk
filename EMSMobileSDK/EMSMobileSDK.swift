@@ -31,15 +31,13 @@ public class EMSMobileSDK: NSObject {
                                             account: "EMSMobileSDK.PRID")
     private let keychainDeviceTokenHex = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
                                                       account: "EMSMobileSDK.DeviceTokenHex")
+    private let apiService = EMSAPI()
     
     /// Singleton Reference for accessing EMSMobileSDK
     public static let `default` = EMSMobileSDK()
     
     // Delegate Property
     public weak var watcherDelegate: EMSMobileSDKWatcherDelegate?
-    
-    // fields
-    var backgroundSession: Alamofire.SessionManager
     
     /// The Customer ID set in the Initialize function
     public var customerID = 0
@@ -64,9 +62,6 @@ public class EMSMobileSDK: NSObject {
     }
     
     override init() {
-        //Configure SessionManager
-        let configuration = URLSessionConfiguration.background(withIdentifier: "com.experian.emsmobilesdk")
-        backgroundSession = Alamofire.SessionManager(configuration: configuration)
         super.init()
         
         prid = try? keychainPRID.readPassword()
@@ -107,7 +102,7 @@ public class EMSMobileSDK: NSObject {
         
         log("Received EMS_OPEN: " + openUrl)
         
-        EMSAPI.logEMSOpen(url: openUrl) { [weak self] response in
+        apiService.logEMSOpen(url: openUrl) { [weak self] response in
             guard response.response?.statusCode == 200 else { return }
             self?.log("Content URL Sent Successfully")
         }
@@ -157,9 +152,9 @@ public class EMSMobileSDK: NSObject {
         log("Subscribing Token: " + deviceTokenString)
         
         if prid == nil {
-            EMSAPI.subscribe(deviceToken: deviceTokenString, completionHandler: subscribeCompletionHandler)
+            apiService.subscribe(deviceToken: deviceTokenString, completionHandler: subscribeCompletionHandler)
         } else if deviceTokenString != deviceTokenHex {
-            EMSAPI.resubscribe(deviceToken: deviceTokenString, completionHandler: subscribeCompletionHandler)
+            apiService.resubscribe(deviceToken: deviceTokenString, completionHandler: subscribeCompletionHandler)
         } else {
             completionHandler?(prid, nil)
         }
@@ -174,7 +169,8 @@ public class EMSMobileSDK: NSObject {
             completionHandler?(nil, EMSCommsError.invalidRequest)
             return
         }
-        EMSAPI.unsubscribe(deviceToken: deviceTokenHex, completionHandler: { [weak self] response in
+        
+        apiService.unsubscribe(deviceToken: deviceTokenHex, completionHandler: { [weak self] response in
             guard let status = response.response?.statusCode else { return }
             switch status {
             case 201:
@@ -204,7 +200,6 @@ public class EMSMobileSDK: NSObject {
     Upon detection of notifications being turned back on, the SDK should send an http POST containing the same details in order to mark the record as opted back in.
     */
     public func updateEMSSubscriptionIfNeeded() {
-        
         let previousPushSetting = UserDefaults.standard.bool(forKey: "EMSPreviousPushSetting")
         let currentPushSetting = UIApplication.shared.isRegisteredForRemoteNotifications
         
@@ -220,7 +215,7 @@ public class EMSMobileSDK: NSObject {
         log("\n\n+++++\n")
         log("+app entered foreground:\n")
         log("+previous push setting: \(previousPushSetting ? "yes" : "no")\n")
-        log("+retistration setting: \(currentPushSetting ? "yes" : "no")")
+        log("+registration setting: \(currentPushSetting ? "yes" : "no")")
         log("\n+++++\n\n")
             
         //if prev setting and current setting don't match handle optin/out
@@ -246,7 +241,7 @@ public class EMSMobileSDK: NSObject {
         - Parameter completionHandler: A callback function executed after the call is complete.  Will return a bool value indicating if the call was successful
     */
     public func APIPost(formId: Int, data: Parameters?, completionHandler: BoolCompletionHandlerType? = nil) {
-        EMSAPI.emsPost(formId: formId, data: data) { [weak self] response in
+        apiService.emsPost(formId: formId, data: data) { [weak self] response in
             var result = false
             guard let status = response.response?.statusCode else {
                 completionHandler?(result)
@@ -263,7 +258,6 @@ public class EMSMobileSDK: NSObject {
     }
     
     public func handleDeepLink(continue userActivity: NSUserActivity) -> EMSDeepLink {
-        
         let deepLink = EMSDeepLink()
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
             let url = userActivity.webpageURL,
@@ -280,7 +274,7 @@ public class EMSMobileSDK: NSObject {
         
         log("Getting response from Deep link URL \(String(describing: deepLink.deepLinkUrl))")
         
-        EMSAPI.logDeepLink(deepLink.deepLinkUrl) { [weak self] response in
+        apiService.logDeepLink(deepLink.deepLinkUrl) { [weak self] response in
             guard let status = response.response?.statusCode else { return }
             if status == 200 {
                 self?.log("Deep Link URL Post Successful")
