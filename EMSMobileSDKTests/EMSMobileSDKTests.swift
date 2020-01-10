@@ -107,3 +107,22 @@ class EMSMobileSDKTests: XCTestCase {
         XCTAssertNotNil(deeplink)
     }
 }
+
+extension String {
+
+    var hexData: Data? {
+        var data = Data(capacity: count / 2)
+
+        let regex = try? NSRegularExpression(pattern: "[0-9a-f]{1,2}", options: .caseInsensitive)
+        regex?.enumerateMatches(in: self, range: NSRange(startIndex..., in: self)) { match, _, _ in
+            let byteString = (self as NSString).substring(with: match!.range)
+            let number = UInt8(byteString, radix: 16)!
+            data.append(number)
+        }
+
+        guard !data.isEmpty else { return nil }
+
+        return data
+    }
+
+}
