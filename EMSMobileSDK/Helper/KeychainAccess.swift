@@ -16,7 +16,7 @@ public struct KeychainError: Error {
         if #available(iOS 11.3, *) {
             return SecCopyErrorMessageString(status, nil) as String? ?? "Keychain Error OSStatus: \(status)"
         }
-            return "Keychain Error OSStatus: \(status)"
+        return "Keychain Error OSStatus: \(status)"
         
     }
 }
