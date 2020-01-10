@@ -35,12 +35,33 @@ class EMSMobileSDKTests: XCTestCase {
     }
     
     func testSubscribe() {
+        let keychainPRID = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
+                                        account: "EMSMobileSDK.PRID")
+        try? keychainPRID.delete()
+        let keychainDeviceTokenHex = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
+                                                  account: "EMSMobileSDK.DeviceTokenHex")
+        try? keychainDeviceTokenHex.delete()
         let mobileSDK = EMSMobileSDK.default
         mobileSDK.region = .northAmerica
         mobileSDK.customerID = custID
         mobileSDK.applicationID = appID
         let expectation = self.expectation(description: "subscribe")
-        mobileSDK.subscribe(deviceToken: storedToken.data(using: .utf8) ?? Data()) { (_, _) in
+        mobileSDK.subscribe(deviceToken: storedToken.hexData ?? Data()) { (_, _) in
+            expectation.fulfill()
+        }
+        waitForExpectations(timeout: 10, handler: nil)
+    }
+    
+    func testResubscribe() {
+        let keychainDeviceTokenHex = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
+                                                  account: "EMSMobileSDK.DeviceTokenHex")
+        try? keychainDeviceTokenHex.delete()
+        let mobileSDK = EMSMobileSDK.default
+        mobileSDK.region = .northAmerica
+        mobileSDK.customerID = custID
+        mobileSDK.applicationID = appID
+        let expectation = self.expectation(description: "subscribe")
+        mobileSDK.subscribe(deviceToken: storedToken.hexData ?? Data()) { (_, _) in
             expectation.fulfill()
         }
         waitForExpectations(timeout: 10, handler: nil)
