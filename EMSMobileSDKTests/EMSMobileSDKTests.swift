@@ -18,6 +18,20 @@ class EMSMobileSDKTests: XCTestCase {
     let storedToken = "fe5da804bb6167fa8a1fe44164828d5bfd853521ebc93f683de7bc4edf9a360d"
     let prid = "15ce76e5-15aa-4fa5-bc63-f911ee21b847"
     
+    let keychainPRID = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
+                                    account: "EMSMobileSDK.PRID")
+    let keychainDeviceTokenHex = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
+                                              account: "EMSMobileSDK.DeviceTokenHex")
+    
+    override func setUp() {
+        super.setUp()
+        try? keychainPRID.writePassword(prid)
+        try? keychainDeviceTokenHex.writePassword(storedToken)
+        EMSMobileSDK.default.region = region
+        EMSMobileSDK.default.customerID = custID
+        EMSMobileSDK.default.applicationID = appID
+    }
+    
     func testInitialization() {
         EMSMobileSDK.default.initialize(customerID: custID,
                                         appID: appID,
@@ -29,22 +43,14 @@ class EMSMobileSDKTests: XCTestCase {
     }
     
     func testRemoteNotificationReceived() {
-        
         EMSMobileSDK.default.region = region
         EMSMobileSDK.default.remoteNotificationReceived(userInfo: ["ems_open": "https://google.com"])
     }
     
     func testSubscribe() {
-        let keychainPRID = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
-                                        account: "EMSMobileSDK.PRID")
         try? keychainPRID.delete()
-        let keychainDeviceTokenHex = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
-                                                  account: "EMSMobileSDK.DeviceTokenHex")
         try? keychainDeviceTokenHex.delete()
         
-        EMSMobileSDK.default.region = region
-        EMSMobileSDK.default.customerID = custID
-        EMSMobileSDK.default.applicationID = appID
         let expectation = self.expectation(description: "subscribe")
         EMSMobileSDK.default.subscribe(deviceToken: storedToken.hexData ?? Data()) { (_, _) in
             expectation.fulfill()
@@ -53,14 +59,9 @@ class EMSMobileSDKTests: XCTestCase {
     }
     
     func testResubscribe() {
-        let keychainDeviceTokenHex = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
-                                                  account: "EMSMobileSDK.DeviceTokenHex")
         try? keychainDeviceTokenHex.delete()
         
-        EMSMobileSDK.default.region = region
-        EMSMobileSDK.default.customerID = custID
-        EMSMobileSDK.default.applicationID = appID
-        let expectation = self.expectation(description: "subscribe")
+        let expectation = self.expectation(description: "resubscribe")
         EMSMobileSDK.default.subscribe(deviceToken: storedToken.hexData ?? Data()) { (_, _) in
             expectation.fulfill()
         }
@@ -68,13 +69,6 @@ class EMSMobileSDKTests: XCTestCase {
     }
     
     func testUnsubscribe() {
-        let keychainDeviceTokenHex = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
-                                                  account: "EMSMobileSDK.DeviceTokenHex")
-        try? keychainDeviceTokenHex.writePassword(storedToken)
-        
-        EMSMobileSDK.default.region = region
-        EMSMobileSDK.default.customerID = custID
-        EMSMobileSDK.default.applicationID = appID
         let expectation = self.expectation(description: "unsubscribe")
         EMSMobileSDK.default.unsubscribe { (_, _) in
             expectation.fulfill()
@@ -83,20 +77,6 @@ class EMSMobileSDKTests: XCTestCase {
     }
     
     func testUpdateEMSSubscriptionIfNeeded() {
-        
-        let keychainDeviceTokenHex = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
-                                                  account: "EMSMobileSDK.DeviceTokenHex")
-        try? keychainDeviceTokenHex.writePassword(storedToken)
-        
-        let keychainPRID = KeychainItem(serviceName: "com.cheetahdigital.emsmobilesdk",
-                                        account: "EMSMobileSDK.PRID")
-        try? keychainPRID.writePassword(prid)
-        
-        
-        EMSMobileSDK.default.region = region
-        EMSMobileSDK.default.customerID = custID
-        EMSMobileSDK.default.applicationID = appID
-        
         EMSMobileSDK.default.updateEMSSubscriptionIfNeeded()
         
         UserDefaults.standard.set(true, forKey: "EMSPreviousPushSetting")
@@ -106,8 +86,6 @@ class EMSMobileSDKTests: XCTestCase {
     }
     
     func testAPIPost() {
-        
-        EMSMobileSDK.default.region = region
         let expectation = self.expectation(description: "APIPost")
         EMSMobileSDK.default.APIPost(formId: 1, data: nil, completionHandler: { _ in
             expectation.fulfill()
@@ -116,9 +94,6 @@ class EMSMobileSDKTests: XCTestCase {
     }
     
     func testHandleDeeplink() {
-        
-        EMSMobileSDK.default.region = region
-        
         let wrongDeepLink = EMSMobileSDK.default.handleDeepLink(continue: NSUserActivity(activityType: "mockactivity"))
         XCTAssertNotNil(wrongDeepLink)
         
