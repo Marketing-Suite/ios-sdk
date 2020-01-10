@@ -2,28 +2,31 @@
 
 This document, source code, and resulting compiled library (SDK) is intended to be used in conjunction with Marketing Suite.  Use of the SDK is only supported after approval from Marketing Suite Client Developer Relations, and your account manager.
 
-# Integrating CCMP with iOS Mobile SDK
-
-CCMP enables marketers to target mobile devices running native applications for iOS and Android. The iOS platform uses APNS and is written in Swift 5. With push notifications, there are three parties in play: CCMP, APNS, and the user's device with an app installed. The basic flow is as follows for Push Notifications.1. After the app starts, the app contacts APNS and requests a **device token**.1. The **device token** is sent back to the device.1. The **device token** is sent to CCMP along with an **App ID** and **Customer ID**.
-
-1. CCMP registers the device token with the **App ID** and **Customer ID**, and sends back a **Push Registration ID** (PRID).
-
-2. CCMP will then launch campaigns intending to target devices that have been registered with Push Notifications through APNS.
-
-3. APNS pushes out the notifications to the devices.
-
-4. After the user taps on the notification on the device, the app will notify CCMP that the app was opened from a Notification.  
-
-   ​
-
-   To make all this work, associations need to be set up between all three parties. This guide will walk you through these steps.
-
-   ​
-
 ## Requirements 
 * Deployment Target: iOS 10.0
 * Xcode 10.2 and up
 * Swift 5.0
+
+## Integrating CCMP with iOS Mobile SDK
+
+CCMP enables marketers to target mobile devices running native applications for iOS and Android. The iOS platform uses APNS and is written in Swift 5. With push notifications, there are three parties in play: CCMP, APNS, and the user's device with an app installed. The basic flow is as follows for Push Notifications. 
+
+1. After the app starts, the app contacts APNS and requests a **device token**.
+
+2. The **device token** is sent back to the device. 
+
+3. The **device token** is sent to CCMP along with an **App ID** and **Customer ID**.
+
+4. CCMP registers the device token with the **App ID** and **Customer ID**, and sends back a **Push Registration ID** (PRID).
+
+5. CCMP will then launch campaigns intending to target devices that have been registered with Push Notifications through APNS.
+
+6. APNS pushes out the notifications to the devices.
+
+7. After the user taps on the notification on the device, the app will notify CCMP that the app was opened from a Notification.  
+
+
+To make all this work, associations need to be set up between all three parties. This guide will walk you through these steps.
 
 
 ## Installation
@@ -39,7 +42,7 @@ $ gem install cocoapods
 To use the private podspec repo you must add it to your environment
 
 ```bash
-pod repo add PrivateRepo https://github.com/Marketing-Suite/podSpec.git
+pod repo add EMSMobileSDK https://github.com/Marketing-Suite/podSpec.git
 ```
 
 To integrate EMSMobileSDK into your Xcode project using CocoaPods, specify it in your `Podfile`:
@@ -91,16 +94,16 @@ Run `carthage update` to build the framework and drag the built `EMSMobileSDK.fr
 
 # Integrate the SDK with an App In XCode
 
-With the project open, you can add the SDK to the App by dragging the EMSMobileSDK.framework package into your application project.  This will add the framework to the Linked Framework and Libraries Build Settings and will add the library as an embedded binary.  For an Objective-C based application, this will also create a bridging header file (EMSMobileSDK-swift.h) that will expose the Swift based libraries to your code.
+For an Objective-C based application, create a bridging header file (EMSMobileSDK-swift.h) that will expose the Swift based libraries to your code.
 
-Now that the framework is available to your app, you need to initialize the SDK by adding the following line to the AppDelegate file.  It is also necessary to add the Notifications settings line.
+Now that the EMSMobileSDK is available to your app, you need to initialize it by adding the following line to the AppDelegate file.  It is also necessary to add the `updateEMSSubscriptionIfNeeded`.
 
 Swift
 
 ```swift
 func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
 	// Override point for customization after application launch.
-	EMSMobileSDK.default.initialize(customerID: 100, appID: "", region:EMSRegions.NorthAmerica, options: launchOptions)        
+	EMSMobileSDK.default.initialize(customerID: 100, appID: "33f84e87-36df-426f-9ee0-a5c0b0b5433c", region: .sandbox, options: launchOptions)        
 	return true    
 }
 
@@ -115,7 +118,7 @@ Objective-C
 ```objective-c
 -(BOOL)application:(UIApplication )application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	// Override point for customization after application launch.    
-    [[EMSMobileSDK default] initializeWithCustomerID:100 appID:@"" region:EMSRegionsNorthAmerica options:launchOptions];    
+    [[EMSMobileSDK default] initializeWithCustomerID:100 appID:@"33f84e87-36df-426f-9ee0-a5c0b0b5433c" region:EMSRegionsSandbox options:launchOptions];
 	return YES;
 }
 
@@ -141,8 +144,7 @@ UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .sound
 UIApplication.shared.registerForRemoteNotifications()    
 
 func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-    // Application Code
-    EMSMobileSDK.default.subscribe(deviceToken: deviceToken, completionHandler: StringCompletionHandlerType? = nil)
+    EMSMobileSDK.default.subscribe(deviceToken: deviceToken, completionHandler: nil)
 }
 ```
 
@@ -158,11 +160,11 @@ UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTy
 
 - (void)application:(UIApplication )application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {    
   NSError *error;    
-  [[EMSMobileSDK default] subscribeWithDeviceToken:deviceToken error:&error, completionHandler:completionHandler;
+  [[EMSMobileSDK default] subscribeWithDeviceToken:deviceToken completionHandler:nil];
 }
 ```
 
-The call to EMSMobileSDK.default.Subscribe will send the device token to CCMP, subscribing the device to CCMP push campaigns.  CCMP will return a unique identifier called a Push Registration ID (PRID).  This will be saved in NSUserDefaults.  
+The call to EMSMobileSDK.default.subscribe will send the device token to CCMP, subscribing the device to CCMP push campaigns.  CCMP will return a unique identifier called a Push Registration ID (PRID).  This will be saved in the Keychain.  
 
 When a push notification is received, whether from CCMP or your own services, call the following function passing in the userInfo object to allow the notification to be registered with CCMP.
 
@@ -179,7 +181,7 @@ Objective-C
 ```objective-c
 -(void)application:(UIApplication )application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler{    
   NSError *error;    
-  [[EMSMobileSDK default] remoteNotificationReceivedWithUserInfo: userInfo error: &error];
+  [[EMSMobileSDK default] remoteNotificationReceivedWithUserInfo:userInfo];
 }
 ```
 
@@ -232,7 +234,7 @@ Objective-C
 - (BOOL)application:(UIApplication *)application continueUserActivity: (nonnull NSUserActivity *)userActivity restorationHandler: (nonnull void (^)(NSArray * _Nullable))restorationHandler {
     if ([[userActivity activityType] isEqualToString: NSUserActivityTypeBrowsingWeb])
     {
-        [[EMSMobileSDK default] handleDeepLinkWithUserActivity: userActivity];
+        EMSDeepLink *deeplink = [[EMSMobileSDK default] handleDeepLinkWithContinue:webActivity];
     }
     return YES;
 }
@@ -248,7 +250,9 @@ Objective-C
 
 **customerID** -- The Customer ID that gets associated with the PRID. This is supplied by the developer.
 
-**region** -- The Region for CCMP.**deviceToken** -- The Device Token sent to the device from APNS. CCMP uses the device token to uniquely identify the device so that Push Notifications can be sent to the device in a campaign
+**region** -- The Region for CCMP.
+
+**deviceTokenHex** -- The Device Token string sent to the device from APNS. CCMP uses the device token to uniquely identify the device so that Push Notifications can be sent to the device in a campaign
 
 
 
@@ -256,7 +260,7 @@ Objective-C
 
 **initialize**(**customerID**: int, **appID**: String, **region**: EMSRegions, **options**: launchOptions)
 
-The Initialize method initializes the SDK from the application setting up the default values used in calling CCMP.  The method allows for the region to be specified but If no region is specified the SDK defaults to North America.  If the userInfo object contains remote notifications, it will use the PRID stored in NSUserDefaults to register the app open with CCMP.
+The Initialize method initializes the SDK from the application setting up the default values used in calling CCMP.  The method allows for the region to be specified but If no region is specified the SDK defaults to North America.  If the userInfo object contains remote notifications, it will use the PRID stored in the Keychain to register the app open with CCMP.
 
 **appID** -- The Application ID from CCMP.
 
@@ -288,7 +292,7 @@ The Subscribe function registers the deviceToken with CCMP for receiving Push No
 
 **unsubscribe**(**completionHandler**: StringCompletionHandlerType? = nil)
 
-The UnSubscribe function sends a message to CCMP unsubscribing the device from future push notification campaigns.
+The Unsubscribe function sends a message to CCMP unsubscribing the device from future push notification campaigns.
 
 **completionHandler** -- **completionHandler** -- A callback function executed when the device is unsubscribed.
 
