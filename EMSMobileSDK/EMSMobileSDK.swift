@@ -34,20 +34,20 @@ public class EMSMobileSDK: NSObject {
     private let apiService = EMSAPI()
     
     /// Singleton Reference for accessing EMSMobileSDK
-    public static let `default` = EMSMobileSDK()
+    @objc public static let `default` = EMSMobileSDK()
     
     // Delegate Property
-    public weak var watcherDelegate: EMSMobileSDKWatcherDelegate?
+    @objc public weak var watcherDelegate: EMSMobileSDKWatcherDelegate?
     
     /// The Customer ID set in the Initialize function
-    public var customerID = 0
+    @objc public var customerID = 0
     
     /// The Application ID set in the Initialize function
     ///  **This application ID is found in the Mobile App Group settings on CCMP**
-    public var applicationID = ""
+    @objc public var applicationID = ""
     
     /// The Region to use for all interations with CCMP, set in the Initialize function.
-    public var region = EMSRegions.sandbox
+    @objc public var region = EMSRegions.sandbox
     
     /// The PRID returned fro device registration with CCMP
     @objc public dynamic var prid: String? {
@@ -81,6 +81,7 @@ public class EMSMobileSDK: NSObject {
         - Parameter region:  This is the reqion that your CCMP instance is hosted in.
         - Parameter options:  This is the collection of UILaunchOptionsKeys passed into the application on didFinishLaunching or nil if no options supplied.  This is used primarily for registring the launch of the application from a PUSH notification.
     */
+    @objc
     public func initialize(customerID: Int,
                            appID: String,
                            region: EMSRegions = EMSRegions.sandbox,
@@ -99,6 +100,7 @@ public class EMSMobileSDK: NSObject {
      This function is called to allow the EMS Mobile SDK to process any push notifications relevant to CCMP
      > Note:  Only messages that contain CCMP specific functionality will result in a message being sent to CCMP.  Any application specific messages are ignored.
     */
+    @objc
     public func remoteNotificationReceived(userInfo: [AnyHashable: Any]?) {
         guard let openUrl = userInfo?["ems_open"] as? String else { return }
         
@@ -116,6 +118,7 @@ public class EMSMobileSDK: NSObject {
         - Parameter deviceToken:  The DeviceToken returned from APNS
         - Parameter completionHandler:  A callback function to be executed when the call is complete.  If successful, will pass the PRID received back.  Otherwise you will receive an error message or exception.
      */
+    @objc
     public func subscribe(deviceToken: Data,
                           completionHandler: StringCompletionHandlerType? = nil) {
         subscribe(deviceTokenString: deviceToken.hexEncodedString, completionHandler: completionHandler)
@@ -164,6 +167,7 @@ public class EMSMobileSDK: NSObject {
      Used to unsubscribe a device to CCMP push notifications
      - Parameter completionHandler: A callback function executed when the device is unsubscribed
      */
+    @objc
     public func unsubscribe(completionHandler: StringCompletionHandlerType? = nil) {
         guard let deviceTokenHex = deviceTokenHex else {
             completionHandler?(nil, EMSCommsError.invalidRequest)
@@ -197,6 +201,7 @@ public class EMSMobileSDK: NSObject {
     
     Upon detection of notifications being turned back on, the SDK should send an http POST containing the same details in order to mark the record as opted back in.
     */
+    @objc
     public func updateEMSSubscriptionIfNeeded() {
         let previousPushSetting = UserDefaults.standard.bool(forKey: "EMSPreviousPushSetting")
         let currentPushSetting = UIApplication.shared.isRegisteredForRemoteNotifications
@@ -238,6 +243,7 @@ public class EMSMobileSDK: NSObject {
         - Parameter data:  This is a dictionary of any key values you want to send.  These values should match those required by the API Post specification
         - Parameter completionHandler: A callback function executed after the call is complete.  Will return a bool value indicating if the call was successful
     */
+    @objc
     public func APIPost(formId: Int, data: Parameters?, completionHandler: BoolCompletionHandlerType? = nil) {
         apiService.emsPost(formId: formId, data: data) { [weak self] response in
             var result = false
@@ -254,7 +260,7 @@ public class EMSMobileSDK: NSObject {
             completionHandler?(result)
         }
     }
-    
+    @objc
     public func handleDeepLink(continue userActivity: NSUserActivity) -> EMSDeepLink {
         let deepLink = EMSDeepLink()
         guard userActivity.activityType == NSUserActivityTypeBrowsingWeb,
