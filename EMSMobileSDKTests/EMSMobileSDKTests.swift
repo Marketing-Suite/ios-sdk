@@ -14,7 +14,7 @@ class EMSMobileSDKTests: XCTestCase {
     
     let custID = 100
     let appID = "33f84e87-36df-426f-9ee0-a5c0b0b5433c"
-    let region = EMSRegions.northAmerica
+    let region = EMSRegions.sandbox
     let storedToken = "fe5da804bb6167fa8a1fe44164828d5bfd853521ebc93f683de7bc4edf9a360d"
     let prid = "15ce76e5-15aa-4fa5-bc63-f911ee21b847"
     
