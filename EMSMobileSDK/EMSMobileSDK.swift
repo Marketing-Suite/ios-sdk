@@ -96,8 +96,10 @@ public class EMSMobileSDK: NSObject {
     }
     
     /**
-         This function is called to allow the EMS Mobile SDK to process any push notifications relevant to CCMP
-         > Note:  Only messages that contain CCMP specific functionality will result in a message being sent to CCMP.  Any application specific messages are ignored.
+        This function is called to allow the EMS Mobile SDK to process any push notifications relevant to CCMP
+        - Parameter userInfo: An array of Hashable items sent from APNS which may or may not include data from CCMP.
+        **NOTE:  Only messages that contain CCMP specific functionality will result in a message being sent to CCMP.**
+        **Any application specific messages are ignored.**
     */
     @objc
     public func remoteNotificationReceived(userInfo: [AnyHashable: Any]?) {
