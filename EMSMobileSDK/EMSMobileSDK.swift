@@ -54,8 +54,8 @@ public class EMSMobileSDK: NSObject {
         return try? keychainPRID.readPassword()
     }
     
-    /// The current DeviceToken for this device expressed as Hex
-    @objc public dynamic var deviceTokenHex: String? {
+    /// The current DeviceToken for this device
+    @objc public dynamic var deviceToken: String? {
         return try? keychainDeviceTokenHex.readPassword()
     }
     
@@ -67,10 +67,8 @@ public class EMSMobileSDK: NSObject {
     
     override init() {
         super.init()
-        
         log("Retrieved Stored PRID: \(prid ?? "Empty")")
-        
-        log("Retrieved Stored DeviceToken(Hex): \(deviceTokenHex ?? "Empty")")
+        log("Retrieved Stored DeviceToken: \(deviceToken ?? "Empty")")
     }
     
     // MARK: - Public Functions
@@ -96,9 +94,10 @@ public class EMSMobileSDK: NSObject {
         }
         log("Initialized with CustomerID: \(self.customerID), AppID: \(self.applicationID), Region: \(self.region.rawValue)")
     }
+    
     /**
-     This function is called to allow the EMS Mobile SDK to process any push notifications relevant to CCMP
-     > Note:  Only messages that contain CCMP specific functionality will result in a message being sent to CCMP.  Any application specific messages are ignored.
+         This function is called to allow the EMS Mobile SDK to process any push notifications relevant to CCMP
+         > Note:  Only messages that contain CCMP specific functionality will result in a message being sent to CCMP.  Any application specific messages are ignored.
     */
     @objc
     public func remoteNotificationReceived(userInfo: [AnyHashable: Any]?) {
@@ -111,7 +110,7 @@ public class EMSMobileSDK: NSObject {
             self?.log("Content URL Sent Successfully")
         }
     }
-  
+    
     /**
         Used to subscribe a device to CCMP push notifications
         **NOTE:  The Initialize function must be called before calling the Subscribe function**
@@ -156,7 +155,7 @@ public class EMSMobileSDK: NSObject {
         
         if prid == nil {
             apiService.subscribe(deviceToken: deviceTokenString, completionHandler: subscribeCompletionHandler)
-        } else if deviceTokenString != deviceTokenHex {
+        } else if deviceTokenString != deviceToken {
             apiService.resubscribe(deviceToken: deviceTokenString, completionHandler: subscribeCompletionHandler)
         } else {
             completionHandler?(prid, nil)
@@ -164,17 +163,17 @@ public class EMSMobileSDK: NSObject {
     }
     
     /**
-     Used to unsubscribe a device to CCMP push notifications
-     - Parameter completionHandler: A callback function executed when the device is unsubscribed
+         Used to unsubscribe a device to CCMP push notifications
+         - Parameter completionHandler: A callback function executed when the device is unsubscribed
      */
     @objc
     public func unsubscribe(completionHandler: StringCompletionHandlerType? = nil) {
-        guard let deviceTokenHex = deviceTokenHex else {
+        guard let deviceToken = deviceToken else {
             completionHandler?(nil, EMSCommsError.invalidRequest)
             return
         }
         
-        apiService.unsubscribe(deviceToken: deviceTokenHex, completionHandler: { [weak self] response in
+        apiService.unsubscribe(deviceToken: deviceToken, completionHandler: { [weak self] response in
             guard let status = response.response?.statusCode else { return }
             switch status {
             case 201:
@@ -195,11 +194,11 @@ public class EMSMobileSDK: NSObject {
     }
     
     /**
-    If notifications are turned off at the operating system level, the SDK should detect this,
-    and send an http DELETE containing the _cust id_, _application id_, and _device token_ to the {{xts/registration}} API,
-    in order to mark the PRID as opted out, so that it is not processed in during MLC.
-    
-    Upon detection of notifications being turned back on, the SDK should send an http POST containing the same details in order to mark the record as opted back in.
+        If notifications are turned off at the operating system level, the SDK should detect this,
+        and send an http DELETE containing the _cust id_, _application id_, and _device token_ to the {{xts/registration}} API,
+        in order to mark the PRID as opted out, so that it is not processed in during MLC.
+        
+        Upon detection of notifications being turned back on, the SDK should send an http POST containing the same details in order to mark the record as opted back in.
     */
     @objc
     public func updateEMSSubscriptionIfNeeded() {
@@ -209,7 +208,7 @@ public class EMSMobileSDK: NSObject {
         guard previousPushSetting != currentPushSetting else { return }
         
         //inidcates user has at least enabled push once to initially subscribe
-        guard let devToken = self.deviceTokenHex else {
+        guard let devToken = self.deviceToken else {
             log("missing required param, device token in optinout check")
             log("+User has never subscribed with current app configuration")
             return
@@ -220,7 +219,7 @@ public class EMSMobileSDK: NSObject {
         log("+previous push setting: \(previousPushSetting ? "yes" : "no")\n")
         log("+registration setting: \(currentPushSetting ? "yes" : "no")")
         log("\n+++++\n\n")
-            
+        
         //if prev setting and current setting don't match handle optin/out
         //if setting = yes and prv = no then opt in
         //if setting = no and prev = yes then opt out
@@ -229,7 +228,7 @@ public class EMSMobileSDK: NSObject {
         log("\n\nOPTIN/OUT params:\n")
         log("customerID: \(self.customerID)\nappID: \(self.applicationID)\ndeviceToken: \(devToken)\n")
         log("\(currentPushSetting ? "OPTING IN" : "OPTING OUT")...\n")
-
+        
         if currentPushSetting {
             subscribe(deviceTokenString: devToken)
         } else {
@@ -260,6 +259,12 @@ public class EMSMobileSDK: NSObject {
             completionHandler?(result)
         }
     }
+    
+    /**
+         The handleDeepLink function parses the information from the userActivity and returns the original Deep link URL,
+         the Deep link Paramater if any, and finally register the link count on CCMP.
+         - Parameter userActivity: This is the Passed-in userActivity
+     */
     @objc
     public func handleDeepLink(continue userActivity: NSUserActivity) -> EMSDeepLink {
         let deepLink = EMSDeepLink()
