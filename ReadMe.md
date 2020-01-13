@@ -252,7 +252,7 @@ Objective-C
 
 **region** -- The Region for CCMP.
 
-**deviceTokenHex** -- The Device Token string sent to the device from APNS. CCMP uses the device token to uniquely identify the device so that Push Notifications can be sent to the device in a campaign
+**deviceToken** -- The Device Token string sent to the device from APNS. CCMP uses the device token to uniquely identify the device so that Push Notifications can be sent to the device in a campaign
 
 
 

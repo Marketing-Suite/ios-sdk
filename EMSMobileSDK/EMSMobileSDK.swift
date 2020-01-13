@@ -54,8 +54,8 @@ public class EMSMobileSDK: NSObject {
         return try? keychainPRID.readPassword()
     }
     
-    /// The current DeviceToken for this device expressed as Hex
-    @objc public dynamic var deviceTokenHex: String? {
+    /// The current DeviceToken for this device
+    @objc public dynamic var deviceToken: String? {
         return try? keychainDeviceTokenHex.readPassword()
     }
     
@@ -70,7 +70,7 @@ public class EMSMobileSDK: NSObject {
         
         log("Retrieved Stored PRID: \(prid ?? "Empty")")
         
-        log("Retrieved Stored DeviceToken(Hex): \(deviceTokenHex ?? "Empty")")
+        log("Retrieved Stored DeviceToken: \(deviceToken ?? "Empty")")
     }
     
     // MARK: - Public Functions
@@ -156,7 +156,7 @@ public class EMSMobileSDK: NSObject {
         
         if prid == nil {
             apiService.subscribe(deviceToken: deviceTokenString, completionHandler: subscribeCompletionHandler)
-        } else if deviceTokenString != deviceTokenHex {
+        } else if deviceTokenString != deviceToken {
             apiService.resubscribe(deviceToken: deviceTokenString, completionHandler: subscribeCompletionHandler)
         } else {
             completionHandler?(prid, nil)
@@ -168,12 +168,12 @@ public class EMSMobileSDK: NSObject {
      - Parameter completionHandler: A callback function executed when the device is unsubscribed
      */
     public func unsubscribe(completionHandler: StringCompletionHandlerType? = nil) {
-        guard let deviceTokenHex = deviceTokenHex else {
+        guard let deviceToken = deviceToken else {
             completionHandler?(nil, EMSCommsError.invalidRequest)
             return
         }
         
-        apiService.unsubscribe(deviceToken: deviceTokenHex, completionHandler: { [weak self] response in
+        apiService.unsubscribe(deviceToken: deviceToken, completionHandler: { [weak self] response in
             guard let status = response.response?.statusCode else { return }
             switch status {
             case 201:
@@ -207,7 +207,7 @@ public class EMSMobileSDK: NSObject {
         guard previousPushSetting != currentPushSetting else { return }
         
         //inidcates user has at least enabled push once to initially subscribe
-        guard let devToken = self.deviceTokenHex else {
+        guard let devToken = self.deviceToken else {
             log("missing required param, device token in optinout check")
             log("+User has never subscribed with current app configuration")
             return
