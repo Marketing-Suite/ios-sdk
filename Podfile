@@ -18,4 +18,8 @@ target 'EMSMobileSDK' do
   	development_pod
   end
 
+  target 'EMSMobileSDKHost' do
+  	inherit! :search_paths
+  	development_pod
+  end
 end

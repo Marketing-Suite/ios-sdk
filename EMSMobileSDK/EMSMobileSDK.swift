@@ -50,10 +50,14 @@ public class EMSMobileSDK: NSObject {
     public var region = EMSRegions.sandbox
     
     /// The PRID returned fro device registration with CCMP
-    @objc public private(set) dynamic var prid: String?
+    @objc public dynamic var prid: String? {
+        return try? keychainPRID.readPassword()
+    }
     
     /// The current DeviceToken for this device expressed as Hex
-    @objc public private(set) dynamic var deviceTokenHex: String?
+    @objc public dynamic var deviceTokenHex: String? {
+        return try? keychainDeviceTokenHex.readPassword()
+    }
     
     //Logging messages to Debug and WatcherDelegate
     func log(_ message: String) {
@@ -64,10 +68,8 @@ public class EMSMobileSDK: NSObject {
     override init() {
         super.init()
         
-        prid = try? keychainPRID.readPassword()
         log("Retrieved Stored PRID: \(prid ?? "Empty")")
         
-        deviceTokenHex = try? keychainDeviceTokenHex.readPassword()
         log("Retrieved Stored DeviceToken(Hex): \(deviceTokenHex ?? "Empty")")
     }
     
@@ -134,9 +136,7 @@ public class EMSMobileSDK: NSObject {
                     let prid = JSON["Push_Registration_Id"] as? String,
                     let tokenHex = JSON["Device_Token"] as? String else { return }
                 self?.log("JSON Received: " + String(describing: response.result.value!))
-                self?.prid = prid
                 try? self?.keychainPRID.writePassword(prid)
-                self?.deviceTokenHex = tokenHex
                 try? self?.keychainDeviceTokenHex.writePassword(tokenHex)
                 self?.log("PRID: " + String(describing: prid))
                 self?.log("Device Subscribed")
@@ -179,8 +179,6 @@ public class EMSMobileSDK: NSObject {
             case 201:
                 guard response.result.value != nil else { return }
                 self?.log("JSON Received: " + String(describing: response.result.value))
-                self?.prid = nil
-                self?.deviceTokenHex = nil
                 try? self?.keychainDeviceTokenHex.delete()
                 try? self?.keychainPRID.delete()
                 self?.log("Device Unsubscribed")
