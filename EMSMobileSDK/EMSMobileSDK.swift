@@ -6,7 +6,6 @@
 //  Copyright © 2017 Experian Marketing Services. All rights reserved.
 //
 
-import Alamofire
 import Foundation
 import UIKit
 
@@ -107,8 +106,8 @@ public class EMSMobileSDK: NSObject {
         
         log("Received EMS_OPEN: " + openUrl)
         
-        apiService.logEMSOpen(url: openUrl) { [weak self] response in
-            guard response.response?.statusCode == 200 else { return }
+        apiService.logEMSOpen(url: openUrl) { [weak self] (response) in
+            guard response?.statusCode == 200 else { return }
             self?.log("Content URL Sent Successfully")
         }
     }
@@ -127,16 +126,15 @@ public class EMSMobileSDK: NSObject {
     
     func subscribe(deviceTokenString: String,
                    completionHandler: StringCompletionHandlerType? = nil) {
-        let subscribeCompletionHandler: (DataResponse<Any>) -> Void = { [weak self] response in
-            guard let status = response.response?.statusCode else { return }
+        let subscribeCompletionHandler: (Parameters?, HTTPURLResponse?, Error?) -> Void = { [weak self] (result, response, error) in
+            guard let status = response?.statusCode else { return }
             switch status {
             case 200,
                  201:
-                guard let result = response.result.value,
-                    let JSON = result as? NSDictionary,
+                guard let JSON = result,
                     let prid = JSON["Push_Registration_Id"] as? String,
                     let tokenHex = JSON["Device_Token"] as? String else { return }
-                self?.log("JSON Received: " + String(describing: response.result.value!))
+                self?.log("JSON Received: " + String(describing: JSON))
                 try? self?.keychainPRID.writePassword(prid)
                 try? self?.keychainDeviceTokenHex.writePassword(tokenHex)
                 self?.log("PRID: " + String(describing: prid))
@@ -149,7 +147,7 @@ public class EMSMobileSDK: NSObject {
             case 403: completionHandler?(nil, EMSCommsError.notAuthorized(userName: ""))
             default:
                 self?.log("Error with response status: \(status)")
-                completionHandler?(nil, response.error)
+                completionHandler?(nil, error)
             }
         }
         
@@ -175,12 +173,12 @@ public class EMSMobileSDK: NSObject {
             return
         }
         
-        apiService.unsubscribe(deviceToken: deviceToken, completionHandler: { [weak self] response in
-            guard let status = response.response?.statusCode else { return }
+        apiService.unsubscribe(deviceToken: deviceToken, completionHandler: { [weak self] (result, response, error) in
+            guard let status = response?.statusCode else { return }
             switch status {
             case 201:
-                guard response.result.value != nil else { return }
-                self?.log("JSON Received: " + String(describing: response.result.value))
+                guard let result = result else { return }
+                self?.log("JSON Received: " + result)
                 try? self?.keychainDeviceTokenHex.delete()
                 try? self?.keychainPRID.delete()
                 self?.log("Device Unsubscribed")
@@ -190,7 +188,7 @@ public class EMSMobileSDK: NSObject {
             case 403: completionHandler?(nil, EMSCommsError.notAuthorized(userName: ""))
             default:
                 self?.log("Error with response status: \(status)")
-                completionHandler?(nil, response.error)
+                completionHandler?(nil, error)
             }
         })
     }
@@ -248,15 +246,11 @@ public class EMSMobileSDK: NSObject {
     public func APIPost(formId: Int, data: Parameters?, completionHandler: BoolCompletionHandlerType? = nil) {
         apiService.emsPost(formId: formId, data: data) { [weak self] response in
             var result = false
-            guard let status = response.response?.statusCode else {
-                completionHandler?(result)
-                return
-            }
-            if status == 200 {
+            if response?.statusCode == 200 {
                 self?.log("API Post Successful")
                 result = true
             } else {
-                self?.log("Error Posting to API\nReceived: \(status))")
+                self?.log("Error Posting to API\nReceived: \(String(describing: response?.statusCode)))")
             }
             completionHandler?(result)
         }
@@ -286,11 +280,10 @@ public class EMSMobileSDK: NSObject {
         log("Getting response from Deep link URL \(String(describing: deepLink.deepLinkUrl))")
         
         apiService.logDeepLink(deepLink.deepLinkUrl) { [weak self] response in
-            guard let status = response.response?.statusCode else { return }
-            if status == 200 {
+            if response?.statusCode == 200 {
                 self?.log("Deep Link URL Post Successful")
             } else {
-                self?.log("Error Posting to Deep Link URL\nRecieved: \(status))")
+                self?.log("Error Posting to Deep Link URL\nRecieved: \(String(describing: response?.statusCode))")
             }
         }
         return deepLink
