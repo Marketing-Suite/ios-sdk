@@ -6,7 +6,6 @@
 //  Copyright © 2017 Experian Marketing Services. All rights reserved.
 //
 
-import Alamofire
 @testable import EMSMobileSDK
 import XCTest
 
