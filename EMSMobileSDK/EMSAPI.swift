@@ -135,11 +135,17 @@ public class EMSAPI: NSObject {
         }
         
         var urlRequest = URLRequest(url: requestURL)
+        urlRequest.setValue("application/x-www-form-urlencoded; charset=utf-8", forHTTPHeaderField: "Content-Type")
         urlRequest.httpMethod = "POST"
         
         if let data = data {
-            urlRequest.setValue("application/json; charset=utf-8", forHTTPHeaderField: "Content-Type")
-            urlRequest.httpBody = try? JSONSerialization.data(withJSONObject: data, options: [])
+            var body = ""
+
+            for (key, value) in data {
+                body = body.isEmpty ? "\(key)=\(value)" : "\(body)&\(key)=\(value)"
+            }
+
+            urlRequest.httpBody = Data(body.utf8)
         }
         
         let dataTask = session.dataTask(with: urlRequest) { (_, urlResponse, _) in
