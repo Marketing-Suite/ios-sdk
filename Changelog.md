@@ -6,6 +6,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.1] - 2020-03-04
+
+### Fixed
+- Change Content Type to *application/x-www-form-urlencoded* in sending EMS API Post Call
+
 ## [2.1.0] - 2020-02-19
 
 ### Changed
