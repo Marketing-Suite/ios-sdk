@@ -15,6 +15,14 @@ public class EMSAPI: NSObject {
     // fields
     public var session: URLSession
     
+    private let apiURLQueryAllowed: CharacterSet = {
+        let generalDelimitersToEncode = ":#[]@" // does not include "?" or "/" due to RFC 3986 - Section 3.4
+        let subDelimitersToEncode = "!$&'()*+,;="
+        let encodableDelimiters = CharacterSet(charactersIn: "\(generalDelimitersToEncode)\(subDelimitersToEncode)")
+        
+        return CharacterSet.urlQueryAllowed.subtracting(encodableDelimiters)
+    }()
+    
     override public init() {
         session = URLSession(configuration: .default)
         super.init()
@@ -139,13 +147,7 @@ public class EMSAPI: NSObject {
         urlRequest.httpMethod = "POST"
         
         if let data = data {
-            var body = ""
-
-            for (key, value) in data {
-                body = body.isEmpty ? "\(key)=\(value)" : "\(body)&\(key)=\(value)"
-            }
-
-            urlRequest.httpBody = Data(body.utf8)
+            urlRequest.httpBody = Data(query(data).utf8)
         }
         
         let dataTask = session.dataTask(with: urlRequest) { (_, urlResponse, _) in
@@ -182,4 +184,48 @@ public class EMSAPI: NSObject {
         
         dataTask.resume()
     }
+    
+    private func query(_ parameters: Parameters) -> String {
+        var components: [(String, String)] = []
+        
+        for key in parameters.keys.sorted(by: <) {
+            let value = parameters[key]!
+            components += queryComponents(fromKey: key, value: value)
+        }
+        return components.map { "\($0)=\($1)" }.joined(separator: "&")
+    }
+    
+    private func queryComponents(fromKey key: String, value: Any) -> [(String, String)] {
+        var components: [(String, String)] = []
+        
+        if let dictionary = value as? Parameters {
+            for (nestedKey, value) in dictionary {
+                components += queryComponents(fromKey: "\(key)[\(nestedKey)]", value: value)
+            }
+        } else if let array = value as? [Any] {
+            for value in array {
+                components += queryComponents(fromKey: "\(key)[]", value: value)
+            }
+        } else if let value = value as? NSNumber {
+            if value.isBool {
+                components.append((escape(key), escape(value.boolValue ? "1" : "0")))
+            } else {
+                components.append((escape(key), escape("\(value)")))
+            }
+        } else if let bool = value as? Bool {
+            components.append((escape(key), escape(bool ? "1" : "0")))
+        } else {
+            components.append((escape(key), escape("\(value)")))
+        }
+        
+        return components
+    }
+    
+    private func escape(_ string: String) -> String {
+        return string.addingPercentEncoding(withAllowedCharacters: apiURLQueryAllowed) ?? string
+    }
+}
+
+extension NSNumber {
+    fileprivate var isBool: Bool { return CFBooleanGetTypeID() == CFGetTypeID(self) }
 }
