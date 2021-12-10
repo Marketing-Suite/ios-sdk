@@ -19,14 +19,6 @@ class EMSRegionsTests: XCTestCase {
         XCTAssertEqual(region.ats, "https://ats.eccmp.com")
     }
     
-    func testRegionSandbox() {
-        let region = EMSRegions.sandbox
-        
-        XCTAssertEqual(region.name, "Sandbox")
-        XCTAssertEqual(region.xts, "http://cs.sbox.eccmp.com")
-        XCTAssertEqual(region.ats, "http://cs.sbox.eccmp.com")
-    }
-    
     func testRegionEMEA() {
         let region = EMSRegions.emea
         
@@ -45,13 +37,11 @@ class EMSRegionsTests: XCTestCase {
     
     func testRegionInitializationUsingName() {
         let northAmerica = EMSRegions(with: "NorthAmerica")
-        let sandbox = EMSRegions(with: "Sandbox")
         let emea = EMSRegions(with: "EMEA")
         let japan = EMSRegions(with: "Japan")
         let mock = EMSRegions(with: "mock")
         
         XCTAssertEqual(northAmerica, EMSRegions.northAmerica)
-        XCTAssertEqual(sandbox, EMSRegions.sandbox)
         XCTAssertEqual(emea, EMSRegions.emea)
         XCTAssertEqual(japan, EMSRegions.japan)
         XCTAssertEqual(mock, nil)
