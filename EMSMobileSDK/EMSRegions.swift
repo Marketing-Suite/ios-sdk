@@ -18,7 +18,6 @@ import Foundation
 @objc
 public enum EMSRegions: Int {
     case northAmerica
-    case sandbox
     case emea
     case japan
     
@@ -27,8 +26,6 @@ public enum EMSRegions: Int {
         switch self {
         case .northAmerica:
             return "NorthAmerica"
-        case .sandbox:
-            return "Sandbox"
         case .emea:
             return "EMEA"
         case .japan:
@@ -41,8 +38,6 @@ public enum EMSRegions: Int {
         switch self {
         case .northAmerica:
             return "https://xts.eccmp.com"
-        case .sandbox:
-            return "http://cs.sbox.eccmp.com"
         case .emea:
             return "https://xts.ccmp.eu"
         case .japan:
@@ -55,8 +50,6 @@ public enum EMSRegions: Int {
         switch self {
         case .northAmerica:
             return "https://ats.eccmp.com"
-        case .sandbox:
-            return "http://cs.sbox.eccmp.com"
         case .emea:
             return "https://ats.ccmp.eu"
         case .japan:
@@ -69,8 +62,6 @@ public enum EMSRegions: Int {
         switch name {
         case "NorthAmerica":
             self = .northAmerica
-        case "Sandbox":
-            self = .sandbox
         case "EMEA":
             self = .emea
         case "Japan":
