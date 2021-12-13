@@ -46,7 +46,7 @@ public class EMSMobileSDK: NSObject {
     @objc public var applicationID = ""
     
     /// The Region to use for all interations with CCMP, set in the Initialize function.
-    @objc public var region = EMSRegions.sandbox
+    @objc public var region = EMSRegions.northAmerica
     
     /// The PRID returned fro device registration with CCMP
     @objc public dynamic var prid: String? {
@@ -81,7 +81,7 @@ public class EMSMobileSDK: NSObject {
     @objc
     public func initialize(customerID: Int,
                            appID: String,
-                           region: EMSRegions = EMSRegions.sandbox,
+                           region: EMSRegions = EMSRegions.northAmerica,
                            options: [UIApplication.LaunchOptionsKey: Any]?) {
         self.customerID = customerID
         self.applicationID = appID
