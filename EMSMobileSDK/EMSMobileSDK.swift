@@ -20,6 +20,11 @@ import UIKit
 public typealias StringCompletionHandlerType = (_ result: String?, _ error: Error?) -> Void
 public typealias BoolCompletionHandlerType = (_ success: Bool) -> Void
 
+enum UserDefaultsInit {
+    static let initCalled = "Init is called"
+    static let initialized = "Initialized"
+}
+
 /**
     This is the base class for accessing the EMS Mobile SDK.  It is a singleton and is referenced via
  `EMSMobileSDK.default`
@@ -87,9 +92,11 @@ public class EMSMobileSDK: NSObject {
         self.applicationID = appID
         self.region = region
         if let userInfo = options?[UIApplication.LaunchOptionsKey.remoteNotification] as? [AnyHashable: Any] {
+            UserDefaults.standard.set(UserDefaultsInit.initCalled,
+                                      forKey: UserDefaultsInit.initialized)
             //Woken up by Push Notification - Notify CCMP
             log("Awoken by Remote Notification")
-            remoteNotificationReceived(userInfo: userInfo)
+            initLogEMSOpen(userInfo: userInfo)
         }
         log("Initialized with CustomerID: \(self.customerID), AppID: \(self.applicationID), Region: \(self.region.rawValue)")
     }
@@ -102,10 +109,26 @@ public class EMSMobileSDK: NSObject {
     */
     @objc
     public func remoteNotificationReceived(userInfo: [AnyHashable: Any]?) {
+        if UserDefaults.standard.string(forKey: UserDefaultsInit.initialized) != nil,
+           UIApplication.shared.applicationState == .inactive {
+            UserDefaults.standard.removeObject(forKey: UserDefaultsInit.initialized)
+            return
+        }
+        
         guard let openUrl = userInfo?["ems_open"] as? String else { return }
-        
         log("Received EMS_OPEN: " + openUrl)
-        
+        logEmsOpenAPI(openUrl: openUrl)
+    }
+    
+    @objc
+    public func initLogEMSOpen(userInfo: [AnyHashable: Any]?) {
+        guard let openUrl = userInfo?["ems_open"] as? String else { return }
+        log("Received EMS_OPEN: " + openUrl)
+        logEmsOpenAPI(openUrl: openUrl)
+    }
+    
+    @objc
+    public func logEmsOpenAPI(openUrl: String) {
         apiService.logEMSOpen(url: openUrl) { [weak self] (response) in
             guard response?.statusCode == 200 else { return }
             self?.log("Content URL Sent Successfully")
